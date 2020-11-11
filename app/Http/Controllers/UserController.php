@@ -82,7 +82,7 @@ class UserController extends Controller
         ]);
         
         try {
-            Personnummer::valid($request->pnr);
+            //Personnummer::valid($request->pnr);
             $user = new User([
                 'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
@@ -113,8 +113,9 @@ class UserController extends Controller
             
             return redirect('admin/users')->with("user_created", "The user is created!");
         } catch (PersonnummerException $e) {
-            
+            //dd($e);
             return back()->withError('PNR Invalid ' . $request->input('pnr'))->withInput();
+            
         }
         //return redirect('/users')->with('success', 'User saved!');
     }
@@ -251,8 +252,23 @@ class UserController extends Controller
     
     public function importUserSave(Request $request) {
         
-        Excel::import(new UsersImport, $request->file('users_file'));
-        return back()->with('users_import_success', 'Users have been imported successfully!');
+        try {
+            
+            $import = new UsersImport(new UserRepository);
+            
+            //In case trait Importable is used in Import Class, otherwise use Facade.
+            //$import->import($request->file('users_file'));
+            
+            Excel::import($import, $request->file('users_file'));
+            
+            if(empty($import->getErrors())){
+                return back()->with('users_import_success', $import->getRowCount().' Users have been imported successfully!');
+            }
+            
+            return back()->with(['errors' => $import->getErrors() ]);
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            dd($e);
+        }
     }
     
 }

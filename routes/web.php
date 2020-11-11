@@ -52,6 +52,7 @@ Route::get('logout', 'BankIDController@bankidlogout');
 Route::get('admin', 'AdminController@home');
 Route::get('admin/dashboard', 'AdminController@dashboard');
 Route::get('admin/createUser', 'UserController@create');
+Route::post('admin/createUser', 'UserController@store');
 Route::get('admin/importUser', 'UserController@import');
 Route::post('admin/importUser', 'UserController@importUserSave');
 Route::get('admin/users', 'UserController@index');
