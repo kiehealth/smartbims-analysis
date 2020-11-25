@@ -66,5 +66,8 @@ Route::delete('admin/orders/{id}', 'OrderController@destroy');
 Route::get('admin/orders/{id}/registerKit', 'KitController@create');
 Route::post('admin/orders/{id}/registerKit', 'KitController@store');
 Route::get('admin/kits/{id}/edit', 'KitController@edit');
+Route::put('admin/kits/{id}', 'KitController@update');
+Route::delete('admin/kits/{id}', 'KitController@destroy');
+Route::get('admin/kits', 'KitController@index');
 
 

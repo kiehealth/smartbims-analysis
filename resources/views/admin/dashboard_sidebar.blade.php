@@ -13,9 +13,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ (request()->is('admin/*kit*', 'admin/*Kit*')) ? 'active' : '' }}" href="{{url('/admin/kits')}}">
               <span data-feather="shopping-cart"></span>
-              Products
+              Kits
             </a>
           </li>
           <li class="nav-item">

@@ -29,6 +29,12 @@
 @if(session('kit_registered'))
 	<div class="alert alert-success">{{ session('kit_registered') }}</div>
 @endif
+@if(session('kit_updated'))
+	<div class="alert alert-success">{{ session('kit_updated') }}</div>
+@endif
+@if(session('kit_deleted'))
+	<div class="alert alert-success">{{ session('kit_deleted') }}</div>
+@endif
     <table id="orders_table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -59,12 +65,21 @@
                 <td>{{$order->user->zipcode}}</td>
                 <td>{{$order->user->city}}</td>
                 <td>{{$order->user->country}}</td>
-                <td>{{$order->status}}</td>
+                <td>
+                @if ($order->status===config('constants.kits.KIT_REGISTERED'))
+                {{$order->status}}<br>{{$order->kit->created_at}}
+                @elseif ($order->status===config('constants.kits.KIT_DISPATCHED'))
+                {!!$order->status."<br>".$order->kit->kit_dispatched_date!!}
+                @else
+                {{$order->status}}
+                @endif
+                </td>
                 <td>{{$order->created_at}}</td>
                 <td>{{$order->updated_at}}</td>
                 <td>
                 
                 @if($order->kit)
+                
                 <a href="{{url("/admin/kits/".$order->kit->id."/edit")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit Kit Information">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +88,20 @@
 				</svg>
 				</button>
 				</a>
+				
+				<form action="{{action('KitController@destroy', ['id' => $order->kit->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the kit for this order?');">
+				@csrf
+				@method("DELETE")
+				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Kit for this order">
+                	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-minus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  		<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"/>
+                  		<path fill-rule="evenodd" d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                	</svg>
+                </button>
+                </form>
+                
                 @else
+                
                 <a href="{{url("/admin/orders/".$order->id."/registerKit")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Register Kit">
                 	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
