@@ -1,8 +1,5 @@
-#*
-#!public/
-#!.gitignore
-
-public/storage
-!public/storage/import_templates/*
+*
+!public/
+!.gitignore
 
 
