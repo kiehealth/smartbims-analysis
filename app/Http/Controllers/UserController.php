@@ -256,9 +256,10 @@ class UserController extends Controller
             
             $import = new UsersImport(new UserRepository);
             
-            //In case trait Importable is used in Import Class, otherwise use Facade.
+            //In case trait Importable is used in Import Class.
             //$import->import($request->file('users_file'));
             
+            //Otherwise use Facade.
             Excel::import($import, $request->file('users_file'));
             
             if(empty($import->getErrors())){

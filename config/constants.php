@@ -19,7 +19,7 @@ return [
     
     'kits' => [
         'KIT_REGISTERED' => 'KIT_REGISTERED',
-        'KIT_DELIVERED' => 'KIT_DELIVERED'
+        'KIT_DISPATCHED' => 'KIT_DISPATCHED'
     ],
     
     'samples' => [

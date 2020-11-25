@@ -24,4 +24,13 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    
+    
+    /**
+     * Get the kit associated with the order.
+     */
+    public function kit()
+    {
+        return $this->hasOne('App\Models\Kit');
+    }
 }

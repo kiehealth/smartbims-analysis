@@ -15,6 +15,7 @@ class User extends Model
         'last_name',
         'pnr',
         'phonenumber',
+        //'roles',
         'street',
         'zipcode',
         'city',
@@ -30,6 +31,15 @@ class User extends Model
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
+    }
+    
+    
+    /**
+     * Get the kits for the user.
+     */
+    public function kits()
+    {
+        return $this->hasMany('App\Models\Kit');
     }
     
    

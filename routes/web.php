@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +63,8 @@ Route::delete('admin/users/{id}', 'UserController@destroy');
 Route::get('admin/orders', 'OrderController@index');
 Route::get('admin/createOrder', 'OrderController@create');
 Route::delete('admin/orders/{id}', 'OrderController@destroy');
+Route::get('admin/orders/{id}/registerKit', 'KitController@create');
+Route::post('admin/orders/{id}/registerKit', 'KitController@store');
+Route::get('admin/kits/{id}/edit', 'KitController@edit');
 
 

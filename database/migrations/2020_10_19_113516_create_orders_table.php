@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             //$table->string('pnr', 13);
             $table->set('status', [Config::get('constants.orders.ORDER_CREATED'), 
                                    Config::get('constants.kits.KIT_REGISTERED'),
-                                   Config::get('constants.kits.KIT_DELIVERED'),
+                                   Config::get('constants.kits.KIT_DISPATCHED'),
                                    Config::get('constants.samples.SAMPLE_RECEIVED'),
                                    Config::get('constants.results.RESULT_RECEIVED')
                                   ]

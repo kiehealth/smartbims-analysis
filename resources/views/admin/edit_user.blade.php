@@ -3,6 +3,7 @@
 
 
 @section('content')
+<div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
     	<h3 class="display-5">Update User</h3>
@@ -19,6 +20,7 @@
     		@if (session('error'))
         	<div class="alert alert-danger">{{ session('error') }}</div>
         	@endif
+        	<div class="card-body edit-user">
         	<form method="post" action="{{action('UserController@update', ['id' => $user->id])}}">
             	@csrf
             	@method("PUT")
@@ -71,7 +73,9 @@
             	<button type="submit" class="btn btn-primary">Update User</button>
             	<a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">Cancel</a>
             </form>
+            </div>
       	</div>
 	</div>
+</div>
 </div>
 @endsection

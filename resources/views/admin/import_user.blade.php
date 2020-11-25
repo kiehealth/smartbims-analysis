@@ -34,7 +34,7 @@
     	</div>
         <p class="card-text">Use the excel/csv <a href="{{asset('storage/import_templates/users_upload_template.xlsx')}}">file template</a> to import the users.</p>
         <button type="submit" class="btn btn-primary">Import</button>
-        <a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">Cancel</a>
+        <a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">Back</a>
         </form>
     </div>
 </div>
