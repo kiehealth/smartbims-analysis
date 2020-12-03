@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Order;
 use App\Models\Kit;
+use App\Imports\KitsImport;
 
 class KitController extends Controller
 {
@@ -65,11 +67,10 @@ class KitController extends Controller
         
         $kit->save();
         
+        $order->update(['status' => config('constants.kits.KIT_REGISTERED')]);
+        
         if($request->filled('kit_dispatched_date')){
             $order->update(['status' => config('constants.kits.KIT_DISPATCHED')]);
-        }
-        else{
-            $order->update(['status' => config('constants.kits.KIT_REGISTERED')]);
         }
         
         
@@ -84,7 +85,7 @@ class KitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $type = null)
     {
         //
         if ((Session::get('grandidsession')===null)){
@@ -92,6 +93,11 @@ class KitController extends Controller
         }
         
         $kit = Kit::find($id);
+        
+        if($type === "kits"){
+            return view('admin.edit_kit', compact('kit'));
+        }
+        
         return view('admin.edit_register_kit', compact('kit'));
     }
     
@@ -103,24 +109,36 @@ class KitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $type=null)
     {
         
         $request->validate([
             'sample_id'=>'required|unique:kits,sample_id,'.$id,
             'barcode'=>'sometimes|nullable|unique:kits,barcode,'.$id,
-            'kit_dispatched_date'=>'sometimes|nullable|date'
+            'kit_dispatched_date'=>'sometimes|nullable|date',
+            'sample_received_date'=>'sometimes|nullable|date|after_or_equal:kit_dispatched_date'
         ]);
         
         $kit = Kit::find($id);
        
         $kit->update($request->all());
         
-        if($request->filled('kit_dispatched_date')){
+        
+        
+        if($request->filled('sample_received_date')){
+            $kit->order->update(['status' => config('constants.samples.SAMPLE_RECEIVED')]);
+        }
+        elseif($request->filled('kit_dispatched_date')){
             $kit->order->update(['status' => config('constants.kits.KIT_DISPATCHED')]);
         }
         else{
             $kit->order->update(['status' => config('constants.kits.KIT_REGISTERED')]);
+        }
+        
+        
+        
+        if($type === "kits"){
+            return redirect('admin/kits')->with("kit_updated", "The Kit is updated!");
         }
         
         return redirect('admin/orders')->with("kit_updated", "The Kit is updated for the order!");
@@ -142,5 +160,45 @@ class KitController extends Controller
         $kit->delete();
         return back()->with('kit_deleted', "Kit Deleted!");
         
+    }
+    
+    
+    /**
+     * Show the user import form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function import()
+    {
+        //
+        if ((Session::get('grandidsession')===null)){
+            return  view('admin.login');
+        }
+        
+        return view('admin.import_kits');
+    }
+    
+    
+    public function importKitSave(Request $request) {
+        
+        try {
+            
+            $import = new KitsImport();
+            
+            //In case trait Importable is used in Import Class.
+            //$import->import($request->file('users_file'));
+            
+            //Otherwise use Facade.
+            Excel::import($import, $request->file('kits_file'));
+            
+            return back()->with('kits_import_success', $import->getRowCount().' Kits have been imported successfully!');
+            
+            
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            dd($e);
+        }
+        catch (\Maatwebsite\Excel\Exceptions\NoTypeDetectedException $e) {
+            //dd($e);
+        }
     }
 }

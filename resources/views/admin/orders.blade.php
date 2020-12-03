@@ -38,7 +38,7 @@
     <table id="orders_table" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>S.N</th>
+                <th class="noexport">S.N</th>
                 <th>Order ID</th>
                 <th>Name</th>
                 <th>Personnummer</th>
@@ -50,7 +50,7 @@
                 <th>Status</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
-                <th>Actions</th>
+                <th class="noexport">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -70,6 +70,8 @@
                 {{$order->status}}<br>{{$order->kit->created_at}}
                 @elseif ($order->status===config('constants.kits.KIT_DISPATCHED'))
                 {!!$order->status."<br>".$order->kit->kit_dispatched_date!!}
+                @elseif ($order->status===config('constants.samples.SAMPLE_RECEIVED'))
+                {!!$order->status."<br>".$order->kit->sample_received_date!!}
                 @else
                 {{$order->status}}
                 @endif
@@ -140,35 +142,40 @@
                 'colvis', 
                 {
                 	extend: 'copy',
+                	title: 'Orders Export',
                     exportOptions: {
-                        columns: [1, ':visible']
+                        columns: [1, ':visible:not(.noexport)']
                     }
                 },
                 {
                 	extend: 'csv',
+                	title: 'Orders Export',
                     exportOptions: {
-                        columns: [1, ':visible']
+                        columns: [1, ':visible:not(.noexport)']
                     }
 
                  },
                  {
                  	extend: 'excel',
+                 	title: 'Orders Export',
                      exportOptions: {
-                         columns: [1, ':visible']
+                         columns: [1, ':visible:not(.noexport)']
                      }
 
                   },
                   {
                   	extend: 'pdf',
+                  	title: 'Orders Export',
                       exportOptions: {
-                          columns: [1, ':visible']
+                          columns: [1, ':visible:not(.noexport)']
                       }
 
                    },
                    {
                    	extend: 'print',
+                   	title: 'Orders Export',
                        exportOptions: {
-                           columns: [1, ':visible']
+                           columns: [1, ':visible:not(.noexport)']
                        }
 
                     }

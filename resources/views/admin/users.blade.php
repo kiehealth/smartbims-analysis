@@ -9,7 +9,7 @@
           		<button type="button" class="btn btn-sm btn-outline-secondary">Add User</button>
           	</a>
             <a href='{{action('UserController@import')}}'>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Import Users</button>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Users</button>
             </a>
           </div>
         {{--
@@ -37,7 +37,7 @@
     <table id="users_table" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>S.N</th>
+                <th class="noexport">S.N</th>
                 <th>User ID</th>
                 <th>Name</th>
                 <th>Personnummer</th>
@@ -49,7 +49,7 @@
                 <th>Country</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
-                <th>Actions</th>
+                <th class="noexport">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -106,35 +106,40 @@
                 'colvis', 
                 {
                 	extend: 'copy',
+                	title: 'Users Export',
                     exportOptions: {
-                        columns: [1, ':visible']
+                        columns: [1, ':visible:not(.noexport)']
                     }
                 },
                 {
                 	extend: 'csv',
+                	title: 'Users Export',
                     exportOptions: {
-                        columns: [1, ':visible']
+                        columns: [1, ':visible:not(.noexport)']
                     }
 
                  },
                  {
                  	extend: 'excel',
+                 	title: 'Users Export',
                      exportOptions: {
-                         columns: [1, ':visible']
+                         columns: [1, ':visible:not(.noexport)']
                      }
 
                   },
                   {
                   	extend: 'pdf',
+                  	title: 'Users Export',
                       exportOptions: {
-                          columns: [1, ':visible']
+                          columns: [1, ':visible:not(.noexport)']
                       }
 
                    },
                    {
                    	extend: 'print',
+                   	title: 'Users Export',
                        exportOptions: {
-                           columns: [1, ':visible']
+                           columns: [1, ':visible:not(.noexport)']
                        }
 
                     }

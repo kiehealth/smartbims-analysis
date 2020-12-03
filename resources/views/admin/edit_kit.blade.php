@@ -19,7 +19,7 @@
             @endif
     		
         	<div class="card-body edit-kit">
-        	<form method="post" action="{{action('KitController@update', ['id' => $kit->id])}}">
+        	<form method="post" action="{{action('KitController@update', ['id' => $kit->id, 'type' => 'kits'])}}">
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
@@ -39,9 +39,16 @@
                   <small id="kit_dispatched_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 
+                <div class="form-group form-group.required">
+                  <label for="sample_received_date">Sample Received Date</label>
+                  <input class="datepicker form-control" name="sample_received_date" data-date-format="yyyy-mm-dd" 
+                  value="{{old('sample_received_date', $kit->sample_received_date)}}">
+                  <small id="sample_received_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
+                </div>
+                
                 
             	<button type="submit" class="btn btn-primary">Edit Kit</button>
-            	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">Back</a>
+            	<a class="btn btn-secondary" href="{{url('/admin/kits')}}" role="button">Back</a>
             	
             </form>
             </div>

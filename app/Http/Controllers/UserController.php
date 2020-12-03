@@ -246,7 +246,7 @@ class UserController extends Controller
             return  view('admin.login');
         }
         
-        return view('admin.import_user');
+        return view('admin.import_users');
     }
     
     
