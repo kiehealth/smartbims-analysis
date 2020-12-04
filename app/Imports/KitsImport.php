@@ -42,17 +42,28 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
                                                 .$val['order_id']."</strong> found. The order should be placed "
                                                 ."before registering a kit.";
             
+            $messages["$key.order_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The order_id <strong>".$val['order_id'].
+                                                  "</strong> has a duplicate value. ".
+                                                  " The order_id must be unique.";
+                                                
             $messages["$key.sample_id.required"] = "Error on row: <strong>".($key+2)."</strong>. sample_id missing."
                                                   ." The sample_id is required.";;
             $messages["$key.sample_id.unique"] = "Error on row: <strong>".($key+2).
                                                  "</strong>. The sample_id <strong>".$val['sample_id'].
                                                  "</strong> has already been registered. The sample_id must be unique.";
         
+            $messages["$key.sample_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".$val['sample_id'].
+                                                   "</strong> has a duplicate value. ".
+                                                   " The sample_id must be unique.";
         
             $messages["$key.barcode.unique"] = "Error on row: <strong>".($key+2).
                                                "</strong>. The barcode <strong>".$val['barcode'].
                                                "</strong> has already been registered. The barcode must be unique.";
            
+            $messages["$key.barcode.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The barcode <strong>".$val['barcode'].
+                                                 "</strong> has a duplicate value. ".
+                                                 " The barcode must be unique.";
+                                                    
             $messages["$key.kit_dispatched_date.required"] = "Error on row: <strong>".($key+2)."</strong>. kit_dispatched_date missing.".
                                                              " Please put the date when the kit is going to be dispatched.";
            
@@ -78,9 +89,10 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
             '*.order_id' => ['required', 
                              'unique:kits,order_id',
                              'exists:orders,id',
+                             'distinct',
                             ],
-            '*.sample_id' => ['required', 'unique:kits,sample_id'],
-            '*.barcode' => ['sometimes', 'nullable', 'unique:kits,barcode'],
+            '*.sample_id' => ['required', 'unique:kits,sample_id', 'distinct'],
+            '*.barcode' => ['sometimes', 'nullable', 'unique:kits,barcode', 'distinct'],
             '*.kit_dispatched_date' => ['required', 'date'],
             /*'*.sample_received_date' => ['sometimes', 'nullable', 'date', 'after_or_equal:kit_dispatched_date'],*/
             
