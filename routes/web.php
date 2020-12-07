@@ -50,8 +50,8 @@ Route::post('checkpnr', 'PersonnummerController@valid');
 Route::get('logout', 'BankIDController@bankidlogout');
 
 
-Route::get('admin', 'AdminController@home');
-Route::get('admin/dashboard', 'AdminController@dashboard');
+Route::get('admin', 'DashboardController@home');
+Route::get('admin/dashboard', 'DashboardController@dashboard');
 Route::get('admin/createUser', 'UserController@create');
 Route::post('admin/createUser', 'UserController@store');
 Route::get('admin/importUser', 'UserController@import');
