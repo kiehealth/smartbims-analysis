@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Personnummer\Personnummer;
 use Personnummer\PersonnummerException;
@@ -252,6 +253,16 @@ class UserController extends Controller
     
     public function importUserSave(Request $request) {
         
+        Validator::make($request->all(), [
+                'users_file' => 'required|mimes:xls,xlsx',
+            ],
+            [
+                'required' => "Please provide the import file." ,
+                'mimes' => "The import file must be an excel file (.xls/.xlsx). "
+            ]
+        )->validate();
+        
+        
         try {
             
             $import = new UsersImport(new UserRepository);
@@ -266,7 +277,7 @@ class UserController extends Controller
                 return back()->with('users_import_success', $import->getRowCount().' Users have been imported successfully!');
             }
             
-            return back()->with(['errors' => $import->getErrors() ]);
+            return back()->with(['errors_msg' => $import->getErrors() ]);
         }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             dd($e);
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Order;
 use App\Models\Kit;
@@ -180,6 +181,15 @@ class KitController extends Controller
     
     
     public function importKitSave(Request $request) {
+        
+        Validator::make($request->all(), [
+                'kits_file' => 'required|mimes:xls,xlsx',
+            ],
+            [
+                'required' => "Please provide the import file." ,
+                'mimes' => "The import file must be an excel file (.xls/.xlsx). "
+            ]
+        )->validate();
         
         try {
             

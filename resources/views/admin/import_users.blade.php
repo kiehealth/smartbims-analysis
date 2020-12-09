@@ -10,10 +10,21 @@
     		<div class="alert alert-success">{{ session('users_import_success') }}</div>
     	@endif
     	
-    	@if(session('errors'))
+    	
+    	@if ($errors->any())
               <div class="alert alert-danger">
                 <ul>
-                    @foreach (session('errors') as $error)
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+              </div><br />
+        @endif
+    	
+    	@if(session('errors_msg'))
+              <div class="alert alert-danger">
+                <ul>
+                    @foreach (session('errors_msg') as $error)
                       <li>{!! $error !!}</li>
                     @endforeach
                 </ul>

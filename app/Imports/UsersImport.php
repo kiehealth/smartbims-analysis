@@ -25,7 +25,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
      */
     private $userRepo;
     
-    private $rows = 0, $errors = []; // array to accumulate errors;
+    private $rows = 0, $errors_msg = []; // array to accumulate errors;
     
     /**
      * Create a new controller instance.
@@ -42,8 +42,8 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
     public function collection(Collection $rows)
     {
         $validator = Validator::make($rows->toArray(), [
-            '*.pnr' => [//'required',
-                        //'distinct',
+            '*.pnr' => ['required',
+                        'distinct',
                         //'unique:users,pnr',
                         function ($attribute, $value, $fail) /*use ($rows)*/{
                             
@@ -55,7 +55,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
                                 });
                                     dd(collect($after_reject)->duplicates('pnr'));
                                 $filter = $after_reject->filter(function($item) use ($attribute, $value){
-                                    $this->errors[] =  ($item['pnr'] === $value)? "Error on row: <strong>".($attribute+2).
+                                    $this->errors_msg[] =  ($item['pnr'] === $value)? "Error on row: <strong>".($attribute+2).
                                     "</strong>. The pnr ".$value." has a duplicate value.":"";
                                     
                                     return $item['pnr'] === $value;
@@ -64,7 +64,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
                             })();
                             */
                             if(strlen(trim($value)) === 0){
-                                $this->errors[] = "Error on row: <strong>".($attribute+2).
+                                $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
                                                   "</strong>. The pnr is required.";
                             }
                             else{
@@ -72,7 +72,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
                                     $pnr = (new Personnummer($value))->format(true);
                                     if($this->userRepo->getUserbyPNR($pnr)->exists){
                                         $fail('User with PNR '.$pnr. ' already exists!');
-                                        $this->errors[] = "Error on row: <strong>".($attribute+2).
+                                        $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
                                         "</strong>. User with PNR <strong>".$pnr.
                                         "</strong> already exists!";
                                         
@@ -80,7 +80,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
                                 }
                                 catch (PersonnummerException $e){
                                     $fail('PNR Invalid '.$value);
-                                    $this->errors[] = "Error on row: <strong>".($attribute+2).
+                                    $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
                                     "</strong>. PNR Invalid <strong>".$value."</strong>.";
                                 }
                                 catch (ModelNotFoundException $e){
@@ -113,7 +113,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
         $duplicate_pnrs->each(function ($item, $key) {
             //echo $item." ".$key."\n";
             if(!is_null($item))
-                $this->errors[] =  "Error on row: <strong>".($key+2).
+                $this->errors_msg[] =  "Error on row: <strong>".($key+2).
                 "</strong>. The pnr <strong>".$item."</strong> has a duplicate value.";
             
         });
@@ -128,7 +128,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
         
         
         
-        if (!$validator->fails() && empty($this->errors)) {
+        if (!$validator->fails() && empty($this->errors_msg)) {
             foreach ($rows as $row) {
                 ++$this->rows;
                  User::create([
@@ -159,7 +159,7 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
 
     public function getErrors()
     {
-        return $this->errors;
+        return $this->errors_msg;
     }
 
 }
