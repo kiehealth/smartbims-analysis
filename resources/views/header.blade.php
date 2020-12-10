@@ -1,13 +1,9 @@
-<div class="inner">
-    <h3 class="masthead-brand">
-    	<img src="img/karolinska-logo.svg" class="imgbig">
-    	<img src="img/karolinska-k-logo.svg" class="imgsmall">
-    </h3>
-  
-    <nav class="nav nav-masthead justify-content-center" role="tablist">
-    	<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#home" role="tab" aria-controls="pills-home" aria-selected="true">Provsvar</a>
-    	<!-- <a class="nav-link" id="pills-nyheter-tab" data-toggle="pill" href="#nyheter" role="tab" aria-controls="pills-nyheter" aria-selected="false">Nyheter</a> -->
-    	<a class="nav-link" id="pills-resurser-tab" data-toggle="pill" href="#resurser" role="tab" aria-controls="pills-resurser" aria-selected="false">Resurser</a>
-    	<a class="nav-link" id="pills-faqs-tab" data-toggle="pill" href="#faqs" role="tab" aria-controls="pills-faqs" aria-selected="false">Frågor och Svar</a>
-    </nav>
-</div>
+<img src="{{ asset('img/KI_logo.png') }}" alt="" width="72" height="72">
+<h5 class="my-0 mr-md-auto font-weight-normal">International Human Papillomavirus Reference Center</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="#">Features</a>
+    <a class="p-2 text-dark" href="#">Enterprise</a>
+    <a class="p-2 text-dark" href="#">Support</a>
+    <a class="p-2 text-dark" href="#">Pricing</a>
+  </nav>
+<a class="btn btn-outline-primary" href="#">Sign up</a>

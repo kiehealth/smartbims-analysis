@@ -1,3 +1,35 @@
-<div class="inner">
-	<p>Studie om Pågående och Genomgången Infektion med SARS-CoV-2 (som orsakar Covid19) inom Vård och Omsorg i Stockholms län drivs av <a href="https://karolinska.se/">Karolinska Universitetssjukhuset</a>. Ansvarig forskare är <a href="mailto:joakim.dillner@sll.se?subject=COVID19 Studie">Joakim Dillner</a>. Medicinskt ansvarig är Kalle Conneryd Lundgren. Om du saknar BankID, ring vardagar 072-583 67 09 mellan kl. 08.00-10.00.</p>
+<div class="row">
+	<div class="col-12 col-md">
+	<img src="{{ asset('img/HPV_logo.png') }}" alt="" width="72" height="72">
+	<small class="d-block mb-3 text-muted">&copy;&nbsp;2020</small>
+	</div>
+	<div class="col-6 col-md">
+		<h5>Features</h5>
+		<ul class="list-unstyled text-small">
+			<li><a class="text-muted" href="#">Cool stuff</a></li>
+			<li><a class="text-muted" href="#">Random feature</a></li>
+			<li><a class="text-muted" href="#">Team feature</a></li>
+			<li><a class="text-muted" href="#">Stuff for developers</a></li>
+			<li><a class="text-muted" href="#">Another one</a></li>
+			<li><a class="text-muted" href="#">Last time</a></li>
+		</ul>
+	</div>
+	<div class="col-6 col-md">
+		<h5>Resources</h5>
+		<ul class="list-unstyled text-small">
+			<li><a class="text-muted" href="#">Resource</a></li>
+			<li><a class="text-muted" href="#">Resource name</a></li>
+			<li><a class="text-muted" href="#">Another resource</a></li>
+			<li><a class="text-muted" href="#">Final resource</a></li>
+		</ul>
+	</div>
+	<div class="col-6 col-md">
+		<h5>About</h5>
+		<ul class="list-unstyled text-small">
+			<li><a class="text-muted" href="#">Team</a></li>
+			<li><a class="text-muted" href="#">Locations</a></li>
+			<li><a class="text-muted" href="#">Privacy</a></li>
+			<li><a class="text-muted" href="#">Terms</a></li>
+		</ul>
+	</div>
 </div>
