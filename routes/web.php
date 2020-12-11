@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KitController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\KitController;
 
 Route::get('/', function () {
     //return view('welcome');
-    return view('home_content');
+    return view('research');
 });
 
 Route::get('/welcome', function () {
@@ -48,6 +49,8 @@ Route::get('login', 'BankIDController@bankidlogin');
 Route::get('authenticate', 'BankIDController@bankidauthenticate');
 Route::post('checkpnr', 'PersonnummerController@valid');
 Route::get('logout', 'BankIDController@bankidlogout');
+
+Route::get('myprofile', 'UserController@profile');
 
 
 Route::get('admin', 'DashboardController@home');

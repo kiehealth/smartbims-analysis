@@ -18,3 +18,40 @@ html {
 .card-deck .card {
   min-width: 220px;
 }
+
+/***Custom Modifications*****/
+body{
+	color: #870052;
+}
+
+.research .display-4{
+	font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.research p{
+	text-align: justify;
+	font-size: 1rem;
+}
+
+.research p.small{
+	font-size: 0.8rem;
+	font-style: italic;
+}
+
+.research .consent-btn{
+	color: #870052;
+    display: block;
+    border-color: #870052;
+}
+
+
+
+
+.research .consent-btn:hover{
+	color: #ffffff;
+    display: block;
+    background-color: #870052;
+    border-color: #870052;
+}
+
