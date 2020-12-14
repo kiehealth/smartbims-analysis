@@ -62,7 +62,9 @@
     	Gynekologisk Cellprovtagning - Förebyggande Undersökning mot Livmoderhalscancer”, att uppgifter 
     	om mig behandlas samt att mina prover sparas i en biobank på det sätt som beskrivs.
 	</p>
-	<a class="btn btn-outline-primary consent-btn" href="#">JAG HAR LÄST, SAMTYCKT OCH VILL BESTÄLLA</a>
+	<p class="lead text-center">
+	<a class="btn btn-primary consent-btn" href="order">JAG HAR LÄST, SAMTYCKT OCH VILL BESTÄLLA</a>
+	</p>
 </div>
 
 @endsection 

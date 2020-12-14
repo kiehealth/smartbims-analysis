@@ -40,18 +40,22 @@ body{
 }
 
 .research .consent-btn{
+	/*
 	color: #870052;
     display: block;
     border-color: #870052;
+    */
+    padding: 0.6rem 0.8rem;
 }
 
 
 
-
+/*
 .research .consent-btn:hover{
 	color: #ffffff;
     display: block;
     background-color: #870052;
     border-color: #870052;
 }
+*/
 

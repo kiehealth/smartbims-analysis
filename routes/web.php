@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('research');
 });
 
+Route::get('order', function () {
+    return view('order_kit');
+});
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
