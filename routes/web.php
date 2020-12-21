@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+
 Route::get('/', function () {
     //return view('welcome');
     return view('research');
@@ -56,6 +57,11 @@ Route::get('logout', 'BankIDController@bankidlogout');
 
 Route::get('myprofile', 'UserController@profile');
 
+
+
+Route::get('admin/login', function () {
+    return view('admin.login');
+});
 
 Route::get('admin', 'DashboardController@home');
 Route::get('admin/dashboard', 'DashboardController@dashboard');

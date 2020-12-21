@@ -1,4 +1,4 @@
-@if(session()->has('userattributes'))
+@if(session()->has('userattributes') && session()->has('role') && session()->get('role')===config('constants.roles.ADMIN_ROLE'))
 <!doctype html>
 <html lang="en">
     <head>
@@ -182,7 +182,7 @@
 @else
 
     @php
-        header("Location: " . URL::to('admin'), true, 302);
+        header("Location: " . URL::to('admin/login'), true, 302);
         exit();
     @endphp
 @endif

@@ -17,7 +17,8 @@ class DashboardController extends Controller{
         if ((Session::get('grandidsession')===null)){
             return  view('admin.login');
         }
-        return  redirect('admin/dashboard');
+        return  view('admin.dashboard');
+        //return  redirect('admin/dashboard');
     }
     
     public function dashboard() {

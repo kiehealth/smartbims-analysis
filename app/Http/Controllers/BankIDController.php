@@ -57,8 +57,10 @@ class BankIDController extends Controller
         //$bankid->customerURL = base64_encode(env('BANK_ID_API_CUSTOMER_URL'));
         
         $this->bankid->gui = true;
-        $this->bankid->callbackUrl = base64_encode(action('BankIDController@bankidauthenticate', ['type' => $request->type]));
-        $this->bankid->customerURL = base64_encode(env('BANK_ID_API_CUSTOMER_URL'));
+        $this->bankid->callbackUrl = base64_encode(action('BankIDController@bankidauthenticate', 
+            ['type' => $request->type, 'url' => url()->previous()]));
+        //$this->bankid->customerURL = base64_encode(env('BANK_ID_API_CUSTOMER_URL'));
+        $this->bankid->customerURL = base64_encode(url()->previous());
         /**
          * @method getRedirect()
          * @method getSessionId()
@@ -128,11 +130,12 @@ class BankIDController extends Controller
                 $response->getSessionStatus()['code']==="AUTHENTICATED"){
                 $user = $this->userRepo->getUserbyPNR($response->getUserAttributes()['personalNumber']);
                 
-                if($request->has('type') && $request->type === "admin"){
-                    if(stristr($user->roles, "ADMIN_ROLE") !== FALSE) {
+                if($request->has('type') && $request->type === "admin"){// admin login
+                    if(stristr($user->roles, config('constants.roles.ADMIN_ROLE')) !== FALSE) {
                        
                        $request->session()->put("userattributes", $response->getUserAttributes());
                        $request->session()->put("grandidsession", $request->grandidsession);
+                       $request->session()->put("role", config('constants.roles.ADMIN_ROLE'));
                        //Session::put("userattributes",json_encode($response->getUserAttributes()));
                        
                        //Route::view('/admin/dashboard', 'admin.dashboard');
@@ -141,42 +144,37 @@ class BankIDController extends Controller
                     //not admin
                     return redirect('admin')->with('msg', 'You don\'t have admin rights!');
                 }
+                else{// user login
+                    
+                    $request->session()->put("userattributes", $response->getUserAttributes());
+                    $request->session()->put("grandidsession", $request->grandidsession);
+                    $request->session()->put("role", config('constants.roles.USER_ROLE'));
+                    
+                    return redirect($request->has('url')?$request->url:'/');
+                }
                
-                return view('home', compact($response->getUserAttributes()));
-                    
-                    
                 
                 //print_r($response->getUserAttributes()['personalNumber']);
                 //echo(json_encode($response->getUserAttributes()));
             }
             else{
-                if ($request->type === "admin") return  view('admin.login');
-                else return view('home');
+                if ($request->type === "admin") return  redirect('admin');
+                else return redirect($request->has('url')?$request->url:'/');
             }
         } catch (\ErrorException $e) {
-            if ($request->type === "admin") return  view('admin.login');
-            else return view('home');
+            //dd($e);
+            if ($request->type === "admin") return  redirect('admin');
+            else return redirect($request->has('url')?$request->url:'/');
         } catch (ModelNotFoundException $e){
-        if ($request->type === "admin") return  view('admin.login')->with('msg', 'You don\'t have admin rights!');
-            else return view('home');
+            if ($request->type === "admin") return redirect('admin');
+            else return redirect($request->has('url')?$request->url:'/');
         }
         
-       /*  echo $response->getSessionId().PHP_EOL;
-        echo '<pre>';
-        print_r($response->getSessionStatus());
-        var_dump($response->getSessionStatus());
-        print_r($response->getSessionId()."tt");
-        //echo $response->getSessionStatus().PHP_EOL;
-        print_r($response->getUserAttributes());
-        
-        echo $response->getSessionStatus()['code']; */
-        
-        //echo $sessionId;
     }
     
     
     public function bankidlogout(Request $request){
-        $request->session()->forget(['userattributes', 'grandidsession']);
+        $request->session()->forget(['userattributes', 'grandidsession', 'role']);
         if($this->bankid->Logout(env('BANK_ID_API_KEY'),
             env('BANK_ID_API_AUTHENTICATE_SERVICE_KEY'),
             $request->sessionId)){
