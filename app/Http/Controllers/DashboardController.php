@@ -15,10 +15,10 @@ class DashboardController extends Controller{
     
     public function home() {
         if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
+            return view('admin.login');
         }
-        return  view('admin.dashboard');
-        //return  redirect('admin/dashboard');
+        //return  view('admin.dashboard');
+        return redirect('admin/dashboard');
     }
     
     public function dashboard() {

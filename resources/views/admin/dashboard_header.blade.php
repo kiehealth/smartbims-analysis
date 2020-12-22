@@ -24,7 +24,7 @@
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="{{action('BankIDController@bankidlogout', ['sessionId' => session('grandidsession')])}}">Sign out</a>
+    <a class="dropdown-item" href="{{action('BankIDController@bankidlogout', ['sessionId' => session('grandidsession'), 'type' => 'admin'])}}">Sign out</a>
   </div>
-</div>
+  </div>
 </nav>

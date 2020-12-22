@@ -131,7 +131,7 @@ class BankIDController extends Controller
                 $user = $this->userRepo->getUserbyPNR($response->getUserAttributes()['personalNumber']);
                 
                 if($request->has('type') && $request->type === "admin"){// admin login
-                    if(stristr($user->roles, config('constants.roles.ADMIN_ROLE')) !== FALSE) {
+                    if(stristr($user->roles, config('constants.roles.ADMIN_ROLE')) !== FALSE) {// is admin
                        
                        $request->session()->put("userattributes", $response->getUserAttributes());
                        $request->session()->put("grandidsession", $request->grandidsession);
@@ -149,6 +149,7 @@ class BankIDController extends Controller
                     $request->session()->put("userattributes", $response->getUserAttributes());
                     $request->session()->put("grandidsession", $request->grandidsession);
                     $request->session()->put("role", config('constants.roles.USER_ROLE'));
+                    $request->session()->put("user_id", $user->id);
                     
                     return redirect($request->has('url')?$request->url:'/');
                 }
@@ -174,13 +175,16 @@ class BankIDController extends Controller
     
     
     public function bankidlogout(Request $request){
-        $request->session()->forget(['userattributes', 'grandidsession', 'role']);
+        $request->session()->forget(['userattributes', 'grandidsession', 'role', 'user_id']);
         if($this->bankid->Logout(env('BANK_ID_API_KEY'),
             env('BANK_ID_API_AUTHENTICATE_SERVICE_KEY'),
             $request->sessionId)){
-            return redirect('admin');
+            if ($request->type === "admin") return  redirect('admin');
+            else return redirect($request->has('url')?$request->url:'/');
+            
         }
-        return redirect('admin');
+        if ($request->type === "admin") return  redirect('admin');
+        else return redirect($request->has('url')?$request->url:'/');
     }
     
 

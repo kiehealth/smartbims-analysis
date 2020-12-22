@@ -92,17 +92,23 @@ class OrderController extends Controller
                         */
                        
                        $order->save();
-                       return back()->with('order_created', "Order Received!");
+                       
+                       $order_success_msg = "Din beställning har tagits emot och den kommer att skickas
+                            till din folkbokföringsadress om några dagar.
+                            Om du vill att den ska skickas till en annan adress eller se
+                            status kan du göra det genom att logga in på <a href=".url('/myprofile').">mina sidor</a>
+                            eller kontakta oss på hpvcenter@ki.se.";
+                       return back()->with('order_created', $order_success_msg);
                        //return view('home', ['order_created'=>"Order Received!"]);
                    }
                } catch (ModelNotFoundException $e) {
-                   return back()->withError("You cannot order.");
+                   return back()->withError("Något gick fel!");
                    //return view('home',['order_not_allowed' => "You cannot order."]);
                }
                 
             
         } catch (PersonnummerException $e) {
-            return back()->withError('PNR Invalid ' . $request->input('pnr'))->withInput();
+            return back()->withError('Ogiltigt Personnummer ' . $request->input('pnr'))->withInput();
         }
         
         //$user = $this->userRepo->getUserbyPNR($request->get('pnr')); 
@@ -182,5 +188,26 @@ class OrderController extends Controller
         
         return User::find($id)->orders;
         
+    }
+    
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function orderKit(Request $request){
+        $order = new Order([
+            'user_id' => $request->user_id
+        ]);
+        $order->save();
+        
+        $order_success_msg = "Din beställning har tagits emot och den kommer att skickas 
+                            till din folkbokföringsadress om några dagar. 
+                            Om du vill att den ska skickas till en annan adress eller se 
+                            status kan du göra det genom att logga in på <a href=".url('/myprofile').">mina sidor</a>
+                            eller kontakta oss på hpvcenter@ki.se.";
+        return back()->with('order_created', $order_success_msg);
     }
 }

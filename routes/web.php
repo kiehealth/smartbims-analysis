@@ -49,14 +49,15 @@ Route::delete('orders/{id}', 'OrderController@destroy');
 */
 
 Route::post('orders', 'OrderController@store');
+Route::post('orderKit', 'OrderController@orderKit');
 
 Route::get('login', 'BankIDController@bankidlogin');
 Route::get('authenticate', 'BankIDController@bankidauthenticate');
 Route::post('checkpnr', 'PersonnummerController@valid');
 Route::get('logout', 'BankIDController@bankidlogout');
 
-Route::get('myprofile', 'UserController@profile');
-
+Route::get('profile', 'UserController@profile');
+Route::get('myprofile', 'UserController@myprofile');
 
 
 Route::get('admin/login', function () {

@@ -244,7 +244,7 @@ class UserController extends Controller
     {
         //
         if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
+            return view('admin.login');
         }
         
         return view('admin.import_users');
@@ -285,9 +285,31 @@ class UserController extends Controller
     
     
     
+    /**
+     * Show the user profile page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function profile() {
-        
-        return view('profile');
+        if ((session()->get('grandidsession')===null) || !session()->has('user_id')){
+            //return redirect()->to('/');
+            return view('user_login');
+        }
+        return redirect()->action([UserController::class, 'myprofile']);
+    }
+    
+    
+    
+    /**
+     * Show the user profile page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myprofile(){
+        //dd(session()->all());
+        $user = User::find(session('user_id'));
+        //dd($user);
+        return view('profile', compact('user'));
     }
     
 }
