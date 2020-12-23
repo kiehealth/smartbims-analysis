@@ -58,7 +58,7 @@ Route::get('logout', 'BankIDController@bankidlogout');
 
 Route::get('profile', 'UserController@profile');
 Route::get('myprofile', 'UserController@myprofile');
-
+Route::put('user/updateprofile/{id}', 'UserController@updateprofile');
 
 Route::get('admin/login', function () {
     return view('admin.login');

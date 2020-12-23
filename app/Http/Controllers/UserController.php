@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Models\Order;
 use App\Imports\UsersImport;
+use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
@@ -291,7 +292,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function profile() {
-        if ((session()->get('grandidsession')===null) || !session()->has('user_id')){
+        //dd(session()->all());
+        if (UserController::userNotLoggedin()){
             //return redirect()->to('/');
             return view('user_login');
         }
@@ -306,10 +308,49 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function myprofile(){
-        //dd(session()->all());
+        if (UserController::userNotLoggedin()){
+                //return redirect()->to('/');
+                return view('user_login');
+        }
         $user = User::find(session('user_id'));
-        //dd($user);
         return view('profile', compact('user'));
     }
     
+    
+    /**
+     * Check if the user is not logged in.
+     *
+     * @return boolean
+     */
+    private function userNotLoggedin(){
+        
+        if (session()->get('grandidsession')===null || !session()->has('user_id')
+            || (session()->get('role')!==config('constants.roles.USER_ROLE'))){
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    /**
+     * Update the user profile in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateprofile(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->phonenumber = $request->get('phonenumber');
+        $user->street = $request->get('street');
+        $user->zipcode = $request->get('zipcode');
+        $user->city = $request->get('city');
+        $user->country = $request->get('country');
+        
+        $user->save();
+        
+        return redirect('myprofile')->with("user_profile_updated", "Adress Uppdaterad!");
+    }
 }

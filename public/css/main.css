@@ -69,3 +69,8 @@ a.p-2.text-dark.active {
     font-family: cursive;
     font-size: x-large;
 }
+
+.profile-card .card-footer{
+	background-color: transparent;
+	border-top: none; 
+}

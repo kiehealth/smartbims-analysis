@@ -2,25 +2,78 @@
 
 @section('content')
 
-<div class="card-deck mb-3 text-center">
+<div class="card-deck mb-3 text-center profile-card">
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
 			<h4 class="my-0 font-weight-normal">Mina Uppgifter</h4>
 		</div>
-		<div class="card-body">
-			<h1 class="card-title pricing-card-title">
-				Adress {{--<small class="text-muted">/ mo</small>--}}
-			</h1>
-			<ul class="list-unstyled mt-3 mb-4">
-				<li>{{$user->street}}</li>
-				<li>{{$user->zipcode}}</li>
-				<li>{{$user->city}}</li>
-				<li>{{$user->country}}</li>
-			</ul>
-			<button type="button"
-				class="btn btn-lg btn-block btn-outline-primary">Kontrollera/Ändra</button>
+		@if(session('user_profile_updated'))
+			<div class="alert alert-success">{{ session('user_profile_updated') }}</div>
+		@endif
+		<div id="address">
+			<div class="card-body">
+				<h1 class="card-title pricing-card-title">
+					Adress {{--<small class="text-muted">/ mo</small>--}}
+				</h1>
+				<ul class="list-unstyled mt-3 mb-4">
+					<li>{{$user->phonenumber}}</li>
+					<li>{{$user->street}}</li>
+					<li>{{$user->zipcode}}</li>
+					<li>{{$user->city}}</li>
+					<li>{{$user->country}}</li>
+				</ul>
+			</div>
+			<div class="card-footer">
+				<button type="button" id="edit_address"
+					class="btn btn-lg btn-block btn-primary">Kontrollera/Redigera</button>
+			</div>
 		</div>
+
+		<div id="edit_address_form">
+			<form method="post" action="{{action('UserController@updateprofile', ['id' => $user->id])}}">
+			@csrf
+			@method("PUT")
+			<div class="card-body">
+				<h4 class="card-title pricing-card-title">Redigera Adress</h4>
+					<div class="form-group">
+						<label for="phonenumber">Phonenumber</label> <input type="text"
+							class="form-control" name="phonenumber"
+							value="{{old('phonenumber', $user->phonenumber)}}" />
+					</div>
+					<div class="form-group">
+						<label for="street">Street</label> <input type="text"
+							class="form-control" name="street"
+							value="{{old('street', $user->street)}}" />
+					</div>
+					<div class="form-group">
+						<label for="zipcode">Zipcode</label> <input type="text"
+							class="form-control" name="zipcode"
+							value="{{old('zipcode', $user->zipcode)}}" />
+					</div>
+					<div class="form-group">
+						<label for="city">City</label> <input type="text"
+							class="form-control" name="city"
+							value="{{old('city', $user->city)}}" />
+					</div>
+					<div class="form-group">
+						<label for="country">Country</label> <input type="text"
+							class="form-control" name="country"
+							value="{{old('country', $user->country)}}" />
+					</div>
+			</div>
+			<div class="card-footer">
+				<button type="submit" class="btn btn-primary">Uppdatera</button>
+				<a class="btn btn-secondary" id="edit_address_cancel" href="#"
+					role="button">Cancel</a>
+			</div>
+			</form>
+		</div>
+
 	</div>
+
+
+
+
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
 			<h4 class="my-0 font-weight-normal">Mina Beställningar</h4>
@@ -35,8 +88,10 @@
 				<li>Priority email support</li>
 				<li>Help center access</li>
 			</ul>
-			<button type="button" class="btn btn-lg btn-block btn-primary">Se alla</button>
 		</div>
+		<div class="card-footer">
+    		<button type="button" class="btn btn-lg btn-block btn-primary">Se alla</button>
+  		</div>
 	</div>
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
@@ -52,10 +107,39 @@
 				<li>Phone and email support</li>
 				<li>Help center access</li>
 			</ul>
-			<button type="button" class="btn btn-lg btn-block btn-primary">Se alla</button>
 		</div>
+		<div class="card-footer">
+    		<button type="button" class="btn btn-lg btn-block btn-primary">Se alla</button>
+  		</div>
 	</div>
 </div>
 
+@endsection
 
+
+
+
+
+@section('scripts')
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('#edit_address_form').hide();
+
+	$('#edit_address').click(function(){
+		$('#address').hide(500);
+		$('#edit_address_form').show(500);
+  	});
+
+	$('#edit_address_cancel').click(function(){
+		$('#edit_address_form').hide(500);
+		$('#address').show(500);
+  	});
+
+	
+
+	
+});
+
+</script>
 @endsection
