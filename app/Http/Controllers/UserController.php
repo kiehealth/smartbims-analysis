@@ -313,7 +313,8 @@ class UserController extends Controller
                 return view('user_login');
         }
         $user = User::find(session('user_id'));
-        return view('profile', compact('user'));
+        $latest_order = $user->orders()->latest()->first();
+        return view('profile', compact('user', 'latest_order'));
     }
     
     

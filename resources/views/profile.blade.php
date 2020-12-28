@@ -36,27 +36,27 @@
 			<div class="card-body">
 				<h4 class="card-title pricing-card-title">Redigera Adress</h4>
 					<div class="form-group">
-						<label for="phonenumber">Phonenumber</label> <input type="text"
+						<label for="phonenumber">Phonennummer</label> <input type="text"
 							class="form-control" name="phonenumber"
 							value="{{old('phonenumber', $user->phonenumber)}}" />
 					</div>
 					<div class="form-group">
-						<label for="street">Street</label> <input type="text"
+						<label for="street">Gata/Gatunummer/Lgh</label> <input type="text"
 							class="form-control" name="street"
 							value="{{old('street', $user->street)}}" />
 					</div>
 					<div class="form-group">
-						<label for="zipcode">Zipcode</label> <input type="text"
+						<label for="zipcode">Postnummer</label> <input type="text"
 							class="form-control" name="zipcode"
 							value="{{old('zipcode', $user->zipcode)}}" />
 					</div>
 					<div class="form-group">
-						<label for="city">City</label> <input type="text"
+						<label for="city">Ort</label> <input type="text"
 							class="form-control" name="city"
 							value="{{old('city', $user->city)}}" />
 					</div>
 					<div class="form-group">
-						<label for="country">Country</label> <input type="text"
+						<label for="country">Land</label> <input type="text"
 							class="form-control" name="country"
 							value="{{old('country', $user->country)}}" />
 					</div>
@@ -82,11 +82,13 @@
 			<h1 class="card-title pricing-card-title">
 				Senaste
 			</h1>
-			<ul class="list-unstyled mt-3 mb-4">
-				<li>20 users included</li>
-				<li>10 GB of storage</li>
-				<li>Priority email support</li>
-				<li>Help center access</li>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item">{{$latest_order->created_at->toDateString()}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Status</li>
+				<li class="list-inline-item">{{$latest_order->status}}</li>
 			</ul>
 		</div>
 		<div class="card-footer">
