@@ -74,3 +74,19 @@ a.p-2.text-dark.active {
 	background-color: transparent;
 	border-top: none; 
 }
+
+.card-header .btn[aria-expanded="true"]{
+	font-weight: bold;
+}
+
+.card-header .btn[aria-expanded="false"]{
+	font-weight: normal;
+}
+
+.card-header .btn-link{
+	color: #870052;
+}
+
+#ordersAccordion h4{
+	padding: 0.75rem;
+}

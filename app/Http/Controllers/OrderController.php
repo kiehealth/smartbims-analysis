@@ -181,13 +181,18 @@ class OrderController extends Controller
      *
      *
      * @param  int $id
-     * @return \App\Models\Order
+     * @return \Illuminate\Http\Response
      */
     
     public function getAllOrdersforUser($id){
         
-        return User::find($id)->orders;
+        $myorders =  User::find($id)->orders;
+        return view('my_orders', compact('myorders'));
         
+    }
+    
+    public function myorders(){
+        return OrderController::getAllOrdersforUser(session('user_id'));
     }
     
     
