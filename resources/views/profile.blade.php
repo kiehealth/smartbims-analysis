@@ -79,6 +79,11 @@
 			<h4 class="my-0 font-weight-normal">Mina Beställningar</h4>
 		</div>
 		<div class="card-body">
+			@if(is_null($latest_order))
+			<h3 class="card-title pricing-card-title">
+				Inga Beställningar
+			</h3>
+			@else
 			<h3 class="card-title pricing-card-title">
 				Senaste
 			</h3>
@@ -90,6 +95,7 @@
 				<li class="list-inline-item font-weight-bold">Status</li>
 				<li class="list-inline-item">{{$latest_order->status}}</li>
 			</ul>
+			@endif
 		</div>
 		<div class="card-footer">
 			<a class="btn btn-lg btn-block btn-primary" href="{{url('myorders')}}" role="button">Se alla</a>
