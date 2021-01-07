@@ -33,7 +33,7 @@ var usersChart = new Chart(ctx_usersChart, {
     data: {
         labels: ['Total Participants', 'Participants with Orders', 'Participants without Orders'],
         datasets: [{
-            data: [{{$count_non_admin_users}}, {{$count_users_with_orders}}, {{$count_non_admin_users-$count_users_with_orders}}],
+            data: [{{$count_total_users}}, {{$count_users_with_orders}}, {{$count_total_users-$count_users_with_orders}}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

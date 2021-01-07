@@ -26,6 +26,7 @@ class DashboardController extends Controller{
         return  view('admin.dashboard');
         else return view('admin.login');*/
         
+        $count_total_users = User::count();
         $admin_role = config('constants.roles.ADMIN_ROLE');
         $count_non_admin_users = User::whereRaw('NOT FIND_IN_SET(?, roles)', [$admin_role])->count();
         $count_users_with_orders = User::has('orders')->count();
@@ -45,7 +46,8 @@ class DashboardController extends Controller{
         $count_received_samples = Order::whereRaw('FIND_IN_SET(?, status)', [$status_sample_received])->count();
         
         
-        $analytics_data = array('count_non_admin_users' => $count_non_admin_users,
+        $analytics_data = array('count_total_users' => $count_total_users,
+                                'count_non_admin_users' => $count_non_admin_users,
                                 'count_users_with_orders' => $count_users_with_orders,
                                 'count_total_orders' => $count_total_orders,
                                 'count_unprocessed_orders' => $count_unprocessed_orders,
