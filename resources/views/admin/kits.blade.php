@@ -62,6 +62,15 @@
                 <td>{{$kit->updated_at}}</td>
                 <td>
                 
+                @if(!$kit->sample)
+                <a href="{{url("/admin/orders/".$kit->id."/registerKit")}}" >
+                <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Register Sample">
+                <i class="fas fa-flask"></i>
+                </button>
+                </a>
+                
+                @endif
+                
                 <a href="{{url("/admin/kits/".$kit->id."/edit/kits")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit Kit Information">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -37,4 +37,13 @@ class Kit extends Model
     {
         return $this->belongsTo('App\Models\Order');
     }
+    
+    
+    /**
+     * Get the sample associated with the kit.
+     */
+    public function sample()
+    {
+        return $this->hasOne('App\Models\Sample');
+    }
 }

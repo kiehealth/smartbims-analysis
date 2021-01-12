@@ -26,4 +26,12 @@ class Sample extends Model
         'updated_at'
     ];
     
+    
+    /**
+     * Get the kit for the sample.
+     */
+    public function kit()
+    {
+        return $this->belongsTo('App\Models\Kit');
+    }
 }

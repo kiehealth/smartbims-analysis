@@ -15,11 +15,11 @@ class CreateSamplesTable extends Migration
     {
         Schema::create('samples', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->unsigned()->unique();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->bigInteger('kit_id')->unsigned()->unique();
+            $table->foreign('kit_id')->references('id')->on('kits');
             $table->string('sample_id')->unique();
             $table->foreign('sample_id')->references('sample_id')->on('kits');
-            $table->string('lab_id')->unique();
+            $table->string('lab_id')->unique()->nullable();
             $table->date('sample_registered_date')->nullable();
             $table->string('cobas_result')->nullable();
             $table->string('genotyping_result')->nullable();
