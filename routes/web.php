@@ -86,6 +86,8 @@ Route::delete('admin/kits/{id}', 'KitController@destroy');
 Route::get('admin/kits', 'KitController@index');
 Route::get('admin/importKit', 'KitController@import');
 Route::post('admin/importKit', 'KitController@importKitSave');
+Route::get('admin/kits/{id}/registerSample', 'SampleController@register');
+Route::get('admin/samples', 'SampleController@index');
 
 
 

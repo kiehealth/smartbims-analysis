@@ -23,7 +23,8 @@ return [
     ],
     
     'samples' => [
-        'SAMPLE_RECEIVED' => 'SAMPLE_RECEIVED'
+        'SAMPLE_RECEIVED' => 'SAMPLE_RECEIVED',
+        'SAMPLE_REGISTERED' => 'SAMPLE_REGISTERED'
     ],
     
     'results' => [

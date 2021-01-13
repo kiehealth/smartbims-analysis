@@ -36,6 +36,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {{ (request()->is('admin/*sample*', 'admin/*Sample*')) ? 'active' : '' }}" href="{{url('/admin/samples')}}">
+              <span data-feather="shopping-cart">
+              	<i class="fas fa-flask"></i>
+              </span>
+              Samples
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{ (request()->is('admin/*user*', 'admin/*User*')) ? 'active' : '' }}" href="{{url('/admin/users')}}">
               <span data-feather="users">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

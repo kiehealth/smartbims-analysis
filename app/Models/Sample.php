@@ -10,7 +10,7 @@ class Sample extends Model
     public $timestamps = true;
     
     protected $fillable = [
-        'order_id',
+        'kit_id',
         'sample_id',
         'lab_id',
         'sample_registered_date',

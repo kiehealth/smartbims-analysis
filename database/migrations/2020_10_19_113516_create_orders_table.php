@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
                                    Config::get('constants.kits.KIT_REGISTERED'),
                                    Config::get('constants.kits.KIT_DISPATCHED'),
                                    Config::get('constants.samples.SAMPLE_RECEIVED'),
+                                   Config::get('constants.samples.SAMPLE_REGISTERED'),
                                    Config::get('constants.results.RESULT_RECEIVED')
                                   ]
                         )->default(Config::get('constants.orders.ORDER_CREATED'));
