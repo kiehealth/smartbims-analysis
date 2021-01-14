@@ -21,6 +21,9 @@
 @if(session('kit_deleted'))
 	<div class="alert alert-success">{{ session('kit_deleted') }}</div>
 @endif
+@if(session('kit_not_deleted'))
+	<div class="alert alert-warning">{{ session('kit_not_deleted') }}</div>
+@endif
 @if(session('sample_registered'))
 	<div class="alert alert-success">{!! session('sample_registered') !!}</div>
 @endif

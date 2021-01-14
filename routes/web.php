@@ -88,6 +88,8 @@ Route::get('admin/importKit', 'KitController@import');
 Route::post('admin/importKit', 'KitController@importKitSave');
 Route::get('admin/kits/{id}/registerSample', 'SampleController@register');
 Route::get('admin/samples', 'SampleController@index');
-
+Route::get('admin/samples/{id}/edit', 'SampleController@edit');
+Route::put('admin/samples/{id}', 'SampleController@update');
+Route::delete('admin/samples/{id}', 'SampleController@destroy');
 
 

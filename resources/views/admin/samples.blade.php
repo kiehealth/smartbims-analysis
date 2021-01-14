@@ -2,7 +2,7 @@
 
 @section('dashboard_title')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Kits</h1>
+        <h1 class="h2">Samples</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <a href='{{action('KitController@import')}}'>
@@ -15,15 +15,13 @@
 
 
 @section('content')
-@if(session('kit_updated'))
-	<div class="alert alert-success">{{ session('kit_updated') }}</div>
+@if(session('sample_updated'))
+	<div class="alert alert-success">{{ session('sample_updated') }}</div>
 @endif
-@if(session('kit_deleted'))
-	<div class="alert alert-success">{{ session('kit_deleted') }}</div>
+@if(session('sample_deleted'))
+	<div class="alert alert-success">{{ session('sample_deleted') }}</div>
 @endif
-@if(session('sample_registered'))
-	<div class="alert alert-success">{!! session('sample_registered') !!}</div>
-@endif
+
     <table id="samples_table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -71,7 +69,7 @@
                 
                 
                 
-                <a href="{{url("/admin/samples/".$sample->id."/edit/samples")}}" >
+                <a href="{{url("/admin/samples/".$sample->id."/edit")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit Sample Information">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -80,7 +78,7 @@
 				</button>
 				</a>
 				
-				<form action="{{action('KitController@destroy', ['id' => $sample->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the sample?');">
+				<form action="{{action('SampleController@destroy', ['id' => $sample->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the sample?');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Sample">

@@ -108,6 +108,7 @@ class KitController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     * @param  string $type
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id, $type=null)
@@ -156,11 +157,18 @@ class KitController extends Controller
     public function destroy($id)
     {
         //
-        $kit = Kit::find($id);
-        $kit->order->update(['status' => config('constants.orders.ORDER_CREATED')]);
-        $kit->delete();
-        return back()->with('kit_deleted', "Kit Deleted!");
+        try{
         
+            $kit = Kit::find($id);
+            $kit->order->update(['status' => config('constants.orders.ORDER_CREATED')]);
+            $kit->delete();
+            return back()->with('kit_deleted', "Kit Deleted!");
+        }
+        catch (\Illuminate\Database\QueryException $e){
+            
+            return back()->with('kit_not_deleted', "Kit cannot be deleted! Sample already registered for the kit. To delete
+                                    the kit, first delete the associated sample.");
+        }
     }
     
     
