@@ -8,6 +8,7 @@ use App\Models\Kit;
 use App\Models\Sample;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class SampleController extends Controller
 {
@@ -95,14 +96,35 @@ class SampleController extends Controller
         $sample = Sample::find($id);
         $kit_id = $sample->kit->id;
         
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'sample_id'=>'required|unique:kits,sample_id,'.$kit_id.'|unique:samples,sample_id,'.$id,
             'lab_id'=>'sometimes|nullable|unique:samples,lab_id,'.$id,
             'sample_registered_date'=>'sometimes|nullable|date',
             'analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
-            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:analysis_date'
+            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:analysis_date|required_with:cobas_result,genotyping_result,luminex_result,rtpcr_result',
+            //'cobas_result' => 'exclude_unless:reporting_date,true|required'
+        ],[
+            '*.required_without_all' => "At least one of the cobas result/genotyping result/luminex result/rtpcr result is required
+                                          when the reporting date is present."
         ]);
+        
+        $validator->sometimes('cobas_result', 'required_without_all:genotyping_result,luminex_result,rtpcr_result', function ($input) {
+            return !empty($input->reporting_date);
+        });
+        $validator->sometimes('genotyping_result', 'required_without_all:cobas_result,luminex_result,rtpcr_result', function ($input) {
+            return !empty($input->reporting_date);
+        });
+        $validator->sometimes('luminex_result', 'required_without_all:cobas_result,genotyping_result,rtpcr_result', function ($input) {
+            return !empty($input->reporting_date);
+        });
+        $validator->sometimes('rtpcr_result', 'required_without_all:cobas_result,genotyping_result,luminex_result', function ($input) {
+            return !empty($input->reporting_date);
+        });
+    
+        //dd($validator->errors());
+        $validator->validate();
+        
         
         $sample->kit->update(['sample_id' => $request->sample_id]);
         $sample->update($request->all());

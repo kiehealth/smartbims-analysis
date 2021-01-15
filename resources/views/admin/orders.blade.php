@@ -75,6 +75,10 @@
                 {!!$order->status."<br>".$order->kit->kit_dispatched_date!!}
                 @elseif ($order->status===config('constants.samples.SAMPLE_RECEIVED'))
                 {!!$order->status."<br>".$order->kit->sample_received_date!!}
+                @elseif ($order->status===config('constants.samples.SAMPLE_REGISTERED'))
+                {!!$order->status."<br>".$order->kit->sample->sample_registered_date!!}
+                @elseif ($order->status===config('constants.results.RESULT_RECEIVED'))
+                {!!$order->status."<br>".$order->kit->sample->reporting_date!!}
                 @else
                 {{$order->status}}
                 @endif
