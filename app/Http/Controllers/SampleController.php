@@ -103,25 +103,15 @@ class SampleController extends Controller
             'analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:analysis_date|required_with:cobas_result,genotyping_result,luminex_result,rtpcr_result',
-            //'cobas_result' => 'exclude_unless:reporting_date,true|required'
         ],[
-            '*.required_without_all' => "At least one of the cobas result/genotyping result/luminex result/rtpcr result is required
+            'required_without_all' => "At least one of the cobas result / genotyping result / luminex result / rtpcr result is required
                                           when the reporting date is present."
         ]);
         
-        $validator->sometimes('cobas_result', 'required_without_all:genotyping_result,luminex_result,rtpcr_result', function ($input) {
+        $validator->sometimes('result', 'required_without_all:cobas_result,genotyping_result,luminex_result,rtpcr_result', function ($input) {
             return !empty($input->reporting_date);
         });
-        $validator->sometimes('genotyping_result', 'required_without_all:cobas_result,luminex_result,rtpcr_result', function ($input) {
-            return !empty($input->reporting_date);
-        });
-        $validator->sometimes('luminex_result', 'required_without_all:cobas_result,genotyping_result,rtpcr_result', function ($input) {
-            return !empty($input->reporting_date);
-        });
-        $validator->sometimes('rtpcr_result', 'required_without_all:cobas_result,genotyping_result,luminex_result', function ($input) {
-            return !empty($input->reporting_date);
-        });
-    
+     
         //dd($validator->errors());
         $validator->validate();
         
@@ -164,5 +154,21 @@ class SampleController extends Controller
         
         return back()->with('sample_deleted', "Sample Deleted!");
         
+    }
+    
+    
+    /**
+     * Show the sample import form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function import()
+    {
+        //
+        if ((Session::get('grandidsession')===null)){
+            return  view('admin.login');
+        }
+        
+        return view('admin.import_samples');
     }
 }

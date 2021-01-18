@@ -5,7 +5,7 @@
         <h1 class="h2">Samples</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <a href='{{action('KitController@import')}}'>
+            <a href='{{action('SampleController@import')}}'>
             	<button type="button" class="btn btn-sm btn-outline-secondary">Import Samples</button>
             </a>
           </div>

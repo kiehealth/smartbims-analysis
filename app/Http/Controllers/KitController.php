@@ -173,7 +173,7 @@ class KitController extends Controller
     
     
     /**
-     * Show the user import form.
+     * Show the kit import form.
      *
      * @return \Illuminate\Http\Response
      */

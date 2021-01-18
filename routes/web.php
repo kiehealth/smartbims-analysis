@@ -91,5 +91,7 @@ Route::get('admin/samples', 'SampleController@index');
 Route::get('admin/samples/{id}/edit', 'SampleController@edit');
 Route::put('admin/samples/{id}', 'SampleController@update');
 Route::delete('admin/samples/{id}', 'SampleController@destroy');
+Route::get('admin/importSample', 'SampleController@import');
+Route::post('admin/importSample', 'SampleController@importSampleSave');
 
 
