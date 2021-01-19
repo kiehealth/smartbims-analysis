@@ -20,7 +20,7 @@ class CreateSamplesTable extends Migration
             $table->string('sample_id')->unique();
             $table->foreign('sample_id')->references('sample_id')->on('kits')->onUpdate('cascade');
             $table->string('lab_id')->unique()->nullable();
-            $table->date('sample_registered_date')->nullable();
+            $table->date('sample_registered_date');
             $table->string('cobas_result')->nullable();
             $table->string('genotyping_result')->nullable();
             $table->string('luminex_result')->nullable();

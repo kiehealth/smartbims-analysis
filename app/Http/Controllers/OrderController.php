@@ -170,8 +170,14 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
-        Order::find($id)->delete();
-        return back()->with('order_deleted', "Order Deleted!");
+        try{
+            Order::find($id)->delete();
+            return back()->with('order_deleted', "Order Deleted!");
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            return back()->with('order_not_deleted', "Order cannot be deleted! Kit already registered for the order. To delete
+                                    the order, first delete the associated kit.");
+        }
         
     }
     

@@ -217,8 +217,15 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        User::find($id)->delete();
-        return back()->with('user_deleted', "User Deleted!");
+        try{
+            User::find($id)->delete();
+            return back()->with('user_deleted', "User Deleted!");
+        }
+        catch (\Illuminate\Database\QueryException $e){
+            return back()->with('user_not_deleted', "User cannot be deleted! Order already registered for the user. To delete
+                                    the user, first delete the associated order.");
+            
+        }
     }
     /**
      * Get user for this order.

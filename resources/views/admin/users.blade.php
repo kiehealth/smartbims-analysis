@@ -34,6 +34,9 @@
 @if(session()->has('user_deleted'))
     <div class="alert alert-success">{{ session('user_deleted') }}</div>
 @endif
+@if(session('user_not_deleted'))
+	<div class="alert alert-warning">{{ session('user_not_deleted') }}</div>
+@endif
     <table id="users_table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -47,6 +50,7 @@
                 <th>Zipcode</th>
                 <th>City</th>
                 <th>Country</th>
+                <th>No. of Orders</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
                 <th class="noexport">Actions</th>
@@ -65,6 +69,7 @@
                 <td>{{$user->zipcode}}</td>
                 <td>{{$user->city}}</td>
                 <td>{{$user->country}}</td>
+                <td>{{$user->orders->count()}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->updated_at}}</td>
                 <td>

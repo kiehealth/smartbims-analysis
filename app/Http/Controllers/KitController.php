@@ -113,24 +113,33 @@ class KitController extends Controller
      */
     public function update(Request $request, $id, $type=null)
     {
-        
-        $request->validate([
-            'sample_id'=>'required|unique:kits,sample_id,'.$id,
-            'barcode'=>'sometimes|nullable|unique:kits,barcode,'.$id,
-            'kit_dispatched_date'=>'sometimes|nullable|date',
-            'sample_received_date'=>'sometimes|nullable|date|after_or_equal:kit_dispatched_date'
-        ]);
-        
         $kit = Kit::find($id);
+        
+        if($type === "kits"){
+            $request->validate([
+                'sample_id'=>'required|unique:kits,sample_id,'.$id,
+                'barcode'=>'sometimes|nullable|unique:kits,barcode,'.$id,
+                'kit_dispatched_date'=>'sometimes|nullable|date',
+                'sample_received_date'=>'sometimes|nullable|date|after_or_equal:kit_dispatched_date'
+            ]);
+        }
+        else{
+            $request->validate([
+                'sample_id'=>'required|unique:kits,sample_id,'.$id,
+                'barcode'=>'sometimes|nullable|unique:kits,barcode,'.$id,
+                'kit_dispatched_date'=>'sometimes|nullable|date|before_or_equal:'.$kit->sample_received_date,
+            ]);
+        }
+        
        
         $kit->update($request->all());
         
         
         
-        if($request->filled('sample_received_date')){
+        if($request->filled('sample_received_date') || $kit->sample_received_date){
             $kit->order->update(['status' => config('constants.samples.SAMPLE_RECEIVED')]);
         }
-        elseif($request->filled('kit_dispatched_date')){
+        elseif($request->filled('kit_dispatched_date') || $kit->kit_dispatched_date){
             $kit->order->update(['status' => config('constants.kits.KIT_DISPATCHED')]);
         }
         else{
@@ -160,8 +169,8 @@ class KitController extends Controller
         try{
         
             $kit = Kit::find($id);
-            $kit->order->update(['status' => config('constants.orders.ORDER_CREATED')]);
             $kit->delete();
+            $kit->order->update(['status' => config('constants.orders.ORDER_CREATED')]);
             return back()->with('kit_deleted', "Kit Deleted!");
         }
         catch (\Illuminate\Database\QueryException $e){

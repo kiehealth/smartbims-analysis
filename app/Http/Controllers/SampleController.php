@@ -99,7 +99,7 @@ class SampleController extends Controller
         $validator = Validator::make($request->all(),[
             'sample_id'=>'required|unique:kits,sample_id,'.$kit_id.'|unique:samples,sample_id,'.$id,
             'lab_id'=>'sometimes|nullable|unique:samples,lab_id,'.$id,
-            'sample_registered_date'=>'sometimes|nullable|date',
+            'sample_registered_date'=>'required|date',
             'analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:analysis_date|required_with:cobas_result,genotyping_result,luminex_result,rtpcr_result',

@@ -29,6 +29,9 @@
 @if(session()->has('order_deleted'))
     <div class="alert alert-success">{{ session('order_deleted') }}</div>
 @endif
+@if(session('order_not_deleted'))
+	<div class="alert alert-warning">{{ session('order_not_deleted') }}</div>
+@endif
 @if(session('kit_registered'))
 	<div class="alert alert-success">{{ session('kit_registered') }}</div>
 @endif

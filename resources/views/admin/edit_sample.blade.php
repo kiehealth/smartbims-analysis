@@ -85,7 +85,7 @@
                   <small id="reporting_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 
-            	<button type="submit" class="btn btn-primary">Edit Kit</button>
+            	<button type="submit" class="btn btn-primary">Edit Sample</button>
             	<a class="btn btn-secondary" href="{{url('/admin/samples')}}" role="button">Back</a>
             	
             </form>

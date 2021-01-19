@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')/*->onDelete('cascade')*/;
             //$table->string('pnr', 13);
             $table->set('status', [Config::get('constants.orders.ORDER_CREATED'), 
                                    Config::get('constants.kits.KIT_REGISTERED'),
