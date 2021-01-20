@@ -197,6 +197,12 @@ class KitController extends Controller
     }
     
     
+    /**
+     * Import collections in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function importKitSave(Request $request) {
         
         Validator::make($request->all(), [

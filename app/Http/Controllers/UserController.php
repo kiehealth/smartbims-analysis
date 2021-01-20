@@ -259,6 +259,12 @@ class UserController extends Controller
     }
     
     
+    /**
+     * Import collections in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function importUserSave(Request $request) {
         
         Validator::make($request->all(), [

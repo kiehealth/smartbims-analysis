@@ -9,6 +9,8 @@ use App\Models\Sample;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SamplesImport;
 
 class SampleController extends Controller
 {
@@ -170,5 +172,44 @@ class SampleController extends Controller
         }
         
         return view('admin.import_samples');
+    }
+    
+    
+    /**
+     * Import collections in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function importSampleSave(Request $request) {
+        
+        Validator::make($request->all(), [
+            'samples_file' => 'required|mimes:xls,xlsx',
+        ],
+            [
+                'required' => "Please provide the import file." ,
+                'mimes' => "The import file must be an excel file (.xls/.xlsx). "
+            ]
+            )->validate();
+            
+            try {
+                
+                $import = new SamplesImport() ;
+                
+                //In case trait Importable is used in Import Class.
+                //$import->import($request->file('users_file'));
+                
+                //Otherwise use Facade.
+                Excel::import($import, $request->file('samples_file'));
+                
+                return back()->with('samples_import_success', $import->getRowCount().' Samples have been imported successfully!');
+                
+                
+            }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+                dd($e);
+            }
+            catch (\Maatwebsite\Excel\Exceptions\NoTypeDetectedException $e) {
+                //dd($e);
+            }
     }
 }
