@@ -115,6 +115,7 @@ class SampleController extends Controller
         });
      
         //dd($validator->errors());
+        //dd($validator);
         $validator->validate();
         
         
