@@ -7,7 +7,7 @@
     <div class="card-body">
         <h5 class="card-title">Import Samples</h5>
         @if(session('samples_import_success'))
-    		<div class="alert alert-success">{{ session('samples_import_success') }}</div>
+    		<div class="alert alert-success">{!! session('samples_import_success') !!}</div>
     	@endif
     	
     	@if ($errors->any())

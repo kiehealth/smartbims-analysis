@@ -116,6 +116,7 @@ class SampleController extends Controller
      
         //dd($validator->errors());
         //dd($validator);
+        
         $validator->validate();
         
         
@@ -203,7 +204,9 @@ class SampleController extends Controller
                 //Otherwise use Facade.
                 Excel::import($import, $request->file('samples_file'));
                 
-                return back()->with('samples_import_success', $import->getRowCount().' Samples have been imported successfully!');
+                return back()->with('samples_import_success', '<strong>'.$import->getRowCount().'</strong> Samples have been processed successfully! <br>
+                            of which <strong>'.$import->getInsertedRowCount().'</strong> Samples have been inserted and <strong>
+                            '.$import->getUpdatedRowCount(). '</strong> Samples have been updated.');
                 
                 
             }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
