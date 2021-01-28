@@ -11,17 +11,23 @@
 
 
 @section('content')
-<div class="canvas-container">
+<div class="canvas-container canvas-container-row">
     <div>
     	<canvas id="usersChart"></canvas>
     </div>
     <div>
     	<canvas id="ordersChart"></canvas>
     </div>
+</div>
+<div class="canvas-container canvas-container-row">
     <div>
     	<canvas id="kitsChart"></canvas>
     </div>
+    <div>
+    	<canvas id="samplesChart"></canvas>
+    </div>
 </div>
+
 @endsection
 
 @section('scripts')
@@ -64,7 +70,7 @@ var ctx_ordersChart = document.getElementById('ordersChart');
 var ordersChart = new Chart(ctx_ordersChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Orders', 'Orders Processed', 'Orders Unprocessed'],
+        labels: ['Total Orders', 'Orders Processed (Kits Registered)', 'Orders Unprocessed (Kits Not Registered)'],
         datasets: [{
             data: [{{$count_total_orders}}, {{$count_total_orders-$count_unprocessed_orders}}, {{$count_unprocessed_orders}}],
             backgroundColor: [
@@ -85,7 +91,7 @@ var ordersChart = new Chart(ctx_ordersChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Orders Status'
+            text: 'Orders'
         }
     }
 });
@@ -97,20 +103,18 @@ var ctx_kitsChart = document.getElementById('kitsChart');
 var kitsChart = new Chart(ctx_kitsChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Kits', 'Kits Registered (Not yet dispatched)', 'Kits Dispatched', 'Samples Received'],
+        labels: ['Total Kits Registered', 'Kits Dispatched', 'Samples Received'],
         datasets: [{
-            data: [{{$count_total_kits}}, {{$count_registered_kits}}, {{$count_dispatched_kits}}, {{$count_received_samples}}],
+            data: [{{$count_total_kits_registered}}, {{$count_dispatched_kits}}, {{$count_received_samples}}],
             backgroundColor: [
                 'rgba(255, 102, 102, 0.2)',
                 'rgba(153, 153, 0, 0.2)',
                 'rgba(51, 255, 255, 0.2)',
-                'rgba(0, 102, 102, 0.2)',
             ],
             borderColor: [
                 'rgba(255, 102, 102, 1)',
                 'rgba(153, 153, 0, 1)',
                 'rgba(51, 255, 255, 1)',
-                'rgba(0, 102, 102, 1)',
             ],
             borderWidth: 1
         }]
@@ -119,7 +123,38 @@ var kitsChart = new Chart(ctx_kitsChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Kits Status'
+            text: 'Kits'
+        }
+    }
+});
+
+
+
+var ctx_samplesChart = document.getElementById('samplesChart');
+var samplesChart = new Chart(ctx_samplesChart, {
+    type: 'doughnut',
+    data: {
+        labels: ['Total Samples Registered', 'Results Reported', 'Results Not Reported'],
+        datasets: [{
+            data: [{{$count_total_samples_registered}}, {{$count_results_received}}, {{$count_total_samples_registered-$count_results_received}}],
+            backgroundColor: [
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Samples and Results'
         }
     }
 });

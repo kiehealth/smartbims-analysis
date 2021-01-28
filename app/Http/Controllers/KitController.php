@@ -134,9 +134,13 @@ class KitController extends Controller
        
         $kit->update($request->all());
         
-        
-        
-        if($request->filled('sample_received_date') || $kit->sample_received_date){
+        if($kit->sample->reporting_date){
+            $kit->order->update(['status' => config('constants.results.RESULT_RECEIVED')]);
+        }
+        elseif($kit->sample->sample_registered_date){
+            $kit->order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
+        }
+        elseif($request->filled('sample_received_date') || $kit->sample_received_date){
             $kit->order->update(['status' => config('constants.samples.SAMPLE_RECEIVED')]);
         }
         elseif($request->filled('kit_dispatched_date') || $kit->kit_dispatched_date){

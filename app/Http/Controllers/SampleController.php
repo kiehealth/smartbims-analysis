@@ -144,6 +144,7 @@ class SampleController extends Controller
     {
         //
         $sample = Sample::find($id);
+        $sample->delete();
         
         if($sample->kit->sample_received_date){
             $sample->kit->order->update(['status' => config('constants.samples.SAMPLE_RECEIVED')]);
@@ -154,7 +155,7 @@ class SampleController extends Controller
         else{
             $sample->kit->order->update(['status' => config('constants.kits.KIT_REGISTERED')]);
         }
-        $sample->delete();
+        
         
         return back()->with('sample_deleted', "Sample Deleted!");
         

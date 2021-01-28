@@ -127,3 +127,8 @@ body {
 .canvas-container > div {
   flex: 1; /*grow*/
 }
+
+.canvas-container-row{
+	margin: 1rem 0rem;
+    padding: 1rem 0rem;
+}

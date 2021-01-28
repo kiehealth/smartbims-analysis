@@ -10,8 +10,8 @@
 		@if(session('user_profile_updated'))
 			<div class="alert alert-success">{{ session('user_profile_updated') }}</div>
 		@endif
-		<div id="address">
-			<div class="card-body">
+		{{--<div id="address">--}}
+			<div class="card-body" id="address">
 				<h3 class="card-title pricing-card-title">
 					Adress {{--<small class="text-muted">/ mo</small>--}}
 				</h3>
@@ -23,11 +23,11 @@
 					<li>{{$user->country}}</li>
 				</ul>
 			</div>
-			<div class="card-footer">
+			<div class="card-footer" id="address_footer">
 				<button type="button" id="edit_address"
 					class="btn btn-lg btn-block btn-primary">Kontrollera/Redigera</button>
 			</div>
-		</div>
+		{{--</div>--}}
 
 		<div id="edit_address_form">
 			<form method="post" action="{{action('UserController@updateprofile', ['id' => $user->id])}}">
@@ -138,12 +138,14 @@ $(document).ready(function(){
 
 	$('#edit_address').click(function(){
 		$('#address').hide(500);
+		$('#address_footer').hide(500);
 		$('#edit_address_form').show(500);
   	});
 
 	$('#edit_address_cancel').click(function(){
 		$('#edit_address_form').hide(500);
 		$('#address').show(500);
+		$('#address_footer').show(500);
   	});
 
 	
