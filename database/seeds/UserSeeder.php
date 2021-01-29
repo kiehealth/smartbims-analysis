@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('users')->insert(
+        DB::table('users')->insert([
             [
                 'first_name' => 'Suyesh',
                 'last_name' => 'Amatya',
@@ -32,6 +32,6 @@ class UserSeeder extends Seeder
                 'pnr' => '198608070606',
                 'roles' => 'ADMIN_ROLE,USER_ROLE'
             ]
-        );
+        ]);
     }
 }
