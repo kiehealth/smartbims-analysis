@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kit;
 use App\Models\Sample;
+use App\Models\User;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -216,5 +217,28 @@ class SampleController extends Controller
             catch (\Maatwebsite\Excel\Exceptions\NoTypeDetectedException $e) {
                 //dd($e);
             }
+    }
+    
+    
+    
+    public function myresults(){
+        return SampleController::getAllResultsforUser(session('user_id'));
+    }
+    
+    
+    /**
+     * Get all results for this user.
+     *
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function getAllResultsforUser($id){
+        
+        $user = User::find($id);
+        $myresults = $user->samples->whereNotNull('reporting_date');
+        return view('my_results', compact('myresults'));
+        
     }
 }

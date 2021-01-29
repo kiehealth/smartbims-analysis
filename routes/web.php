@@ -60,6 +60,7 @@ Route::get('profile', 'UserController@profile');
 Route::get('myprofile', 'UserController@myprofile');
 Route::put('user/updateprofile/{id}', 'UserController@updateprofile');
 Route::get('myorders', 'OrderController@myorders');
+Route::get('myresults', 'SampleController@myresults');
 
 Route::get('admin/login', function () {
     return view('admin.login');

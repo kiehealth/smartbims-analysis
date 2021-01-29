@@ -58,7 +58,7 @@
 	</p>
     <h1 class="display-4 text-center">Samtycke till att delta i studien</h1>
     <p class="lead">Jag har fått skriftlig informationen om studien. Jag samtycker till att delta i 
-    	studien ”Forskningsprojekt om SMS påminnelser och Självprovtagning kan öka deltagandet i 
+    	studien ”Forskningsprojekt om SMS-påminnelser och Självprovtagning kan öka deltagandet i 
     	Gynekologisk Cellprovtagning - Förebyggande Undersökning mot Livmoderhalscancer”, att uppgifter 
     	om mig behandlas samt att mina prover sparas i en biobank på det sätt som beskrivs.
 	</p>

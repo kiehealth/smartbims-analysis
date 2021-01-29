@@ -327,7 +327,9 @@ class UserController extends Controller
         }
         $user = User::find(session('user_id'));
         $latest_order = $user->orders()->latest()->first();
-        return view('profile', compact('user', 'latest_order'));
+        $latest_result = $user->samples->whereNotNull('reporting_date')->sortByDesc('id')->first();
+        
+        return view('profile', compact('user', 'latest_order', 'latest_result'));
     }
     
     

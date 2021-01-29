@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-
+<p class="text-left back"><a href="{{url('/profile')}}">&lt;&lt; Tillbaka</a></p>
 <div class="accordion" id="ordersAccordion">
 <p class="lead"><h4 class="my-0 font-weight-normal text-center">Mina Beställningar</h4></p>
 @foreach ($myorders as $order)

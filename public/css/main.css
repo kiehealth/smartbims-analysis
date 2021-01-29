@@ -9,6 +9,8 @@ html {
 
 .container {
   max-width: 960px;
+  margin-top: 2rem;
+  padding-top: 1rem;
 }
 
 .pricing-header {
@@ -68,6 +70,16 @@ a.p-2.text-dark.active {
     font-weight: bold;
     font-family: cursive;
     font-size: x-large;
+}
+
+
+a.p-2.text-primary.active {
+    font-weight: bold;
+}
+
+
+p.text-left.back a {
+    color: #870052;
 }
 
 .profile-card .card-footer{

@@ -106,20 +106,30 @@
 			<h4 class="my-0 font-weight-normal">Provsvar</h4>
 		</div>
 		<div class="card-body">
+		@if(is_null($latest_result))
 			<h3 class="card-title pricing-card-title">
 				Inte färdigt än
 			</h3>
-			{{--
-			<ul class="list-unstyled mt-3 mb-4">
-				<li>30 users included</li>
-				<li>15 GB of storage</li>
-				<li>Phone and email support</li>
-				<li>Help center access</li>
+		@else
+			<h3 class="card-title pricing-card-title">
+				Senaste
+			</h3>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Result</li>
+				<li class="list-inline-item">{{$latest_result->cobas_result}}</li>
 			</ul>
-			--}}
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Rapporterad Datum</li>
+				<li class="list-inline-item">{{$latest_result->reporting_date}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Prov Registrerad Datum</li>
+				<li class="list-inline-item">{{$latest_result->sample_registered_date}}</li>
+			</ul>
+		@endif	
 		</div>
 		<div class="card-footer">
-    		<button type="button" class="btn btn-lg btn-block btn-primary">Se alla</button>
+			<a class="btn btn-lg btn-block btn-primary" href="{{url('myresults')}}" role="button">Se alla</a>
   		</div>
 	</div>
 </div>

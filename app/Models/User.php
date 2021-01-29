@@ -42,5 +42,13 @@ class User extends Model
         return $this->hasMany('App\Models\Kit');
     }
     
+    
+    /**
+     * Get all of the samples for the user.
+     */
+    public function samples()
+    {
+        return $this->hasManyThrough(Sample::class, Kit::class);
+    }
    
 }

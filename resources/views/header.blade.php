@@ -3,8 +3,8 @@
 <h5 class="my-0 mr-md-auto font-weight-normal site-title">International Human
 	Papillomavirus Reference Center</h5>
 <nav class="my-2 my-md-0 mr-md-3">
-	<a class="p-2 text-dark {{ (request()->is('/')) ? 'active' : '' }}" href="{{url('/')}}" title="Hem">Hem</a>
-	<a class="p-2 text-dark {{ (request()->is('*profile')) ? 'active' : '' }}" href="{{url('/profile')}}" title="Mina Sidor">Mina Sidor</a>
+	<a class="p-2 text-primary {{ (request()->is('/')) ? 'active' : '' }}" href="{{url('/')}}" title="Hem">Hem</a>
+	<a class="p-2 text-primary {{ (request()->is('*profile')) ? 'active' : '' }}" href="{{url('/profile')}}" title="Mina Sidor">Mina Sidor</a>
 </nav>
 
 @if(session()->has('userattributes') && session()->has('role') && session()->get('role')===config('constants.roles.USER_ROLE'))
