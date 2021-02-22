@@ -32,6 +32,7 @@
             <tr>
                 <th class="noexport">S.N</th>
                 <th>Kit ID</th>
+                <th>Order ID</th>
                 <th>Sample ID</th>
                 <th>Barcode</th>
                 <th>Name</th>
@@ -53,6 +54,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$kit->id}}</td>
+                <td>{{$kit->order->id}}</td>
                 <td>{{$kit->sample_id}}</td>
                 <td>{{$kit->barcode}}</td>
                 <td>{{$kit->user->first_name." ".$kit->user->last_name}}</td>

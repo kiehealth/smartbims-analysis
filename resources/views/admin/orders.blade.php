@@ -190,9 +190,9 @@
 
                     }
             ],
-            "columnDefs": [
+            /*"columnDefs": [
                 { "visible": false, "targets": 1 }
-            ]
+            ]*/
         });
     });
 

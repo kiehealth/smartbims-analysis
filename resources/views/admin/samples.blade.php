@@ -28,6 +28,7 @@
                 <th class="noexport">S.N</th>
                 <th>Sample Key</th>
                 <th>SampleID</th>
+                <th>Order ID</th>
                 <th>LabID</th>
                 <th>Name</th>
                 <th>Personnummer</th>
@@ -51,6 +52,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$sample->id}}</td>
                 <td>{{$sample->sample_id}}</td>
+                <td>{{$sample->kit->order->id}}</td>
                 <td>{{$sample->lab_id}}</td>
                 <td>{{$sample->kit->user->first_name." ".$sample->kit->user->last_name}}</td>
                 <td>{{$sample->kit->user->pnr}}</td>
