@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Register Kit</h3>
+    	<h3 class="display-5">Register Kit for order id {{$order->id}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -23,7 +23,7 @@
             	@csrf
                 <div class="form-group">    
                   <label for="sample_id">Sample ID</label>
-                  <input type="text" class="form-control" name="sample_id" value="{{old('sample_id')}}" required/>
+                  <input type="text" class="form-control" name="sample_id" value="{{old('sample_id', $order->id)}}" required/>
                 </div>
                 
                 <div class="form-group">
@@ -55,6 +55,6 @@ $('.datepicker').datepicker({
 	dateFormat: "yy-mm-dd",
 	showWeek: true,
 	firstDay: 1
-});
+}).datepicker("setDate", new Date());
 </script>
 @endsection
