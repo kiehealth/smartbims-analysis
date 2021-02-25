@@ -132,3 +132,9 @@ body {
 	margin: 1rem 0rem;
     padding: 1rem 0rem;
 }
+
+/** Form labels required**/
+label.required:after {
+    content: " *";
+    color: red;
+}

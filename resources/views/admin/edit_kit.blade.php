@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Edit Kit</h3>
+    	<h3 class="display-5">Edit Kit for order id {{$kit->order->id}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">

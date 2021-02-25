@@ -32,6 +32,11 @@
 	<p class="lead">Om du loggar in med Mobilt BankID kan du kontrollera dina uppgifter, beställningar, samt se
 		dina provsvar.
 	</p>
+	
+	@if(session('user_not_found'))
+	<div class="alert alert-danger text-center">{{ session('user_not_found') }}</div>
+	@endif
+    
 	<p class="lead text-center">
 	<a class="btn btn-primary consent-btn" href="{{action('BankIDController@bankidlogin', ['type' => 'user'])}}">Beställa via Mobilt BankID</a>
 	</p>

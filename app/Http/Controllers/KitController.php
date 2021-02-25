@@ -49,7 +49,7 @@ class KitController extends Controller
     public function store(Request $request, $id)
     {
         
-        //
+        //dd($request);
         $request->validate([
             'sample_id'=>'required|unique:kits,sample_id',
             'barcode'=>'sometimes|nullable|unique:kits,barcode',
@@ -112,9 +112,18 @@ class KitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id, $type=null)
-    {
+    {   //dd($request);
         $kit = Kit::find($id);
         
+        $request->validate([
+            'sample_id'=>'required|unique:kits,sample_id,'.$id,
+            'barcode'=>'sometimes|nullable|unique:kits,barcode,'.$id,
+            'kit_dispatched_date'=>'sometimes|nullable|date',
+            'sample_received_date'=>'sometimes|nullable|date|after_or_equal:kit_dispatched_date'
+        ]);
+        
+        /*** Conditional update of kit removed. Kit can be updated same way from Orders and Kits menu.***/
+        /*
         if($type === "kits"){
             $request->validate([
                 'sample_id'=>'required|unique:kits,sample_id,'.$id,
@@ -130,14 +139,14 @@ class KitController extends Controller
                 'kit_dispatched_date'=>'sometimes|nullable|date|before_or_equal:'.$kit->sample_received_date,
             ]);
         }
-        
+        */
        
         $kit->update($request->all());
-        
-        if($kit->sample->reporting_date){
+        //checking if kit has a sample
+        if($kit->sample()->count() && $kit->sample->reporting_date){
             $kit->order->update(['status' => config('constants.results.RESULT_RECEIVED')]);
         }
-        elseif($kit->sample->sample_registered_date){
+        elseif($kit->sample()->count() && $kit->sample->sample_registered_date){
             $kit->order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
         }
         elseif($request->filled('sample_received_date') || $kit->sample_received_date){

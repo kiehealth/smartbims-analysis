@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Edit Kit</h3>
+    	<h3 class="display-5">Edit Kit for order id {{$kit->order->id}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -23,7 +23,7 @@
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
-                  <label for="sample_id">Sample ID</label>
+                  <label for="sample_id" class="required">Sample ID</label>
                   <input type="text" class="form-control" name="sample_id" value="{{old('sample_id', $kit->sample_id)}}" required/>
                 </div>
                 
@@ -39,6 +39,12 @@
                   <small id="kit_dispatched_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 
+                <div class="form-group form-group.required">
+                  <label for="sample_received_date">Sample Received Date</label>
+                  <input class="datepicker form-control" name="sample_received_date" data-date-format="yyyy-mm-dd" 
+                  value="{{old('sample_received_date', $kit->sample_received_date)}}">
+                  <small id="sample_received_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
+                </div>
                 
             	<button type="submit" class="btn btn-primary">Edit Kit</button>
             	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">Back</a>

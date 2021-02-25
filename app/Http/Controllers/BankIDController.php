@@ -168,7 +168,7 @@ class BankIDController extends Controller
             else return redirect($request->has('url')?$request->url:'/');
         } catch (ModelNotFoundException $e){
             if ($request->type === "admin") return redirect('admin');
-            else return redirect($request->has('url')?$request->url:'/');
+            else return redirect($request->has('url')?$request->url:'/')->with('user_not_found', "Något gick fel!");
         }
         
     }
