@@ -40,7 +40,7 @@
               <span data-feather="shopping-cart">
               	<i class="fas fa-flask"></i>
               </span>
-              Samples
+              Sample Results
             </a>
           </li>
           <li class="nav-item">

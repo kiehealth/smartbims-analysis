@@ -5,9 +5,9 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Import Kits</h5>
+        <h5 class="card-title">Import Kits/Samples</h5>
         @if(session('kits_import_success'))
-    		<div class="alert alert-success">{{ session('kits_import_success') }}</div>
+    		<div class="alert alert-success">{!! session('kits_import_success') !!}</div>
     	@endif
     	
     	@if ($errors->any())

@@ -237,8 +237,10 @@ class KitController extends Controller
             //Otherwise use Facade.
             Excel::import($import, $request->file('kits_file'));
             
-            return back()->with('kits_import_success', $import->getRowCount().' Kits have been imported successfully!');
-            
+            //return back()->with('kits_import_success', $import->getRowCount().' Kits have been imported successfully!');
+            return back()->with('kits_import_success', '<strong>'.$import->getRowCount().'</strong> Kits/Samples have been processed successfully! <br>
+                            of which <strong>'.$import->getInsertedRowCount().'</strong> Kits/Samples have been inserted and <strong>
+                            '.$import->getUpdatedRowCount(). '</strong> Kits/Samples have been updated.');
             
         }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             dd($e);

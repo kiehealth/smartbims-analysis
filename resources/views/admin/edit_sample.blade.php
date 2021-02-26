@@ -23,7 +23,7 @@
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
-                  <label for="sample_id">Sample ID</label>
+                  <label for="sample_id" class="required">Sample ID</label>
                   <input type="text" class="form-control" name="sample_id" value="{{old('sample_id', $sample->sample_id)}}" required/>
                 </div>
                 
@@ -33,9 +33,9 @@
                 </div>
                 
                 <div class="form-group form-group.required">
-                  <label for="sample_registered_date">Sample Registered Date</label>
+                  <label for="sample_registered_date" class="required">Sample Registered Date</label>
                   <input class="datepicker form-control" name="sample_registered_date" data-date-format="yyyy-mm-dd" 
-                  value="{{old('sample_registered_date', $sample->sample_registered_date)}}">
+                  value="{{old('sample_registered_date', $sample->sample_registered_date)}}" required>
                   <small id="sample_registered_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 

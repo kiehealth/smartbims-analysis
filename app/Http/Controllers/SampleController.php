@@ -21,11 +21,10 @@ class SampleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request, $id)
+    public function register($id)
     {
         $kit = Kit::find($id);
         

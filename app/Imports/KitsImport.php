@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Kit;
 use App\Models\Order;
+use App\Models\Sample;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -19,9 +20,9 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
 {
     use SkipsFailures;
     
-        
-    private $rows = 0; // no. of rows count inserted;
     
+    private $rows = 0; // no. of rows count processed;
+    private $wasRecentlyCreated = 0; // no. of rows count inserted;
     
     
     
@@ -48,8 +49,8 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
             
             
             
-            $messages["$key.sample_id.required"] = "Error on row: <strong>".($key+2)."</strong>. sample_id missing."
-                                                  ." The sample_id is required.";;
+            $messages["$key.sample_id.required_with"] = "Error on row: <strong>".($key+2)."</strong>. sample_id missing."
+                                                  ." The sample_id is required when the sample_received_date is present";
             $messages["$key.sample_id.unique"] = "Error on row: <strong>".($key+2).
                                                  "</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                                                  "</strong> has already been registered. The sample_id must be unique.";
@@ -79,7 +80,7 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
                                                          "</strong>. The kit_dispatched_date <strong>".(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"").
                                                          "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd)";
             
-           /*
+           
             $messages["$key.sample_received_date.date"] = "Error on row: <strong>".($key+2).
                                                           "</strong> The sample_received_date <strong>".$val['sample_received_date'].
                                                           "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd)";
@@ -88,20 +89,20 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
                                                                     "</strong> The sample_received_date <strong>".$val['sample_received_date'].
                                                                     "</strong> must be a date after or equal to kit_dispatched_date <strong>"
                                                                     .$val['kit_dispatched_date']."</strong>.";
-           */
+           
            
         }
         
         $validator = Validator::make($data, [
             '*.order_id' => ['required', 
-                             'unique:kits,order_id',
+                             //'unique:kits,order_id', //For existing order_id perform update
                              'exists:orders,id',
                              'distinct',
                             ],
-            '*.sample_id' => ['required', 'unique:kits,sample_id', 'distinct'],
+            '*.sample_id' => ['sometimes', 'nullable', 'required_with:'.'*.sample_received_date', 'unique:kits,sample_id', 'distinct'],
             '*.barcode' => ['sometimes', 'nullable', 'unique:kits,barcode', 'distinct'],
             '*.kit_dispatched_date' => ['required', 'date'],
-            /*'*.sample_received_date' => ['sometimes', 'nullable', 'date', 'after_or_equal:kit_dispatched_date'],*/
+            '*.sample_received_date' => ['sometimes', 'nullable', 'date', 'after_or_equal:kit_dispatched_date'],
             
         ], $messages)->validate(); 
         
@@ -111,15 +112,43 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
         
         foreach ($data as $row) {
             ++$this->rows;
-             Kit::create([
-                'order_id' => $row['order_id'],
-                'user_id' => Order::find($row['order_id'])->user->id,
-                'sample_id' => $row['sample_id'],
+            $kit = Kit::updateOrCreate(
+                ['order_id' => $row['order_id']],
+                ['user_id' => Order::find($row['order_id'])->user->id,
+                'sample_id' => empty($row['sample_id'])?$row['order_id']:$row['sample_id'],
                 'barcode' => $row['barcode'],
                 'kit_dispatched_date' => $row['kit_dispatched_date'],
-             ]);
+                'sample_received_date' => $row['sample_received_date'],
+                ]
+            );
              
-             Order::find($row['order_id'])->update(['status' => config('constants.kits.KIT_DISPATCHED')]);
+            if($kit->wasRecentlyCreated){
+                ++$this->wasRecentlyCreated;
+            }
+                
+            if(!empty($row['sample_id'] && $row['sample_received_date'])){
+                $sample = Sample::updateOrCreate(
+                    ['kit_id' => $kit->id],
+                    ['sample_id' => $row['sample_id'], 'sample_registered_date' =>$row['sample_received_date']]
+                );
+                
+                if($sample->reporting_date){
+                    $sample->kit->order->update(['status' => config('constants.results.RESULT_RECEIVED')]);
+                }
+                elseif ($sample->sample_registered_date){
+                    $sample->kit->order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
+                }
+                continue;
+                
+            }
+                
+            if($kit->sample_received_date){
+                $kit->order->update(['status' => config('constants.samples.SAMPLE_RECEIVED')]);
+            }
+            else{
+                Order::find($row['order_id'])->update(['status' => config('constants.kits.KIT_DISPATCHED')]);
+            }
+            
         }
         
         
@@ -136,6 +165,15 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
     }
     
 
+    public function getInsertedRowCount(): int
+    {
+        return $this->wasRecentlyCreated;
+    }
+    
+    public function getUpdatedRowCount(): int
+    {
+        return ($this->rows-$this->wasRecentlyCreated);
+    }
    
     
     
@@ -147,11 +185,11 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
             if(gettype($row['kit_dispatched_date']) == 'integer' || gettype($row['kit_dispatched_date']) == 'double'){
                 $row['kit_dispatched_date'] = Date::excelToDateTimeObject($row['kit_dispatched_date'])->format('Y-m-d');
             }
-            /*
+            
             if(gettype($row['sample_received_date']) == 'integer' || gettype($row['sample_received_date']) == 'double'){
-                $row['sample_received_date'] = Date::excelToDateTimeObject($row['sample_received_date']);
+                $row['sample_received_date'] = Date::excelToDateTimeObject($row['sample_received_date'])->format('Y-m-d');
             }
-            */
+            
         }
         catch (ErrorException $e){
             

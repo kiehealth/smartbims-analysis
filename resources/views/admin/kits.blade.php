@@ -6,7 +6,7 @@
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <a href='{{action('KitController@import')}}'>
-            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Kits</button>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Kits/Samples</button>
             </a>
           </div>
 </div>

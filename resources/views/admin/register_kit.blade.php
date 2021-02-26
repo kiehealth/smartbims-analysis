@@ -22,7 +22,7 @@
         	<form method="post" action="{{action('KitController@store', ['id' => $order->id])}}">
             	@csrf
                 <div class="form-group">    
-                  <label for="sample_id">Sample ID</label>
+                  <label for="sample_id" class="required">Sample ID</label>
                   <input type="text" class="form-control" name="sample_id" value="{{old('sample_id', $order->id)}}" required/>
                 </div>
                 

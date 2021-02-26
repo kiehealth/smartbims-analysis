@@ -23,7 +23,7 @@
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
-                  <label for="sample_id">Sample ID</label>
+                  <label for="sample_id" class="required">Sample ID</label>
                   <input type="text" class="form-control" name="sample_id" value="{{old('sample_id', $kit->sample_id)}}" required/>
                 </div>
                 
