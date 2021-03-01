@@ -15,13 +15,14 @@ class Sample extends Model
         'lab_id',
         'sample_registered_date',
         'cobas_result',
-        'genotyping_result',
+        'cobas_analysis_date',
         'luminex_result',
-        'analysis_date',
+        'luminex_analysis_date',
         'rtpcr_result',
         'rtpcr_analysis_date',
-        'reported_via',
+        'final_reporting_result',
         'reporting_date',
+        'reported_via',
         'created_at',
         'updated_at'
     ];

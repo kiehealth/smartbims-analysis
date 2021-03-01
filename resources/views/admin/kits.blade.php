@@ -72,7 +72,7 @@
                 
                 @if(!$kit->sample)
                 
-                <a href="{{action('SampleController@register', ['id' => $kit->id])}}" >
+                <a href="{{url("/admin/kits/".$kit->id."/registerSample")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Register Sample">
                 <i class="fas fa-flask"></i>
                 </button>

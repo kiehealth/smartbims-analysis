@@ -36,9 +36,9 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
             '*.sample_id' => ['required', 'exists:kits,sample_id', 'distinct'],
             '*.lab_id' => 'array',
             '*.sample_registered_date'=>'required|date',
-            '*.analysis_date'=>'sometimes|nullable|date|after_or_equal:*.sample_registered_date',
+            '*.cobas_analysis_date'=>'sometimes|nullable|date|after_or_equal:*.sample_registered_date',
             '*.rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:*.sample_registered_date',
-            '*.reporting_date'=>'sometimes|nullable|date|after_or_equal:*.sample_registered_date|after_or_equal:*.analysis_date|required_with:*.cobas_result,*.genotyping_result,*.luminex_result,*.rtpcr_result'
+            '*.reporting_date'=>'sometimes|nullable|date|after_or_equal:*.sample_registered_date|after_or_equal:*.cobas_analysis_date|required_with:*.cobas_result,*.final_reporting_result,*.luminex_result,*.rtpcr_result'
         ];
         
 
@@ -51,13 +51,13 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
             $rules = array_merge($rules, [$key.'.lab_id' => ['sometimes', 'nullable', 'distinct', 'unique:samples,lab_id,'.$val['kit_id'].',kit_id']]);
             
             
-            if(!empty($val['analysis_date'])){
-                //$rules = array_merge($rules, [$key.'.analysis_date' => ['after_or_equal:'.$key.'.sample_registered_date']]);
+            if(!empty($val['cobas_analysis_date'])){
+                //$rules = array_merge($rules, [$key.'.cobas_analysis_date' => ['after_or_equal:'.$key.'.sample_registered_date']]);
                 
-                $messages["$key.analysis_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The analysis_date <strong>".(Arr::exists($val, "analysis_date")?$val['analysis_date']:"").
+                $messages["$key.cobas_analysis_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
                         "</strong> is not a valid date.";
                 
-                $messages["$key.analysis_date.after_or_equal"] = "Error on row: <strong>".($key+2)."</strong>. The analysis_date <strong>".(Arr::exists($val, "analysis_date")?$val['analysis_date']:"").
+                $messages["$key.cobas_analysis_date.after_or_equal"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
                         "</strong> must be a date after or equal to sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
                         "</strong>.";
             }
@@ -74,12 +74,12 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
             }
             
             if(!empty($val['reporting_date'])){
-                //$rules = array_merge($rules, [$key.'.reporting_date' => ['after_or_equal:'.$key.'.sample_registered_date,', 'after_or_equal:'.$key.'.analysis_date']]);
+                //$rules = array_merge($rules, [$key.'.reporting_date' => ['after_or_equal:'.$key.'.sample_registered_date,', 'after_or_equal:'.$key.'.cobas_analysis_date']]);
                 
                 $messages["$key.reporting_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
                         "</strong> is not a valid date.";
                 
-                $rules = array_merge($rules, [$key.'.result' =>['required_without_all:'.$key.'.cobas_result,'.$key.'.genotyping_result,'.$key.'.luminex_result,'.$key.'.rtpcr_result']]);
+                $rules = array_merge($rules, [$key.'.result' =>['required_without_all:'.$key.'.cobas_result,'.$key.'.final_reporting_result,'.$key.'.luminex_result,'.$key.'.rtpcr_result']]);
                 $messages["$key.result.required_without_all"] = "Error on row: <strong>".($key+2)."</strong>. At least one of the cobas result / genotyping result / luminex result / rtpcr result is required
                                           when the reporting date is present.";
                 
@@ -89,8 +89,8 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
                         "</strong> must be a date after or equal to sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
                         "</strong>.";
                 
-                $messages["$key.reporting_date.after_or_equal.$key.analysis_date"] = "Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
-                        "</strong> must be a date after or equal to analysis_date <strong>".(Arr::exists($val, "analysis_date")?$val['analysis_date']:"").
+                $messages["$key.reporting_date.after_or_equal.$key.cobas_analysis_date"] = "Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
+                        "</strong> must be a date after or equal to cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
                         "</strong>.";
                 */
                 
@@ -104,9 +104,9 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
                     $append_li = true;
                 }
                 
-                if(!empty($val['analysis_date']) && !Carbon::parse($val['reporting_date'])->gte(Carbon::parse($val['analysis_date']))){
+                if(!empty($val['cobas_analysis_date']) && !Carbon::parse($val['reporting_date'])->gte(Carbon::parse($val['cobas_analysis_date']))){
                     $reporting_date_msg .= ($append_li?"<li>":"")."Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
-                    "</strong> must be a date after or equal to analysis_date <strong>".(Arr::exists($val, "analysis_date")?$val['analysis_date']:"").
+                    "</strong> must be a date after or equal to cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
                     "</strong>".($append_li?"</li>":"");
                     
                 }
@@ -184,9 +184,9 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
                              'lab_id' => $row['lab_id'],
                              'sample_registered_date' => $row['sample_registered_date'],
                              'cobas_result' => $row['cobas_result'],
-                             'genotyping_result' => $row['genotyping_result'],
+                             'final_reporting_result' => $row['final_reporting_result'],
                              'luminex_result' => $row['luminex_result'],
-                             'analysis_date' => $row['analysis_date'],
+                             'cobas_analysis_date' => $row['cobas_analysis_date'],
                              'rtpcr_result' => $row['rtpcr_result'],
                              'rtpcr_analysis_date' => $row['rtpcr_analysis_date'],
                              'reported_via' => $row['reported_via'],
@@ -216,8 +216,8 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
                 $row['sample_registered_date'] = Date::excelToDateTimeObject($row['sample_registered_date'])->format('Y-m-d');
             }
             
-            if(gettype($row['analysis_date']) == 'integer' || gettype($row['analysis_date']) == 'double'){
-                $row['analysis_date'] = Date::excelToDateTimeObject($row['analysis_date'])->format('Y-m-d');
+            if(gettype($row['cobas_analysis_date']) == 'integer' || gettype($row['cobas_analysis_date']) == 'double'){
+                $row['cobas_analysis_date'] = Date::excelToDateTimeObject($row['cobas_analysis_date'])->format('Y-m-d');
             }
             
             if (gettype($row['rtpcr_analysis_date']) == 'integer' || gettype($row['rtpcr_analysis_date']) == 'double'){

@@ -22,13 +22,14 @@ class CreateSamplesTable extends Migration
             $table->string('lab_id')->unique()->nullable();
             $table->date('sample_registered_date');
             $table->string('cobas_result')->nullable();
-            $table->string('genotyping_result')->nullable();
+            $table->date('cobas_analysis_date')->nullable();
             $table->string('luminex_result')->nullable();
-            $table->date('analysis_date')->nullable();
+            $table->date('luminex_analysis_date')->nullable();
             $table->string('rtpcr_result')->nullable();
             $table->date('rtpcr_analysis_date')->nullable();
-            $table->string('reported_via')->nullable();
+            $table->string('final_reporting_result')->nullable();
             $table->date('reporting_date')->nullable();
+            $table->string('reported_via')->nullable();
             $table->timestamps();
         });
     }

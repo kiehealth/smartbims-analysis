@@ -41,12 +41,18 @@
                 
                 <div class="form-group">
                   <label for="cobas_result">Cobas Result</label>
+                  <select class="form-control" name="cobas_result" id="cobas_result">
+              		<option value="">---Select---</option>
+                  @foreach(config('constants.result.COBAS') as $key=>$value)
+					<option value="{{$value}}">{{$value}}</option>
+  				  @endforeach
+				  </select>
                   <input type="text" class="form-control" name="cobas_result" value="{{old('cobas_result', $sample->cobas_result)}}"/>
                 </div>
                 
                 <div class="form-group">
-                  <label for="genotyping_result">Genotyping Result</label>
-                  <input type="text" class="form-control" name="genotyping_result" value="{{old('genotyping_result', $sample->genotyping_result)}}"/>
+                  <label for="final_reporting_result">Genotyping Result</label>
+                  <input type="text" class="form-control" name="final_reporting_result" value="{{old('final_reporting_result', $sample->final_reporting_result)}}"/>
                 </div>
                 
                 <div class="form-group">
@@ -55,9 +61,9 @@
                 </div>
                 
                 <div class="form-group form-group.required">
-                  <label for="analysis_date">Analysis Date</label>
-                  <input class="datepicker form-control" name="analysis_date" data-date-format="yyyy-mm-dd" 
-                  value="{{old('analysis_date', $sample->analysis_date)}}">
+                  <label for="cobas_analysis_date">Analysis Date</label>
+                  <input class="datepicker form-control" name="cobas_analysis_date" data-date-format="yyyy-mm-dd" 
+                  value="{{old('cobas_analysis_date', $sample->cobas_analysis_date)}}">
                   <small id="analysis_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 

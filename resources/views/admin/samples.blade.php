@@ -2,11 +2,11 @@
 
 @section('dashboard_title')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Samples</h1>
+        <h1 class="h2">Sample Results</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <a href='{{action('SampleController@import')}}'>
-            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Samples</button>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Samples/Results</button>
             </a>
           </div>
 </div>
@@ -34,13 +34,14 @@
                 <th>Personnummer</th>
                 <th>Sample Registered Date</th>
                 <th>Cobas Result</th>
-                <th>Genotyping Result</th>
+                <th>Cobas Analysis Date</th>
                 <th>Luminex Result</th>
-                <th>Analysis Date</th>
+                <th>Luminex Analysis Date</th>
                 <th>RT PCR Result</th>
                 <th>RT PCR Analysis Date</th>
-                <th>Reported Via</th>
+                <th>Final Reporting Result</th>
                 <th>Reporting Date</th>
+                <th>Reported Via</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
                 <th class="noexport">Actions</th>
@@ -58,13 +59,14 @@
                 <td>{{$sample->kit->user->pnr}}</td>
                 <td>{{$sample->sample_registered_date}}</td>
                 <td>{{$sample->cobas_result}}</td>
-                <td>{{$sample->genotyping_result}}</td>
+                <td>{{$sample->cobas_analysis_date}}</td>
                 <td>{{$sample->luminex_result}}</td>
-                <td>{{$sample->analysis_date}}</td>
+                <td>{{$sample->luminex_analysis_date}}</td>
                 <td>{{$sample->rtpcr_result}}</td>
                 <td>{{$sample->rtpcr_analysis_date}}</td>
-                <td>{{$sample->reported_via}}</td>
+                <td>{{$sample->final_reporting_result}}</td>
                 <td>{{$sample->reporting_date}}</td>
+                <td>{{$sample->reported_via}}</td>
                 <td>{{$sample->created_at}}</td>
                 <td>{{$sample->updated_at}}</td>
                 <td>

@@ -17,33 +17,61 @@ class SampleController extends Controller
 {
     //
     
+    /**
+     * Show the form for registering the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function registerSample($id)
+    {
+        //
+        if ((Session::get('grandidsession')===null)){
+            return  view('admin.login');
+        }
+        
+        $kit = Kit::find($id);
+        return view('admin.register_sample', compact('kit'));
+        
+        
+    }
+    
     
     /**
      * Store a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function register($id)
+    public function register(Request $request, $id)
     {
+        
+        $request->validate([
+            'sample_id'=>'required|unique:samples,sample_id',
+            'sample_registered_date'=>'required|date'
+        ]);
+        
         $kit = Kit::find($id);
+        $kit->update(['sample_id' => $request->sample_id]);
         
         $sample = new Sample([
             'kit_id' => $id,
-            'sample_id' => $kit->sample_id,
-            'sample_registered_date' => Carbon::now()->toDateString()
+            'sample_id' => $request->sample_id,
+            'sample_registered_date' => $request->sample_registered_date
         ]);
         
         $sample->save();
         
         if(!$kit->sample_received_date){
-            $kit->update(['sample_received_date' => Carbon::now()->toDateString()]);
+            //$kit->update(['sample_received_date' => Carbon::now()->toDateString()]);
+            $kit->update(['sample_received_date' => $sample->sample_registered_date]);
         }
         
         $order = $kit->order;
         $order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
         
-        return back()->with("sample_registered", "The sample with sample_id <strong>".$kit->sample_id."</strong> is registered successfully!");
+        return redirect('admin/kits')->with("sample_registered", "The sample with sample_id <strong>".$kit->sample_id."</strong> is registered successfully!");
         
     }
     
@@ -102,15 +130,15 @@ class SampleController extends Controller
             'sample_id'=>'required|unique:kits,sample_id,'.$kit_id.'|unique:samples,sample_id,'.$id,
             'lab_id'=>'sometimes|nullable|unique:samples,lab_id,'.$id,
             'sample_registered_date'=>'required|date',
-            'analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
+            'cobas_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
-            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:analysis_date|required_with:cobas_result,genotyping_result,luminex_result,rtpcr_result',
+            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:cobas_analysis_date|required_with:cobas_result,final_reporting_result,luminex_result,rtpcr_result',
         ],[
             'required_without_all' => "At least one of the cobas result / genotyping result / luminex result / rtpcr result is required
                                           when the reporting date is present."
         ]);
         
-        $validator->sometimes('result', 'required_without_all:cobas_result,genotyping_result,luminex_result,rtpcr_result', function ($input) {
+        $validator->sometimes('result', 'required_without_all:cobas_result,final_reporting_result,luminex_result,rtpcr_result', function ($input) {
             return !empty($input->reporting_date);
         });
      

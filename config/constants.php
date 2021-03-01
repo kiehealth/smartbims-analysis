@@ -29,5 +29,49 @@ return [
     
     'results' => [
         'RESULT_RECEIVED' => 'RESULT_RECEIVED'
+    ],
+    
+    'result' => [
+        'COBAS' => [
+            'NEGATIVT' => 'NEGATIVT',
+            'HPV16' => 'HPV16',
+            'HPV18' => 'HPV18',
+            'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
+            'FAILED' => 'FAILED',
+        ],
+        
+        'LUMINEX' => [
+            'NEGATIVT' => 'NEGATIVT',
+            'HPV16' => 'HPV16',
+            'HPV18' => 'HPV18',
+            'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
+            'FAILED' => 'FAILED',
+        ],
+        
+        'RTPCR' => [
+            'NEGATIVT' => 'NEGATIVT',
+            'HPV16' => 'HPV16',
+            'HPV18' => 'HPV18',
+            'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
+            'FAILED' => 'FAILED',
+        ],
+        
+        'FINAL_REPORTING' => [
+            'NEGATIVT' => 'NEGATIVT',
+            'HPV16' => 'HPV16',
+            'HPV18' => 'HPV18',
+            'HPV45' => 'HPV45',
+            'ÖVRIGT_HPV_LÅG' => 'ÖVRIGT_HPV_LÅG',
+            'ÖVRIGT_HPV_MEDEL' => 'ÖVRIGT_HPV_MEDEL',
+        ]
+    ],
+    
+    'result_message' => [
+        'NEGATIVT' => 'NEGATIVT',
+        'HPV16' => 'HPV16',
+        'HPV18' => 'HPV18',
+        'HPV45' => 'HPV45',
+        'ÖVRIGT_HPV_LÅG' => 'ÖVRIGT_HPV_LÅG',
+        'ÖVRIGT_HPV_MEDEL' => 'ÖVRIGT_HPV_MEDEL',
     ]
 ];
