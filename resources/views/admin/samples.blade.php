@@ -29,6 +29,7 @@
                 <th>Sample Key</th>
                 <th>SampleID</th>
                 <th>Order ID</th>
+                <th>Kit ID</th>
                 <th>LabID</th>
                 <th>Name</th>
                 <th>Personnummer</th>
@@ -54,6 +55,7 @@
                 <td>{{$sample->id}}</td>
                 <td>{{$sample->sample_id}}</td>
                 <td>{{$sample->kit->order->id}}</td>
+                <td>{{$sample->kit->id}}</td>
                 <td>{{$sample->lab_id}}</td>
                 <td>{{$sample->kit->user->first_name." ".$sample->kit->user->last_name}}</td>
                 <td>{{$sample->kit->user->pnr}}</td>
@@ -67,8 +69,8 @@
                 <td>{{$sample->final_reporting_result}}</td>
                 <td>{{$sample->reporting_date}}</td>
                 <td>{{$sample->reported_via}}</td>
-                <td>{{$sample->created_at}}</td>
-                <td>{{$sample->updated_at}}</td>
+                <td>{{Carbon\Carbon::parse($sample->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
+                <td>{{Carbon\Carbon::parse($sample->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>
                 
                 

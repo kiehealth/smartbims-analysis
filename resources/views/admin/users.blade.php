@@ -70,8 +70,8 @@
                 <td>{{$user->city}}</td>
                 <td>{{$user->country}}</td>
                 <td>{{$user->orders->count()}}</td>
-                <td>{{$user->created_at}}</td>
-                <td>{{$user->updated_at}}</td>
+                <td>{{Carbon\Carbon::parse($user->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
+                <td>{{Carbon\Carbon::parse($user->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>
                 <a href="{{url("/admin/users/".$user->id."/edit")}}" >
                 <button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit User">

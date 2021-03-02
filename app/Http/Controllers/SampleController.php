@@ -122,7 +122,7 @@ class SampleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {//dd($request);
         $sample = Sample::find($id);
         $kit_id = $sample->kit->id;
         
@@ -131,16 +131,21 @@ class SampleController extends Controller
             'lab_id'=>'sometimes|nullable|unique:samples,lab_id,'.$id,
             'sample_registered_date'=>'required|date',
             'cobas_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
+            'luminex_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
             'rtpcr_analysis_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date',
-            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|after_or_equal:cobas_analysis_date|required_with:cobas_result,final_reporting_result,luminex_result,rtpcr_result',
-        ],[
-            'required_without_all' => "At least one of the cobas result / genotyping result / luminex result / rtpcr result is required
-                                          when the reporting date is present."
-        ]);
+            'final_reporting_result'=>'sometimes|nullable|required_with:reporting_date',
+            'reporting_date'=>'sometimes|nullable|date|after_or_equal:sample_registered_date|required_with:final_reporting_result',
+        ]/* Remove custom message for required_without_all sincee it is not used.
+        ,[
+            'required_without_all' => "The final reporting result is required when the reporting date is present."
+        ]*/);
         
+        /*
+         * Complex conditional validation rule removed for lab-workflow.
         $validator->sometimes('result', 'required_without_all:cobas_result,final_reporting_result,luminex_result,rtpcr_result', function ($input) {
             return !empty($input->reporting_date);
         });
+        */
      
         //dd($validator->errors());
         //dd($validator);

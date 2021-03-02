@@ -34,11 +34,13 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
         foreach ($data as $key => $val){
             
             
-            $messages["$key.order_id.required"] = "Error on row: <strong>".($key+2)."</strong>. order_id missing."
+            $messages["$key.order_id.required"] = "Error on row: <strong>".($key+2)."</strong>. The order_id is missing."
                                                   ." The order_id is required.";
+            /*
             $messages["$key.order_id.unique"] = "Error on row: <strong>".($key+2)."</strong>. The order_id <strong>".(Arr::exists($val, "order_id")?$val['order_id']:"").
                                                  "</strong> seems to have been processed already. ". 
                                                  " Only one kit per order_id.";
+            */
             $messages["$key.order_id.exists"] = "Error on row: <strong>".($key+2)."</strong>. No order with order_id <strong>"
                                                 .(Arr::exists($val, "order_id")?$val['order_id']:"")."</strong> found. The order should be placed "
                                                 ."before registering a kit.";
@@ -49,12 +51,14 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
             
             
             
-            $messages["$key.sample_id.required_with"] = "Error on row: <strong>".($key+2)."</strong>. sample_id missing."
-                                                  ." The sample_id is required when the sample_received_date is present";
+            $messages["$key.sample_id.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id is missing."
+                                                  ." The sample_id is required when the sample_received_date is present.";
+            /*
             $messages["$key.sample_id.unique"] = "Error on row: <strong>".($key+2).
                                                  "</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                                                  "</strong> has already been registered. The sample_id must be unique.";
-        
+            */
+            
             $messages["$key.sample_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                                                    "</strong> has a duplicate value. ".
                                                    " The sample_id must be unique.";
@@ -72,23 +76,26 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
             
             
             
-            $messages["$key.kit_dispatched_date.required"] = "Error on row: <strong>".($key+2)."</strong>. kit_dispatched_date missing.".
+            $messages["$key.kit_dispatched_date.required"] = "Error on row: <strong>".($key+2)."</strong>. The kit_dispatched_date is missing.".
                                                              " Please put the date when the kit is going to be dispatched.";
            
            
             $messages["$key.kit_dispatched_date.date"] = "Error on row: <strong>".($key+2).
                                                          "</strong>. The kit_dispatched_date <strong>".(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"").
-                                                         "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd)";
+                                                         "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";
             
            
             $messages["$key.sample_received_date.date"] = "Error on row: <strong>".($key+2).
-                                                          "</strong> The sample_received_date <strong>".$val['sample_received_date'].
-                                                          "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd)";
+                                                          "</strong> The sample_received_date <strong>".(Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"").
+                                                          "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";
            
+            $messages["$key.sample_received_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The sample_received_date is missing."
+                                                                   ." The sample_received_date is required when the sample_id is present.";
+            
             $messages["$key.sample_received_date.after_or_equal"] = "Error on row: <strong>".($key+2).
-                                                                    "</strong> The sample_received_date <strong>".$val['sample_received_date'].
+                                                                    "</strong> The sample_received_date <strong>".(Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"").
                                                                     "</strong> must be a date after or equal to kit_dispatched_date <strong>"
-                                                                    .$val['kit_dispatched_date']."</strong>.";
+                                                                    .(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"")."</strong>.";
            
            
         }
@@ -99,10 +106,10 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
                              'exists:orders,id',
                              'distinct',
                             ],
-            '*.sample_id' => ['sometimes', 'nullable', 'required_with:'.'*.sample_received_date', 'unique:kits,sample_id', 'distinct'],
+            '*.sample_id' => ['sometimes', 'nullable', 'required_with:'.'*.sample_received_date', 'distinct' /*,'unique:kits,sample_id'*/ ],
             '*.barcode' => ['sometimes', 'nullable', 'unique:kits,barcode', 'distinct'],
             '*.kit_dispatched_date' => ['required', 'date'],
-            '*.sample_received_date' => ['sometimes', 'nullable', 'date', 'after_or_equal:kit_dispatched_date'],
+            '*.sample_received_date' => ['sometimes', 'nullable', 'date', 'required_with:'.'*.sample_id', 'after_or_equal:*.kit_dispatched_date'],
             
         ], $messages)->validate(); 
         

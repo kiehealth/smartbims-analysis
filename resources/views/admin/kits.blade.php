@@ -66,8 +66,8 @@
                 <td>{{$kit->user->country}}</td>
                 <td>{{$kit->kit_dispatched_date}}</td>
                 <td>{{$kit->sample_received_date}}</td>
-                <td>{{$kit->created_at}}</td>
-                <td>{{$kit->updated_at}}</td>
+                <td>{{Carbon\Carbon::parse($kit->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
+                <td>{{Carbon\Carbon::parse($kit->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>
                 
                 @if(!$kit->sample)

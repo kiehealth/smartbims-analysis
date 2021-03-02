@@ -89,8 +89,8 @@
                 {{$order->status}}
                 @endif
                 </td>
-                <td>{{$order->created_at}}</td>
-                <td>{{$order->updated_at}}</td>
+                <td>{{Carbon\Carbon::parse($order->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
+                <td>{{Carbon\Carbon::parse($order->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>
                 
                 @if($order->kit)
