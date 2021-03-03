@@ -54,7 +54,7 @@ class DashboardController extends Controller{
         
         $count_total_samples_registered = Sample::count();
         $count_results_received = Sample::all()->reject(function($sample){
-            return empty($sample->reporting_date);
+            return empty($sample->final_reporting_result && $sample->reporting_date);
         })->count();
         //$status_sample_registered = config('constants.samples.SAMPLE_REGISTERED');
         //$status_result_received = config('constants.results.RESULT_RECEIVED');
