@@ -269,7 +269,7 @@ class SampleController extends Controller
     public function getAllResultsforUser($id){
         
         $user = User::find($id);
-        $myresults = $user->samples->whereNotNull('reporting_date');
+        $myresults = $user->samples->whereNotNull('final_reporting_result');
         return view('my_results', compact('myresults'));
         
     }

@@ -89,7 +89,7 @@
 			</h3>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
-				<li class="list-inline-item">{{$latest_order->created_at->toDateString()}}</li>
+				<li class="list-inline-item">{{Carbon\Carbon::parse($latest_order->created_at)->timezone('Europe/Stockholm')->toDateString()/*$latest_order->created_at->toDateString()*/}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Status</li>
@@ -116,15 +116,23 @@
 			</h3>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Result</li>
-				<li class="list-inline-item">{{$latest_result->cobas_result}}</li>
+				<li class="list-inline-item">{{$latest_result->final_reporting_result}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Rapporterad Datum</li>
 				<li class="list-inline-item">{{$latest_result->reporting_date}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item">{{Carbon\Carbon::parse($latest_result->kit->order->created_at)->timezone('Europe/Stockholm')->toDateString()}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Prov Registrerad Datum</li>
 				<li class="list-inline-item">{{$latest_result->sample_registered_date}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Meddelande</li>
+				<li class="list-inline-item">{!! config("constants.messages.RESULT_MESSAGE.$latest_result->final_reporting_result") !!}</li>
 			</ul>
 		@endif	
 		</div>

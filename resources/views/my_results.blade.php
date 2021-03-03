@@ -18,11 +18,23 @@
       <div class="card-body">
       		<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Result</li>
-				<li class="list-inline-item">{{$result->cobas_result}}</li>
+				<li class="list-inline-item">{{$result->final_reporting_result}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Rapporterad Datum</li>
+				<li class="list-inline-item">{{$result->reporting_date}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item">{{Carbon\Carbon::parse($result->kit->order->created_at)->timezone('Europe/Stockholm')->toDateString()}}</li>
 			</ul>
       		<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
 				<li class="list-inline-item font-weight-bold">Prov Registrerad Datum</li>
 				<li class="list-inline-item">{{$result->sample_registered_date}}</li>
+			</ul>
+			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
+				<li class="list-inline-item font-weight-bold">Meddelande</li>
+				<li class="list-inline-item">{!! config("constants.messages.RESULT_MESSAGE.$result->final_reporting_result") !!}</li>
 			</ul>
       </div>
     </div>
