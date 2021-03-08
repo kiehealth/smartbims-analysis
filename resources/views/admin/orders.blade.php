@@ -151,6 +151,7 @@
     $(document).ready(function() {
         $('#orders_table').DataTable({
             dom: 'Blfrtip',
+            "scrollX": true,
             buttons: [
                 'colvis', 
                 {

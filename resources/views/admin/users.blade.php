@@ -107,6 +107,7 @@
     $(document).ready(function() {
         $('#users_table').DataTable({
             dom: 'Blfrtip',
+            "scrollX": true,
             buttons: [
                 'colvis', 
                 {

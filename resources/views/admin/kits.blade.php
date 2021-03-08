@@ -113,6 +113,7 @@
     $(document).ready(function() {
         $('#kits_table').DataTable({
             dom: 'Blfrtip',
+            "scrollX": true,
             buttons: [
                 'colvis', 
                 {
