@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -79,11 +80,13 @@ class UserController extends Controller
     {
         //
         
-        $request->validate([
-            'pnr'=>'required'
-        ]);
-        
         try {
+            //$pnr = (new Personnummer($request->get('pnr')))->format(true);
+            
+            $request->validate([
+                'pnr' =>'required|size:12|unique:users,pnr',
+            ]);
+            
             //Personnummer::valid($request->pnr);
             $user = new User([
                 'first_name' => $request->get('first_name'),
@@ -165,7 +168,7 @@ class UserController extends Controller
         //
         
         $request->validate([
-            'pnr'=>'required',
+            'pnr'=>'required|size:12|unique:users,pnr,'.$id,
             'user_role'=>'required_without:admin_role',
             ],
             [
@@ -182,6 +185,7 @@ class UserController extends Controller
             $user->zipcode = $request->get('zipcode');
             $user->city = $request->get('city');
             $user->country = $request->get('country');
+            $user->consent = $request->get('consent');
             
             $roles = NULL;
             $roles_sep = FALSE;
@@ -368,5 +372,45 @@ class UserController extends Controller
         $user->save();
         
         return redirect('myprofile')->with("user_profile_updated", "Adress Uppdaterad!");
+    }
+    
+    
+    /**
+     * Unsubscribe the user from the study.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unsubscribe(Request $request, $type=null) {
+        $unsubscribed_msg = "Din deltagande i studien har avslutats och kommer vi inte kontakta dig längre. Däremot om du ångrar dig, behöver du bara
+		samtycker igen på <a href=".url('/').">hemsidan</a> och besätlla självprovtagningskit.";
+        
+        if($type ==='pnr'){
+            $request->validate([
+                'pnr'=>'required|size:12'
+            ],
+            [
+                'pnr.size' => "Vänligen änge 12 siffror personnummer utan bindestreck."
+            ]);
+            
+            try {
+                Personnummer::valid($request->pnr);
+                try {
+                    $user = $this->userRepo->getUserbyPNR((new Personnummer($request->pnr))->format(true));
+                    if ($user->exists) {
+                        $user->update(['consent' => 0]);
+                        return back()->with('unsubscribed', $unsubscribed_msg);
+                    }
+                } catch (ModelNotFoundException $e) {
+                    return back()->withError("Något gick fel!");
+                }
+            } catch (PersonnummerException $e) {
+                return back()->withError('Ogiltigt Personnummer ' . $request->input('pnr'))->withInput();
+            }
+            
+        }
+        
+        User::find($request->user_id)->update(['consent' => 0]);
+        return back()->with('unsubscribed', $unsubscribed_msg);
     }
 }

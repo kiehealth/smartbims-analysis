@@ -20,6 +20,7 @@ class User extends Model
         'zipcode',
         'city',
         'country',
+        'consent',
         'created_at',
         'updated_at'
     ];

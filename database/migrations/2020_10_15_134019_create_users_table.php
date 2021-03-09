@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('zipcode')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
+            $table->boolean('consent')->nullable();
             $table->timestamps();
         });
     }

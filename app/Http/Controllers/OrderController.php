@@ -213,6 +213,7 @@ class OrderController extends Controller
             'user_id' => $request->user_id
         ]);
         $order->save();
+        User::find($order->user->id)->update(['consent' => 1]);
         
         $order_success_msg = "Din beställning har tagits emot och den kommer att skickas 
                             till din folkbokföringsadress om några dagar. 

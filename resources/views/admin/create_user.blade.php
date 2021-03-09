@@ -34,7 +34,7 @@
                 </div>
                 
                 <div class="form-group form-group.required">
-                  <label for="pnr">PNR</label>
+                  <label for="pnr" class="required">PNR</label>
                   <input type="text" class="form-control" name="pnr" value="{{old('pnr')}}" required/>
                   <small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>
                 </div>
@@ -66,7 +66,13 @@
                 </div>
                 <div class="form-group">
                   <label for="country">Country</label>
-                  <input type="text" class="form-control" name="country" value="{{old('country')}}"/>
+                  <select class="form-control" name="country" id="country">
+              		<option value="">---Select---</option>
+                  @foreach(config('countries') as $key=>$value)
+					<option value="{{$value['name']}}" {{$value['name'] === old('country')?'selected':''}}>{{$value['name']}}</option>
+  				  @endforeach
+				  </select>
+                  {{--<input type="text" class="form-control" name="country" value="{{old('country')}}"/>--}}
                 </div>
                 
             	<button type="submit" class="btn btn-primary">Add User</button>

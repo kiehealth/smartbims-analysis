@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use GrandID\Client\BankID;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Route;
 
@@ -150,6 +151,11 @@ class BankIDController extends Controller
                     $request->session()->put("grandidsession", $request->grandidsession);
                     $request->session()->put("role", config('constants.roles.USER_ROLE'));
                     $request->session()->put("user_id", $user->id);
+                    if(!$user->first_name || !$user->last_name){
+                        $user->update(['first_name' => empty($user->first_name)?Str::title($response->getUserAttributes()['givenName']):$user->first_name,
+                            'last_name' => empty($user->last_name)?Str::title($response->getUserAttributes()['surname']):$user->last_name
+                        ]);
+                    }
                     
                     return redirect($request->has('url')?$request->url:'/');
                 }
@@ -167,6 +173,7 @@ class BankIDController extends Controller
             if ($request->type === "admin") return  redirect('admin');
             else return redirect($request->has('url')?$request->url:'/');
         } catch (ModelNotFoundException $e){
+            //dd($request->url);
             if ($request->type === "admin") return redirect('admin');
             else return redirect($request->has('url')?$request->url:'/')->with('user_not_found', "Något gick fel!");
         }

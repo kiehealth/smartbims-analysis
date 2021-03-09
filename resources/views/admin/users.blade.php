@@ -51,6 +51,7 @@
                 <th>City</th>
                 <th>Country</th>
                 <th>No. of Orders</th>
+                <th>Consent to Study</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
                 <th class="noexport">Actions</th>
@@ -70,6 +71,7 @@
                 <td>{{$user->city}}</td>
                 <td>{{$user->country}}</td>
                 <td>{{$user->orders->count()}}</td>
+                <td>{{(is_null($user->consent))?"":(($user->consent==1)?"Yes":"No")}}</td>
                 <td>{{Carbon\Carbon::parse($user->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($user->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>

@@ -65,6 +65,9 @@
 	<p class="lead text-center">
 	<a class="btn btn-primary consent-btn" href="order">JAG HAR LÄST, SAMTYCKT OCH VILL BESTÄLLA</a>
 	</p>
+	<p class="lead text-center">
+	<a class="btn btn-danger consent-btn" href="unsubscribe">JAG SAMTYCKER INTE OCH SKA BLI INTE KONTAKTAD</a>
+	</p>
 </div>
 
 @endsection 

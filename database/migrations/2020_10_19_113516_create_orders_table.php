@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
                                    Config::get('constants.results.RESULT_RECEIVED')
                                   ]
                         )->default(Config::get('constants.orders.ORDER_CREATED'));
+            $table->string('order_created_by')->nullable();
             $table->timestamps();
         });
         

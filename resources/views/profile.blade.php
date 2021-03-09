@@ -56,9 +56,16 @@
 							value="{{old('city', $user->city)}}" />
 					</div>
 					<div class="form-group">
-						<label for="country">Land</label> <input type="text"
+						<label for="country">Land</label> 
+						<select class="form-control" name="country" id="country">
+              				<option value="">---Välja---</option>
+                  		@foreach(config('countries') as $key=>$value)
+							<option value="{{$value['name']}}" {{$value['name'] === old('country', $user->country)?'selected':''}}>{{$value['name']}}</option>
+  				  		@endforeach
+				  		</select>
+						{{--<input type="text"
 							class="form-control" name="country"
-							value="{{old('country', $user->country)}}" />
+							value="{{old('country', $user->country)}}" />--}}
 					</div>
 			</div>
 			<div class="card-footer">
