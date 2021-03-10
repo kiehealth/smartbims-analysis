@@ -96,7 +96,8 @@ class UserController extends Controller
                 'street' => $request->get('street'),
                 'zipcode' => $request->get('zipcode'),
                 'city' => $request->get('city'),
-                'country' => $request->get('country')
+                'country' => $request->get('country'),
+                'consent' => $request->get('consent')
             ]);
             
             $roles = NULL;
@@ -390,7 +391,7 @@ class UserController extends Controller
                 'pnr'=>'required|size:12'
             ],
             [
-                'pnr.size' => "Vänligen änge 12 siffror personnummer utan bindestreck."
+                'pnr.size' => "Vänligen änge 12 siffrigt personnummer utan bindestreck."
             ]);
             
             try {

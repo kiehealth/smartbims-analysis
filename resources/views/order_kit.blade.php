@@ -54,6 +54,16 @@
     <div class="alert alert-danger text-center">{{ session('error') }}</div>
     @endif
     
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div><br />
+    @endif
+    
     @if(!session()->has('order_created'))
     <p class="lead">Om du inte har Mobilt BankID eller vill beställa utan inloggning 
 		kan du vänligen ange ditt personnummer i fältet nedan.

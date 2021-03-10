@@ -74,6 +74,24 @@
 				  </select>
                   {{--<input type="text" class="form-control" name="country" value="{{old('country')}}"/>--}}
                 </div>
+                <div class="form-group">
+                <label for="consent">Consent to Study</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="consent_yes" name="consent" value="1"
+                  {{"1"==old('consent') ? "checked" : ""}}>
+                  <label class="form-check-label" for="consent_yes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="consent_no" name="consent" value="0"
+                  {{"0"==old('consent') ? "checked" : ""}}>
+                  <label class="form-check-label" for="consent_no">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="consent_no_answer" name="consent" value=""
+                  {{is_null(old('consent')) ? "checked" : ""}}>
+                  <label class="form-check-label" for="consent_no_answer">No Answer</label>
+                </div>
+                </div>
                 
             	<button type="submit" class="btn btn-primary">Add User</button>
             	<a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">Cancel</a>

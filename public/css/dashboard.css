@@ -107,7 +107,8 @@ body {
  * Dashboard
  */
 
-#content .card-body.add-user, .card-body.edit-user, .card-body.register-kit, .card-body.edit-kit{
+#content .card-body.add-user, .card-body.edit-user, .card-body.register-kit, .card-body.edit-kit, 
+.card-body.create-order, .card-body.edit-order, .card-body.register-sample, .card-body.edit-sample{
 	padding-left: inherit;
 }
 

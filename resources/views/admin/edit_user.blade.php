@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" id="consent_no_answer" name="consent" value=""
-                  {{old('consent_no_answer', is_null($user->consent)) ? "checked" : ""/*old('consent') ? 'checked' : (is_null($user->consent)?"checked":"")*/}}>
+                  {{is_null($user->consent) ? "checked" : ""/*old('consent') ? 'checked' : (is_null($user->consent)?"checked":"")*/}}>
                   <label class="form-check-label" for="consent_no_answer">No Answer</label>
                 </div>
                 </div>

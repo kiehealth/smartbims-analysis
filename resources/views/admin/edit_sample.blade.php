@@ -18,7 +18,7 @@
               </div><br />
             @endif
     		
-        	<div class="card-body edit-kit">
+        	<div class="card-body edit-sample">
         	<form method="post" action="{{action('SampleController@update', ['id' => $sample->id])}}">
             	@csrf
             	@method("PUT")

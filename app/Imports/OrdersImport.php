@@ -2,10 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\User;
+use App\Models\Order;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
@@ -14,7 +16,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Personnummer\Personnummer;
 use Personnummer\PersonnummerException;
 
-class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
+class OrdersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
 {
     use SkipsFailures;
     
@@ -42,49 +44,46 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
     public function collection(Collection $rows)
     {
         $validator = Validator::make($rows->toArray(), [
-            '*.pnr' => [//'required',
-                        //'distinct',
-                        //'unique:users,pnr',
-                        function ($attribute, $value, $fail) /*use ($rows)*/{
-                            
+            '*.pnr' => [function ($attribute, $value, $fail){
                             $attribute = preg_replace('/[^0-9]/', '', $attribute);
-                            /*
-                            (function () use ($rows, $attribute, $value){
-                                $after_reject = $rows->reject(function($item){
-                                    return empty($item['pnr']);
-                                });
-                                    dd(collect($after_reject)->duplicates('pnr'));
-                                $filter = $after_reject->filter(function($item) use ($attribute, $value){
-                                    $this->errors_msg[] =  ($item['pnr'] === $value)? "Error on row: <strong>".($attribute+2).
-                                    "</strong>. The pnr ".$value." has a duplicate value.":"";
-                                    
-                                    return $item['pnr'] === $value;
-                                });
-                                
-                            })();
-                            */
                             if(strlen(trim($value)) === 0){
+                                /*$fail("Error on row: <strong>".($attribute+2).
+                                                  "</strong>. The pnr is required.");*/
                                 $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
-                                                  "</strong>. The pnr is required.";
+                                                        "</strong>. The pnr is required.";
+                                
+                            }
+                            elseif(strlen(trim($value)) !== 12){
+                                /*$fail("Error on row: <strong>".($attribute+2).
+                                    "</strong>. Please provide the pnr with the 12 digits in the format ÅÅÅÅMMDDNNNN without hyphen.");
+                                $this->errors_msg[] = "Error on row: <strong>".($attribute+2).*/
+                                    "</strong>. Please provide the pnr with the 12 digits in the format ÅÅÅÅMMDDNNNN without hyphen.";
                             }
                             else{
                                 try{
                                     $pnr = (new Personnummer($value))->format(true);
-                                    if($this->userRepo->getUserbyPNR($pnr)->exists){
-                                        $fail('User with PNR '.$pnr. ' already exists!');
+                                    if(!$this->userRepo->getUserbyPNR($pnr)->exists){
+                                        /*$fail("Error on row: <strong>".($attribute+2).
+                                            "</strong>. User with PNR <strong>".$pnr.
+                                            "</strong> does not exist.");*/
                                         $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
-                                        "</strong>. User with PNR <strong>".$pnr.
-                                        "</strong> already exists!";
-                                        
-                                    }
+                                            "</strong>. User with PNR <strong>".$pnr.
+                                            "</strong> does not exist.";
+                                   }
                                 }
                                 catch (PersonnummerException $e){
-                                    $fail('PNR Invalid '.$value);
+                                    /*$fail("Error on row: <strong>".($attribute+2).
+                                    "</strong>. PNR Invalid <strong>".$value."</strong>.");*/
                                     $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
                                     "</strong>. PNR Invalid <strong>".$value."</strong>.";
                                 }
                                 catch (ModelNotFoundException $e){
-                                    
+                                    /*$fail("Error on row: <strong>".($attribute+2).
+                                        "</strong>. User with PNR <strong>".$pnr.
+                                        "</strong> does not exist. Before creating order, the user should already exist.");*/
+                                    $this->errors_msg[] = "Error on row: <strong>".($attribute+2).
+                                        "</strong>. User with PNR <strong>".$pnr.
+                                        "</strong> does not exist. Before creating order, the user should already exist.";
                                 }
                             }
                             
@@ -92,9 +91,8 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
                         },
             
             ]
-        ]); 
-        
-        //dump($rows);
+        ])/*->validate()*/; 
+
         //Distinct pnrs check
         
         $non_empty_pnrs = $rows->reject(function($item){
@@ -120,27 +118,12 @@ class UsersImport implements ToCollection, WithHeadingRow, SkipsOnFailure
         
         
         
-        /* if ($validator->fails()){
-            foreach ($validator->errors()->get('*.pnr') as $message) {
-                dump($message);
-            }
-        } */
-        
-        
-        
         if (!$validator->fails() && empty($this->errors_msg)) {
             foreach ($rows as $row) {
                 ++$this->rows;
-                 User::create([
-                    'first_name' => $row['first_name'],
-                    'last_name' => $row['last_name'],
-                    'pnr' => (new Personnummer($row['pnr']))->format(true),
-                    'phonenumber' => $row['phonenumber'],
-                    'roles' => $row['roles'],
-                    'street' => $row['street'],
-                    'zipcode' => $row['zipcode'],
-                    'city' => $row['city'],
-                    'country' => $row['country'],
+                 Order::create([
+                    'user_id' => $this->userRepo->getUserbyPNR((new Personnummer($row['pnr']))->format(true))->id,
+                    'order_created_by' => is_null(Session::get('userattributes'))?null:Str::title(Session::get('userattributes')['givenName'])." ".Str::title(Session::get('userattributes')['surname'])
                  ]);
              }
         }

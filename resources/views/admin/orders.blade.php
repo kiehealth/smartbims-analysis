@@ -4,17 +4,18 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Orders</h1>
         
-        {{--
+        
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
           	<a href='{{action('OrderController@create')}}'>
           		<button type="button" class="btn btn-sm btn-outline-secondary">Create Order</button>
           	</a>
-            
-            <button type="button" class="btn btn-sm btn-outline-secondary">Import Order</button>
+            <a href='{{action('OrderController@import')}}'>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Orders</button>
+            </a>
           </div>
 		</div>
-		--}}
+		
 @endsection
 
 
@@ -57,6 +58,7 @@
                 <th>City</th>
                 <th>Country</th>
                 <th>Status</th>
+                <th>Order Created By</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
                 <th class="noexport">Actions</th>
@@ -89,6 +91,7 @@
                 {{$order->status}}
                 @endif
                 </td>
+                <td>{{$order->order_created_by}}</td>
                 <td>{{Carbon\Carbon::parse($order->created_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($order->updated_at)->timezone('Europe/Stockholm')->toDateTimeString()}}</td>
                 <td>
