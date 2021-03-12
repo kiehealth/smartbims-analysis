@@ -152,6 +152,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+        //var orders = {!!$orders!!};
         $('#orders_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,

@@ -17,8 +17,9 @@
             <span data-feather="calendar"></span>
             This week
           </button>
-        </div>
         --}}
+        </div>
+        
 </div>
 @endsection
 

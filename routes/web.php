@@ -29,6 +29,10 @@ Route::get('unsubscribe', function () {
     return view('unsubscribe');
 });
 
+Route::get('admin/reports', function () {
+    return view('admin.reports');
+});
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
