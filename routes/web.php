@@ -70,6 +70,7 @@ Route::put('user/updateprofile/{id}', 'UserController@updateprofile');
 Route::get('myorders', 'OrderController@myorders');
 Route::get('myresults', 'SampleController@myresults');
 Route::post('unsubscribe/{type?}', [UserController::class, 'unsubscribe'])->where(['type' => 'pnr']);
+Route::post('admin/search', 'SearchController@search');
 
 Route::get('admin/login', function () {
     return view('admin.login');
