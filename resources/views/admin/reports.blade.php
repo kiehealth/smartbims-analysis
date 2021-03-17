@@ -108,7 +108,9 @@
                 url         : "{{action('SearchController@search')}}", // the url where we want to POST
                 data        : formData, // our data object
                 success:function(response){
-                    if(typeof response == 'object'){
+                    console.log(response);
+                    if(typeof response == 'object' && !(response.data === 'undefined' || response.data.length == 0)){
+						console.log("if");
     					var columns = [];
     					var columnNames = Object.keys(response.data[0]);
     					let i = 0;
@@ -154,6 +156,7 @@
     					
                     }
                     else{
+                        console.log("else");
                     	if ( $.fn.dataTable.isDataTable( '#results_table' ) ) {
     					    $('#results_table').DataTable().destroy();
     					    $('#results_table').empty();
