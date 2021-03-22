@@ -89,6 +89,18 @@
     			$('input[name=to_date]').hide();
         	}
     	});
+
+
+    	$('#filter_criteria').on('change', function() {
+    		if(this.value=="without_orders"){
+    			$('input[name=from_date]').hide();
+    			$('input[name=to_date]').hide();
+        	}
+    		if(this.value=="orders"){
+    			$('input[name=from_date]').show();
+    			$('input[name=to_date]').show();
+        	}
+    	});
         
     	$('#searchForm').submit(function(event){
     		event.preventDefault();
@@ -102,15 +114,16 @@
                     'from_date'         : $('input[name=from_date]').val(),
                     'to_date'    		: $('input[name=to_date]').val()
             };
+
+             
         	
         	$.ajax({
                 type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
                 url         : "{{action('SearchController@search')}}", // the url where we want to POST
                 data        : formData, // our data object
                 success:function(response){
-                    console.log(response);
                     if(typeof response == 'object' && !(response.data === 'undefined' || response.data.length == 0)){
-						console.log("if");
+						var exportTitle = response.query_title;
     					var columns = [];
     					var columnNames = Object.keys(response.data[0]);
     					let i = 0;
@@ -131,23 +144,27 @@
     			                'colvis', 
     			                {
     			                	extend: 'copy',
-    			                	title: 'Query Results Export',
+    			                	title: exportTitle,
     			                },
     			                {
     			                	extend: 'csv',
-    			                	title: 'Query Results Export',
+    			                	title: exportTitle,
     			                },
     		                 	{
     		                 		extend: 'excel',
-    		                 		title: 'Query Results Export',
+    		                 		title: exportTitle,
+    		                 		customize: function ( xlsx ) {
+    		                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+    		                            $('row:first c', sheet).attr( 's', '2' ); // first row is bold
+    		                        }
     		                  	},
     		                  	{
     		                  		extend: 'pdf',
-    		                  		title: 'Query Results Export',
+    		                  		title: exportTitle,
     		                   	},
     		                   	{
     		                   		extend: 'print',
-    		                   		title: 'Query Results Export',
+    		                   		title: exportTitle,
     		                    }
     			            ],
     			            
@@ -156,8 +173,7 @@
     					
                     }
                     else{
-                        console.log("else");
-                    	if ( $.fn.dataTable.isDataTable( '#results_table' ) ) {
+                        if ( $.fn.dataTable.isDataTable( '#results_table' ) ) {
     					    $('#results_table').DataTable().destroy();
     					    $('#results_table').empty();
     					}
