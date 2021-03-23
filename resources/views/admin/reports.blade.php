@@ -25,6 +25,7 @@
 		<select class="custom-select my-1 mr-sm-2" name="filter_criteria" id="filter_criteria">
 			<option value="" selected>Select...</option>
 			<option value="orders">Orders</option>
+			<option value="unprocessed_orders">Unprocessed Orders</option>
 			<option value="without_orders">Without Orders</option>
 			<option value="kits">Kits</option>
 			<option value="kits_dispatched">Kits Dispatched</option>
@@ -91,7 +92,18 @@
     	});
 
 
+    	var showDatesCondition = ["orders", "unprocessed_orders", "kits", "kits_dispatched", "samples_received", "samples", "results_reported"];
+
     	$('#filter_criteria').on('change', function() {
+    		if ($.inArray(this.value, showDatesCondition) !== -1) {
+    			$('input[name=from_date]').show();
+    			$('input[name=to_date]').show();
+    		}
+    		else{
+    			$('input[name=from_date]').hide();
+    			$('input[name=to_date]').hide();
+            }
+        	/*
     		if(this.value=="without_orders"){
     			$('input[name=from_date]').hide();
     			$('input[name=to_date]').hide();
@@ -100,6 +112,14 @@
     			$('input[name=from_date]').show();
     			$('input[name=to_date]').show();
         	}
+    		if(this.value=="unprocessed_orders"){
+    			$('input[name=from_date]').show();
+    			$('input[name=to_date]').show();
+        	}
+    		if(this.value=="unprocessed_orders"){
+    			$('input[name=from_date]').show();
+    			$('input[name=to_date]').show();
+        	}*/
     	});
         
     	$('#searchForm').submit(function(event){
@@ -140,6 +160,7 @@
     						data: response.data,
     						columns: columns,
     						dom: 'Blfrtip',
+    						"scrollX": true,
     			            buttons: [
     			                'colvis', 
     			                {
