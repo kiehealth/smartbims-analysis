@@ -75,13 +75,18 @@
     	$('#filter_criteria').hide();
     	$('input[name=from_date]').hide();
 		$('input[name=to_date]').hide();
-    	
+
+    	var showDatesCondition = ["orders", "unprocessed_orders", "kits", "kits_dispatched", "samples_received", "samples", "results_reported"];
+		
     	$('#model').on('change', function() {
     		if(this.value=="User"){
     			$('input[name=pnr]').show();
     			$('#filter_criteria').show();
-    			$('input[name=from_date]').show();
-    			$('input[name=to_date]').show();
+    			if($.inArray($('select[name=filter_criteria]').val(), showDatesCondition) !== -1){
+    				$('input[name=from_date]').show();
+        			$('input[name=to_date]').show();
+        		}
+    			
         	}
     		else{
     			$('input[name=pnr]').hide();
@@ -92,7 +97,6 @@
     	});
 
 
-    	var showDatesCondition = ["orders", "unprocessed_orders", "kits", "kits_dispatched", "samples_received", "samples", "results_reported"];
 
     	$('#filter_criteria').on('change', function() {
     		if ($.inArray(this.value, showDatesCondition) !== -1) {
