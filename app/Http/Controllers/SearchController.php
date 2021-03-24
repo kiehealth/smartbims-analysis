@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class SearchController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function search(Request $request){
-        DB::connection()->enableQueryLog();
+        //DB::connection()->enableQueryLog();
         $query_results = array();
         $results = array();
         
@@ -282,15 +281,15 @@ class SearchController extends Controller
                                     $query->orWhereNotNull('sample_received_date')
                                           ->orWhereHas('sample');
                                 });
-                                    $query->when(($from_date && $to_date), function($query) use( $from_date, $to_date){
-                                        $query->whereBetween(DB::raw('date(kits.sample_received_date)'), [$from_date, $to_date]);
-                                    })
-                                    ->when(($from_date && !$to_date), function($query) use( $from_date){
-                                        $query->whereDate('kits.sample_received_date', '>=', $from_date);
-                                    })
-                                    ->when((!$from_date && $to_date), function($query) use($to_date){
-                                        $query->whereDate('kits.sample_received_date', '<=', $to_date);
-                                    });
+                                $query->when(($from_date && $to_date), function($query) use( $from_date, $to_date){
+                                    $query->whereBetween(DB::raw('date(kits.sample_received_date)'), [$from_date, $to_date]);
+                                })
+                                ->when(($from_date && !$to_date), function($query) use( $from_date){
+                                    $query->whereDate('kits.sample_received_date', '>=', $from_date);
+                                })
+                                ->when((!$from_date && $to_date), function($query) use($to_date){
+                                    $query->whereDate('kits.sample_received_date', '<=', $to_date);
+                                });
                             }))
                             ->get(['id','first_name','last_name','pnr']);
             
