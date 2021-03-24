@@ -62,7 +62,7 @@
 
 
 @section('content')
-<table id="results_table" class="table table-striped table-bordered">
+<table id="results_table" class="table table-striped table-bordered" width="100%">
 </table>
 @endsection
 

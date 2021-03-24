@@ -45,7 +45,7 @@
 @if(session('kit_not_deleted'))
 	<div class="alert alert-warning">{{ session('kit_not_deleted') }}</div>
 @endif
-    <table id="orders_table" class="table table-striped table-bordered">
+    <table id="orders_table" class="table table-striped table-bordered" width="100%">
         <thead>
             <tr>
                 <th class="noexport">S.N</th>

@@ -27,7 +27,7 @@
 @if(session('sample_registered'))
 	<div class="alert alert-success">{!! session('sample_registered') !!}</div>
 @endif
-    <table id="kits_table" class="table table-striped table-bordered">
+    <table id="kits_table" class="table table-striped table-bordered" width="100%">
         <thead>
             <tr>
                 <th class="noexport">S.N</th>
