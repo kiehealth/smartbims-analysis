@@ -152,7 +152,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        //var orders = {!!$order!!};
+        //var orders = {{--{!!$order!!};--}}
         $('#orders_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
