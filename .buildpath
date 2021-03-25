@@ -126,12 +126,17 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/laravel/framework/src/Illuminate/Events">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/laravel/framework/src/Illuminate/Foundation">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry excluding="Foundation/|Support/" kind="src" path="vendor/laravel/framework/src/Illuminate">
+	<buildpathentry excluding="Events/|Foundation/|Support/" kind="src" path="vendor/laravel/framework/src/Illuminate">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
@@ -186,17 +191,7 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/markbaker/matrix/classes/src/functions">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry excluding="functions/|operations/" kind="src" path="vendor/markbaker/matrix/classes/src">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/markbaker/matrix/classes/src/operations">
+	<buildpathentry kind="src" path="vendor/markbaker/matrix/classes/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
@@ -376,16 +371,6 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry excluding="HighlightUtilities/" kind="src" path="vendor/scrivo/highlight.php">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/scrivo/highlight.php/HighlightUtilities">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/sebastian/code-unit-reverse-lookup/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
@@ -541,16 +526,6 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry excluding="Resources/stubs/" kind="src" path="vendor/symfony/polyfill-php70">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/polyfill-php70/Resources/stubs">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-php72">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
@@ -601,12 +576,17 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/translation">
+	<buildpathentry kind="src" path="vendor/symfony/translation-contracts">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/translation-contracts">
+	<buildpathentry excluding="Resources/" kind="src" path="vendor/symfony/translation">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/symfony/translation/Resources">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
