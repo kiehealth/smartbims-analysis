@@ -19,6 +19,7 @@ public_html/hot
 storage/*.key
 storage/framework/laravel-excel/
 .env
+.env.riscc
 .env.backup
 Homestead.yaml
 Homestead.json
