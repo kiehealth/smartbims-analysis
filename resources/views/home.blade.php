@@ -11,7 +11,7 @@
        @include('header')
     </div>
     
-    @yield('research_description')
+    @include('research')
     
     <div class="container">
     
@@ -24,8 +24,4 @@
     
 </body>
 
-<script src="{{ asset('js/main.js') }}"></script>
-
-<script type="text/javascript">
-</script>
 </html>

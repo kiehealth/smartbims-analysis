@@ -1,8 +1,3 @@
-@extends('home') 
-
-@section('research_description')
-
-
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto research">
 	<h1 class="display-4 text-center">Forskningsprojekt om SMS-påminnelser och Självprovtagning kan öka deltagandet i Gynekologisk Cellprovtagning - Förebyggande Undersökning mot Livmoderhalscancer</h1>
 	<p class="lead">Vi vill fråga dig om du vill delta i ett forskningsprojekt. 
@@ -69,10 +64,3 @@
 	<a class="btn btn-danger consent-btn" href="unsubscribe">JAG SAMTYCKER INTE OCH SKA BLI INTE KONTAKTAD</a>
 	</p>
 </div>
-
-@endsection 
-
-@section('content')
-
-
-@endsection
