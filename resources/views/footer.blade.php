@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-12 col-md">
 	<img src="{{ asset('img/HPV_logo.png') }}" alt="" width="72" height="72">
-	<small class="d-block mb-3 text-muted">&copy;&nbsp;2020</small>
+	<small class="d-block mb-3 text-muted">&copy;&nbsp;2021</small>
 	</div>
 	<div class="col-6 col-md">
 		<h5>Features</h5>

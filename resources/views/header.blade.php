@@ -82,7 +82,7 @@
 @else
 <a class="btn btn-outline-primary ml-md-auto" href="{{ route('login') }}" title="Log in">Login</a>
 <nav class="my-2 my-md-0 mr-md-3 links">
-	<a class="p-2 {{ (request()->is('*profile')) ? 'active' : '' }}" href="{{url('/profile')}}" title="Register">Register</a>
+	<a class="p-2 {{ (request()->is('*profile')) ? 'active' : '' }}" href="{{url('/register')}}" title="Register">Register</a>
 </nav>
 
 @endauth
