@@ -19,7 +19,8 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        //return view('auth.register');
+        return view('auth.register_riscc');
     }
 
     /**
@@ -30,6 +31,8 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    
+    /*
     public function store(Request $request)
     {
         $request->validate([
@@ -46,6 +49,34 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        return redirect(RouteServiceProvider::HOME);
+    }
+    */
+    
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'ssn' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+        
+        Auth::login($user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'ssn' => $request->ssn,
+            'phonenumber' => $request->phonenumber,
+            'street' => $request->street,
+            'zipcode' => $request->zipcode,
+            'city' => $request->city,
+            'country' => $request->country,
+            'consent' => $request->consent,
+            'password' => Hash::make($request->password),
+        ]));
+        
+        event(new Registered($user));
+        
         return redirect(RouteServiceProvider::HOME);
     }
 }

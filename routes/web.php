@@ -23,6 +23,11 @@ Route::get('/', function () {
 });
 
 
+Route::get('order', function () {
+    
+    echo "order";
+})->middleware(['auth', 'verified']);
+
     
 Route::get('/dashboard', function () {
     return view('dashboard');
