@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -233,16 +234,12 @@ class OrderController extends Controller
     public function orderKit(Request $request){
         $order = new Order([
             'user_id' => $request->user_id,
-            'order_created_by' => is_null(Session::get('userattributes'))?null:Str::title(Session::get('userattributes')['givenName'])." ".Str::title(Session::get('userattributes')['surname'])
+            'order_created_by' => Auth::user()->name
         ]);
         $order->save();
         User::find($order->user->id)->update(['consent' => 1]);
         
-        $order_success_msg = "Din beställning har tagits emot och den kommer att skickas 
-                            till din folkbokföringsadress om några dagar. 
-                            Om du vill att den ska skickas till en annan adress eller se 
-                            status kan du göra det genom att logga in på <a href=".url('/myprofile').">mina sidor</a>
-                            eller kontakta oss på hpvcenter@ki.se.";
+        $order_success_msg = __('lang.order-success-msg');
         return back()->with('order_created', $order_success_msg);
     }
     

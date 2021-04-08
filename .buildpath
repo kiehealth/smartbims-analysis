@@ -11,7 +11,7 @@
 			<attribute name="composer" value="source"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="database/seeds">
+	<buildpathentry kind="src" path="database/seeders">
 		<attributes>
 			<attribute name="composer" value="source"/>
 		</attributes>

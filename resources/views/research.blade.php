@@ -58,9 +58,9 @@
     	om mig behandlas samt att mina prover sparas i en biobank på det sätt som beskrivs.
 	</p>
 	<p class="lead text-center">
-	<a class="btn btn-primary consent-btn" href="order">JAG HAR LÄST, SAMTYCKT OCH VILL BESTÄLLA</a>
+	<a class="btn btn-primary consent-btn" href="order">{{__('lang.I have read, agreed and want to order.')}}</a>
 	</p>
 	<p class="lead text-center">
-	<a class="btn btn-danger consent-btn" href="unsubscribe">JAG SAMTYCKER INTE OCH SKA BLI INTE KONTAKTAD</a>
+	<a class="btn btn-danger consent-btn" href="unsubscribe">{{__('lang.I do not consent and do not wish to be contacted.')}}</a>
 	</p>
 </div>
