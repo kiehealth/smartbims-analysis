@@ -1,7 +1,10 @@
 
-<a href="{{ url('/') }}" class="mr-md-auto">
+<a href="{{ url('/') }}">
 	<img src="{{ asset('img/KI_logo.png') }}" alt="Karolinska HPV Self Sampling"
 	title="Karolinska HPV Self Sampling" width="62" height="62">
+</a>
+<a href="{{ url('/') }}" class="mr-md-auto">
+	<x-application-logo class="w-20 h-20 fill-current text-gray-500" />
 </a>
 <h5 class="my-0 mr-md-auto font-weight-normal site-title">International Human
 	Papillomavirus Reference Center</h5>
@@ -28,15 +31,23 @@
 			</div>
 		</button>
 		</x-slot> 
-		<x-slot name="content"> <!-- Authentication -->
-		<form method="POST" action="{{ route('logout') }}">
-			@csrf
-
-			<x-dropdown-link :href="route('logout')"
-				onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-			{{ __('lang.Log out') }} </x-dropdown-link>
-		</form>
+		<x-slot name="content"> 
+    		<x-dropdown-link :href="url('myprofile')">
+    			{{ __('lang.profile') }} 
+    		</x-dropdown-link>
+    		<x-dropdown-link :href="url('myprofile')">
+    			{{ __('lang.change-password') }} 
+    		</x-dropdown-link>
+    		<!-- Authentication -->
+    		<form method="POST" action="{{ route('logout') }}">
+    			@csrf
+    
+    			<x-dropdown-link :href="route('logout')"
+    				onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+    			{{ __('lang.Log out') }} 
+    			</x-dropdown-link>
+    		</form>
 		</x-slot> 
 		</x-dropdown>
 		

@@ -31,11 +31,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('unsubscribe', function () {
             return view('unsubscribe');
         });
+        
+        Route::get('myprofile', 'UserController@myprofile');
+        
+        Route::get('changepassword', 'UserController@changepassword');
     });
     
     Route::post('orderKit', 'OrderController@orderKit');
-    Route::post('unsubscribe/{type?}', 'UserController@unsubscribe')->where(['type' => 'pnr']);
-    
+    Route::post('unsubscribe', 'UserController@unsubscribe');
+    Route::put('user/updateprofile/{id}', 'UserController@updateprofile');
     
     Route::prefix('email')->group(function () {
         
@@ -117,8 +121,8 @@ Route::get('admin/reports', function () {
         Route::get('logout', 'BankIDController@bankidlogout');
         
         Route::get('profile', 'UserController@profile');
-        Route::get('myprofile', 'UserController@myprofile');
-        Route::put('user/updateprofile/{id}', 'UserController@updateprofile');
+        
+        
         Route::get('myorders', 'OrderController@myorders');
         Route::get('myresults', 'SampleController@myresults');
         

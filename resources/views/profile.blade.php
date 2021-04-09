@@ -1,11 +1,9 @@
-@extends('home')
-
-@section('content')
+<x-riscc-layout>
 
 <div class="card-deck mb-3 text-center profile-card">
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
-			<h4 class="my-0 font-weight-normal">Mina Uppgifter</h4>
+			<h4 class="my-0 font-weight-normal">{{__('lang.my-details')}}</h4>
 		</div>
 		@if(session('user_profile_updated'))
 			<div class="alert alert-success">{{ session('user_profile_updated') }}</div>
@@ -13,7 +11,7 @@
 		{{--<div id="address">--}}
 			<div class="card-body" id="address">
 				<h3 class="card-title pricing-card-title">
-					Adress {{--<small class="text-muted">/ mo</small>--}}
+					{{__('lang.address')}} {{--<small class="text-muted">/ mo</small>--}}
 				</h3>
 				<ul class="list-unstyled mt-3 mb-4">
 					<li>{{$user->phonenumber}}</li>
@@ -25,7 +23,7 @@
 			</div>
 			<div class="card-footer" id="address_footer">
 				<button type="button" id="edit_address"
-					class="btn btn-lg btn-block btn-primary">Kontrollera/Redigera</button>
+					class="btn btn-lg btn-block btn-primary">{{__('lang.check-edit')}}</button>
 			</div>
 		{{--</div>--}}
 
@@ -34,32 +32,32 @@
 			@csrf
 			@method("PUT")
 			<div class="card-body">
-				<h4 class="card-title pricing-card-title">Redigera Adress</h4>
+				<h4 class="card-title pricing-card-title">{{__('lang.edit-address')}}</h4>
 					<div class="form-group">
-						<label for="phonenumber">Phonennummer</label> <input type="text"
+						<label for="phonenumber">{{__('lang.phonenumber')}}</label> <input type="text"
 							class="form-control" name="phonenumber"
 							value="{{old('phonenumber', $user->phonenumber)}}" />
 					</div>
 					<div class="form-group">
-						<label for="street">Gata/Gatunummer/Lgh</label> <input type="text"
+						<label for="street">{{__('lang.street-number-apartment')}}</label> <input type="text"
 							class="form-control" name="street"
 							value="{{old('street', $user->street)}}" />
 					</div>
 					<div class="form-group">
-						<label for="zipcode">Postnummer</label> <input type="text"
+						<label for="zipcode">{{__('lang.post-code')}}</label> <input type="text"
 							class="form-control" name="zipcode"
 							value="{{old('zipcode', $user->zipcode)}}" />
 					</div>
 					<div class="form-group">
-						<label for="city">Ort</label> <input type="text"
+						<label for="city">{{__('lang.town-city')}}</label> <input type="text"
 							class="form-control" name="city"
 							value="{{old('city', $user->city)}}" />
 					</div>
 					<div class="form-group">
-						<label for="country">Land</label> 
+						<label for="country">{{__('lang.country')}}</label> 
 						<select class="form-control" name="country" id="country">
-              				<option value="">---Välja---</option>
-                  		@foreach(config('countries') as $key=>$value)
+              				<option value="">---{{__('lang.select')}}---</option>
+                  		@foreach(config('countries'.LaravelLocalization::getCurrentLocale()) as $key=>$value)
 							<option value="{{$value['name']}}" {{$value['name'] === old('country', $user->country)?'selected':''}}>{{$value['name']}}</option>
   				  		@endforeach
 				  		</select>
@@ -69,9 +67,9 @@
 					</div>
 			</div>
 			<div class="card-footer">
-				<button type="submit" class="btn btn-primary">Uppdatera</button>
+				<button type="submit" class="btn btn-primary">{{__('lang.update')}}</button>
 				<a class="btn btn-secondary" id="edit_address_cancel" href="#"
-					role="button">Cancel</a>
+					role="button">{{__('lang.cancel')}}</a>
 			</div>
 			</form>
 		</div>
@@ -149,13 +147,13 @@
 	</div>
 </div>
 
-@endsection
 
 
 
 
 
-@section('scripts')
+
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -179,4 +177,4 @@ $(document).ready(function(){
 });
 
 </script>
-@endsection
+</x-riscc-layout>

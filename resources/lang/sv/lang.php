@@ -22,4 +22,21 @@ return [
     'regret-withdraw-consent' => 'Om du avslutar kommer vi inte kontakta dig längre. Däremot om du ångrar dig, behöver du bara
 		                          samtycker igen på hemsidan och beställa självprovtagningskit.',
     'end-participation' => 'Avsluta',
+    'unsubscribed-msg' => "Din deltagande i studien har avslutats och kommer vi inte kontakta dig längre. Däremot om du ångrar dig, behöver du bara
+		                   samtycker igen på <a style=\"color: cornflowerblue;\" href=".url('/').">hemsidan</a> och beställa självprovtagningskit.",
+    'profile' => 'Mina Sidor',
+    'change-password' => 'Ändra lösenord',
+    'my-details' => 'Mina Uppgifter',
+    'address' => 'Adress',
+    'check-edit' => 'Kontrollera/Redigera',
+    'edit-address' => 'Redigera Adress',
+    'phonenumber' => 'Phonenummer',
+    'street-number-apartment' => 'Gata/Gatunummer/Lgh',
+    'post-code' => 'Postnummer',
+    'town-city' => 'Ort',
+    'country' => 'Land',
+    'select' => 'Välja',
+    'update' => 'Uppdatera',
+    'cancel' => 'Cancel',
+    'address-updated' => 'Adress Uppdaterad',
 ];

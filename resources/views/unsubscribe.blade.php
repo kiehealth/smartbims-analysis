@@ -10,9 +10,9 @@
 	@if(!session()->has('unsubscribed'))
 	<p class="lead">{{__('lang.click-button-to-withdraw-consent')}}</p>
 	<p class="lead">{{__('lang.regret-withdraw-consent')}}</p>
-	<form class="text-center" action="{{action('UserController@unsubscribe', ['user_id' => session('user_id')])}}" method="post">
+	<form class="text-center" action="{{action('UserController@unsubscribe', ['user_id' => Auth::user()->id])}}" method="post">
         @csrf
-        <input type="hidden" name="user_id" value = "{{ session('user_id') }}" >
+        <input type="hidden" name="user_id" value = "{{ Auth::user()->id }}" >
         <button type="submit" class="btn btn-primary btn-lg">{{__('lang.end-participation')}}</button>
     </form>
     @endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -326,11 +327,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function myprofile(){
-        if (UserController::userNotLoggedin()){
-                //return redirect()->to('/');
-                return view('user_login');
-        }
-        $user = User::find(session('user_id'));
+        $user = User::find(Auth::user()->id);
         $latest_order = $user->orders()->latest()->first();
         $latest_result = $user->samples->whereNotNull('final_reporting_result')->sortByDesc('id')->first();
         
@@ -372,7 +369,9 @@ class UserController extends Controller
         
         $user->save();
         
-        return redirect('myprofile')->with("user_profile_updated", "Adress Uppdaterad!");
+        $address_updated_msg = __('lang.address-updated');
+        
+        return redirect('myprofile')->with("user_profile_updated", $address_updated_msg);
     }
     
     
@@ -382,36 +381,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function unsubscribe(Request $request, $type=null) {
-        $unsubscribed_msg = "Din deltagande i studien har avslutats och kommer vi inte kontakta dig längre. Däremot om du ångrar dig, behöver du bara
-		samtycker igen på <a href=".url('/').">hemsidan</a> och besätlla självprovtagningskit.";
-        
-        if($type ==='pnr'){
-            $request->validate([
-                'pnr'=>'required|size:12'
-            ],
-            [
-                'pnr.size' => "Vänligen änge 12 siffrigt personnummer utan bindestreck."
-            ]);
-            
-            try {
-                Personnummer::valid($request->pnr);
-                try {
-                    $user = $this->userRepo->getUserbyPNR((new Personnummer($request->pnr))->format(true));
-                    if ($user->exists) {
-                        $user->update(['consent' => 0]);
-                        return back()->with('unsubscribed', $unsubscribed_msg);
-                    }
-                } catch (ModelNotFoundException $e) {
-                    return back()->withError("Något gick fel!");
-                }
-            } catch (PersonnummerException $e) {
-                return back()->withError('Ogiltigt Personnummer ' . $request->input('pnr'))->withInput();
-            }
-            
-        }
+    public function unsubscribe(Request $request) {
+        $unsubscribed_msg = __('lang.unsubscribed-msg');
         
         User::find($request->user_id)->update(['consent' => 0]);
         return back()->with('unsubscribed', $unsubscribed_msg);
+    }
+    
+    
+    /**
+     * Display the password change view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function changepassword()
+    {
+        return view('auth.change-password');
     }
 }

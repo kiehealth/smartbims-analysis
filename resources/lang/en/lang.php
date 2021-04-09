@@ -22,4 +22,21 @@ return [
     'regret-withdraw-consent' => 'If you revoke consent or end participation, we will not contact you again. However, if you regret it, you just need to
                                 agree again on the website and order the self-sampling kit.',
     'end-participation' => 'End Participation',
+    'unsubscribed-msg' => "Your participation in the study has ended and we will not contact you anymore. However, if you change your mind, you just need to
+                            agree again on the <a style=\"color: cornflowerblue;\" href=".url('/')."> website homepage</a> and order self-sampling kit.",
+    'profile' => 'My Profile',
+    'change-password' => 'Change Password',
+    'my-details' => 'My Details',
+    'address' => 'Address',
+    'check-edit' => 'Check/Edit',
+    'edit-address' => 'Edit Address',
+    'phonenumber' => 'Phone number',
+    'street-number-apartment' => 'Street No., Apartment',
+    'post-code' => 'Post Code',
+    'town-city' => 'Town/City',
+    'country' => 'Country',
+    'select' => 'Select',
+    'update' => 'Update',
+    'cancel' => 'Cancel',
+    'address-updated' => 'Address Updated',
 ];
