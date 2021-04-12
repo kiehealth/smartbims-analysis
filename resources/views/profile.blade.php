@@ -81,68 +81,68 @@
 
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
-			<h4 class="my-0 font-weight-normal">Mina Beställningar</h4>
+			<h4 class="my-0 font-weight-normal">{{__('lang.my-orders')}}</h4>
 		</div>
 		<div class="card-body">
 		@if(is_null($latest_order))
 			<h3 class="card-title pricing-card-title">
-				Inga Beställningar
+				{{__('lang.no-orders')}}
 			</h3>
 		@else
 			<h3 class="card-title pricing-card-title">
-				Senaste
+				{{__('lang.latest')}}
 			</h3>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.order-date')}}</li>
 				<li class="list-inline-item">{{Carbon\Carbon::parse($latest_order->created_at)->timezone('Europe/Stockholm')->toDateString()/*$latest_order->created_at->toDateString()*/}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Status</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.status')}}</li>
 				<li class="list-inline-item">{{$latest_order->status}}</li>
 			</ul>
 		@endif
 		</div>
 		<div class="card-footer">
-			<a class="btn btn-lg btn-block btn-primary" href="{{url('myorders')}}" role="button">Se alla</a>
+			<a class="btn btn-lg btn-block btn-primary" href="{{url('myorders')}}" role="button">{{__('lang.view-all')}}</a>
     	</div>
 	</div>
 	<div class="card mb-4 shadow-sm">
 		<div class="card-header">
-			<h4 class="my-0 font-weight-normal">Provsvar</h4>
+			<h4 class="my-0 font-weight-normal">{{__('lang.test-results')}}</h4>
 		</div>
 		<div class="card-body">
 		@if(is_null($latest_result))
 			<h3 class="card-title pricing-card-title">
-				Inte färdigt än
+				{{__('lang.not-ready-yet')}}
 			</h3>
 		@else
 			<h3 class="card-title pricing-card-title">
 				Senaste
 			</h3>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Result</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.result')}}</li>
 				<li class="list-inline-item">{{$latest_result->final_reporting_result}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Rapporterad Datum</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.reporting-date')}}</li>
 				<li class="list-inline-item">{{$latest_result->reporting_date}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.order-date')}}</li>
 				<li class="list-inline-item">{{Carbon\Carbon::parse($latest_result->kit->order->created_at)->timezone('Europe/Stockholm')->toDateString()}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Prov Registrerad Datum</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.sample-registered-date')}}</li>
 				<li class="list-inline-item">{{$latest_result->sample_registered_date}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Meddelande</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.result-message')}}</li>
 				<li class="list-inline-item">{!! config("constants.messages.RESULT_MESSAGE.$latest_result->final_reporting_result") !!}</li>
 			</ul>
 		@endif	
 		</div>
 		<div class="card-footer">
-			<a class="btn btn-lg btn-block btn-primary" href="{{url('myresults')}}" role="button">Se alla</a>
+			<a class="btn btn-lg btn-block btn-primary" href="{{url('myresults')}}" role="button">{{__('lang.view-all')}}</a>
   		</div>
 	</div>
 </div>

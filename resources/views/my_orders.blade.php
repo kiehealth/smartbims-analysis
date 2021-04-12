@@ -1,15 +1,14 @@
-@extends('home')
+<x-riscc-layout>
 
-@section('content')
-<p class="text-left back"><a href="{{url('/profile')}}">&lt;&lt; Tillbaka</a></p>
+<p class="text-left back"><a href="{{url('/myprofile')}}">&lt;&lt; {{__('lang.back')}}</a></p>
 <div class="accordion" id="ordersAccordion">
-<p class="lead"><h4 class="my-0 font-weight-normal text-center">Mina Beställningar</h4></p>
+<p class="lead"><h4 class="my-0 font-weight-normal text-center">{{__('lang.my-orders')}}</h4></p>
 @foreach ($myorders as $order)
   <div class="card">
     <div class="card-header">
       <h2 class="mb-0">
         <button class="btn btn-link btn-block text-justify" type="button" data-toggle="collapse" data-target="{{"#collapse".$loop->iteration}}" aria-expanded="false" aria-controls="{{"collapse".$loop->iteration}}">
-          {{"#".$loop->iteration." Beställning Datum ".$order->created_at->toDateString()}}
+          {{"#".$loop->iteration." ".__('lang.order-date')." ".$order->created_at->toDateString()}}
         </button>
       </h2>
     </div>
@@ -17,11 +16,11 @@
     <div id="{{"collapse".$loop->iteration}}" class="collapse" data-parent="#ordersAccordion">
       <div class="card-body">
       		<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Beställning Datum</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.order-date')}}</li>
 				<li class="list-inline-item">{{$order->created_at->toDateString()}}</li>
 			</ul>
 			<ul class="list-unstyled mt-3 mb-4 list-inline text-justify">
-				<li class="list-inline-item font-weight-bold">Status</li>
+				<li class="list-inline-item font-weight-bold">{{__('lang.status')}}</li>
 				<li class="list-inline-item">{{$order->status}}</li>
 			</ul>
       </div>
@@ -30,7 +29,6 @@
 @endforeach
 </div>
 
-@endsection
 
 
 
@@ -46,3 +44,4 @@
     });*/
 </script>
 @endsection
+</x-riscc-layout>

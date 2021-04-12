@@ -35,7 +35,7 @@
     		<x-dropdown-link :href="url('myprofile')">
     			{{ __('lang.profile') }} 
     		</x-dropdown-link>
-    		<x-dropdown-link :href="url('myprofile')">
+    		<x-dropdown-link :href="url('change-password')">
     			{{ __('lang.change-password') }} 
     		</x-dropdown-link>
     		<!-- Authentication -->

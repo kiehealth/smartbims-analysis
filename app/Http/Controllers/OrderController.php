@@ -221,7 +221,7 @@ class OrderController extends Controller
     }
     
     public function myorders(){
-        return OrderController::getAllOrdersforUser(session('user_id'));
+        return OrderController::getAllOrdersforUser(Auth::user()->id);
     }
     
     

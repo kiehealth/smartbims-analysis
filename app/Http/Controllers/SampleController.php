@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kit;
 use App\Models\Sample;
@@ -253,7 +254,7 @@ class SampleController extends Controller
     
     
     public function myresults(){
-        return SampleController::getAllResultsforUser(session('user_id'));
+        return SampleController::getAllResultsforUser(Auth::user()->id);
     }
     
     

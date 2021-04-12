@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Personnummer\Personnummer;
 use Personnummer\PersonnummerException;
 use App\Models\User;
@@ -330,6 +331,8 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $latest_order = $user->orders()->latest()->first();
         $latest_result = $user->samples->whereNotNull('final_reporting_result')->sortByDesc('id')->first();
+        
+        //$localized_country_name = collect(config('countries'.LaravelLocalization::getCurrentLocale()))->where('name', $user->country)->first()['id'];
         
         return view('profile', compact('user', 'latest_order', 'latest_result'));
     }

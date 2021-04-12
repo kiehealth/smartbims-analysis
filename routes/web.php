@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 
 /*
@@ -34,7 +35,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         
         Route::get('myprofile', 'UserController@myprofile');
         
-        Route::get('changepassword', 'UserController@changepassword');
+        Route::get('change-password', 'UserController@changepassword');
+        Route::post('/change-password', [NewPasswordController::class, 'change'])
+                        ->name('password.change');
+        
+        Route::get('myorders', 'OrderController@myorders');
+        Route::get('myresults', 'SampleController@myresults');
     });
     
     Route::post('orderKit', 'OrderController@orderKit');
@@ -120,11 +126,10 @@ Route::get('admin/reports', function () {
         Route::post('checkpnr', 'PersonnummerController@valid');
         Route::get('logout', 'BankIDController@bankidlogout');
         
-        Route::get('profile', 'UserController@profile');
         
         
-        Route::get('myorders', 'OrderController@myorders');
-        Route::get('myresults', 'SampleController@myresults');
+        
+        
         
         Route::post('admin/search', 'SearchController@search');
         
