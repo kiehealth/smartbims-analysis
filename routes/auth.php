@@ -22,6 +22,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     ->middleware('guest')
                     ->name('login');
     
+    Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])
+                    ->middleware('guest')
+                    ->name('admin.login');
+                    
+    
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                     ->middleware('guest');
     

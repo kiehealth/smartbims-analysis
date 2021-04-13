@@ -8,28 +8,44 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+		
+		@if (session('error'))
+			<div class="font-medium text-red-600">
+            	{{ __('lang.Whoops! Something went wrong.') }}
+        	</div>
 
+		<!-- Current Password do not match the password given -->
+        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+            <li>{{ session('error') }}</li>
+        </ul>
+        @endif
+        
+        @if(session()->has('password_updated'))
+        <div class="alert alert-success text-justify">
+          {!! session('password_updated') !!}  
+        </div>
+        @else
         <form method="POST" action="{{ route('password.change') }}">
             @csrf
 
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('lang.Email')" />
+            <!-- Old Password -->
+            <div class="mt-4">
+                <x-label for="current_password" :value="__('lang.Current Password')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', Auth::user()->email)" required autofocus />
+                <x-input id="current_password" class="block mt-1 w-full" type="password" name="current_password" required autofocus/>
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('lang.Password')" />
+                <x-label for="password" :value="__('lang.New Password')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('lang.Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('lang.Confirm New Password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                     type="password"
@@ -42,5 +58,6 @@
                 </x-button>
             </div>
         </form>
+        @endif
     </x-auth-card>
 </x-riscc-layout>

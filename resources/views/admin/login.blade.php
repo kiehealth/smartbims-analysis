@@ -10,7 +10,7 @@
 
 	<link href="{{ asset('css/signin.css') }}" rel="stylesheet">
     <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
 
@@ -36,6 +36,7 @@
   <div class="form-signin">
   <img class="mb-4" src="{{ asset('img/KI_logo.png') }}" alt="" width="72" height="72">
   <img class="mb-4" src="{{ asset('img/HPV_logo.png') }}" alt="" width="72" height="72">
+  <x-application-logo class="mb-3" width="72" height="72"/>
   
   {{-- <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label for="inputEmail" class="sr-only">Email address</label>
@@ -56,8 +57,8 @@
   <div class="alert alert-danger">{{ session('msg') }}</div>
   @endif
   
-  <a href='{{action('BankIDController@bankidlogin', ['type' => 'admin'])}}' class="btn btn-lg btn-primary btn-block" role="button">Logga in via Bank ID</a>
-  <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+  <a class="btn btn-lg btn-primary btn-block" href="{{ route('admin.login', ['type' => 'admin']) }}" title="Log in" role="button">{{ __('lang.Login') }}</a>
+  <p class="mt-5 mb-3 text-muted">&copy; 2021, Admin Panel</p>
 </div>
 </body>
 </html>

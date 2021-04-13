@@ -41,7 +41,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         
         Route::get('myorders', 'OrderController@myorders');
         Route::get('myresults', 'SampleController@myresults');
+        
+        
+        Route::group(['prefix' => 'admin', 'middleware' => ['admin' ]], function(){
+            Route::get('dashboard', 'DashboardController@dashboard');
+        });
     });
+    
+    Route::get('admin', 'DashboardController@home');
     
     Route::post('orderKit', 'OrderController@orderKit');
     Route::post('unsubscribe', 'UserController@unsubscribe');
@@ -137,8 +144,8 @@ Route::get('admin/reports', function () {
             return view('admin.login');
         });
             
-            Route::get('admin', 'DashboardController@home');
-            Route::get('admin/dashboard', 'DashboardController@dashboard');
+            
+            
             Route::get('admin/createUser', 'UserController@create');
             Route::post('admin/createUser', 'UserController@store');
             Route::get('admin/importUser', 'UserController@import');

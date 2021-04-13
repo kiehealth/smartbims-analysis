@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -73,30 +74,20 @@ class NewPasswordController extends Controller
     public function change(Request $request, $token=null)
     {
         $request->validate([
-            'email' => 'required|email',
+            'current_password' => 'required',
             'password' => 'required|string|confirmed|min:8',
         ]);
         
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($request->password),
-                ])->save();
-                
-                event(new PasswordReset($user));
-            }
-            );
+        $wrong_current_password = __('lang.wrong-current-password');
+        if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+            return redirect()->back()->with("error", $wrong_current_password);
+        }
         
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withInput($request->only('email'))
-        ->withErrors(['email' => __($status)]);
+        Auth::user()->password = Hash::make($request->password);
+        Auth::user()->save();
+        
+        $password_update_success_msg = __('lang.password_update_success_msg');
+        
+        return back()->with('password_updated', $password_update_success_msg);
     }
 }

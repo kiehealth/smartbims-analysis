@@ -1,4 +1,4 @@
-@if(session()->has('userattributes') && session()->has('role') && session()->get('role')===config('constants.roles.ADMIN_ROLE'))
+{{--@if(session()->has('userattributes') && session()->has('role') && session()->get('role')===config('constants.roles.ADMIN_ROLE'))--}}
 <!doctype html>
 <html lang="en">
     <head>
@@ -179,11 +179,12 @@
 
 </body>
 </html>
-@else
+{{--@else
 
     @php
         header("Location: " . URL::to('admin/login'), true, 302);
         exit();
     @endphp
 @endif
+--}}
 

@@ -20,7 +20,7 @@
   
   <div class="dropdown">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{session('userattributes')['name']}}
+    {{Auth::user()->name}}
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

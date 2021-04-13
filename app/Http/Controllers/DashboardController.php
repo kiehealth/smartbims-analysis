@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use App\Models\Sample;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Kit;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -15,7 +15,7 @@ class DashboardController extends Controller{
     
     
     public function home() {
-        if ((Session::get('grandidsession')===null)){
+        if (!Auth::user() || stristr(Auth::user()->roles, config('constants.roles.ADMIN_ROLE')) === FALSE){
             return view('admin.login');
         }
         //return  view('admin.dashboard');
