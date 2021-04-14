@@ -21,7 +21,7 @@ class SearchController extends Controller
         $query_results = array();
         $results = array();
         
-        $pnr = $request->input('pnr');
+        $ssn = $request->input('ssn');
         $filter_criteria = $request->input('filter_criteria');
         $from_date = $request->input('from_date');
         $to_date = $request->input('to_date');
@@ -30,8 +30,8 @@ class SearchController extends Controller
         /** Query to retrieve all orders with provided condition**/
         if($filter_criteria == 'orders'){
             $query_results = User::has('orders')
-                            ->when($pnr, function($query) use( $pnr){
-                                $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                            ->when($ssn, function($query) use( $ssn){
+                                $query->where('users.ssn', 'like', '%'.$ssn.'%');
                             })
                             ->with(array('orders' => function($query) use($from_date, $to_date){
                                 $query->select('id', 'user_id', 'status', 'order_created_by', 'created_at');
@@ -45,7 +45,7 @@ class SearchController extends Controller
                                     $query->whereDate('orders.created_at', '<=', $to_date);
                                 });
                             }))
-                            ->get(['id','first_name','last_name','pnr']);
+                            ->get(['id','name','email','ssn']);
             
             
             //$queries = DB::getQueryLog();
@@ -58,9 +58,9 @@ class SearchController extends Controller
                 if(array_key_exists("orders", $value)){
                     foreach ($value['orders'] as $k => $v){
                         $results[$index]['order_id'] = $v['id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['status'] = $v['status'];
                         $results[$index]['order_created_by'] = $v['order_created_by'];
                         $results[$index]['created_at'] = Carbon::parse($v['created_at'])->format('Y-m-d');
@@ -70,21 +70,21 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Orders ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Orders ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             //return $results;
             return response()->json(array('data'=> $results,  
-                'query_title' => $query_title ,'columns' =>['Order ID', 'First Name', 'Last Name', 'PNR', 'Status', 'Order Created By', 'Created At']));
+                'query_title' => $query_title ,'columns' =>['Order ID', 'Name', 'Email', 'SSN', 'Status', 'Order Created By', 'Created At']));
         }
         
         
         /** Query to retrieve all unprocessed orders with provided condition**/
         if($filter_criteria == "unprocessed_orders"){
             $query_results = User::has('orders')
-                            ->when($pnr, function($query) use( $pnr){
-                                $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                            ->when($ssn, function($query) use( $ssn){
+                                $query->where('users.ssn', 'like', '%'.$ssn.'%');
                             })
                             ->with(array('orders' => function($query) use($from_date, $to_date){
                                 
@@ -102,7 +102,7 @@ class SearchController extends Controller
                                 
                                 
                             }))
-                            ->get(['id','first_name','last_name','pnr']);
+                            ->get(['id','name','email','ssn']);
                             
             //$queries = DB::getQueryLog();
             //dump($queries);
@@ -114,9 +114,9 @@ class SearchController extends Controller
                 if(array_key_exists("orders", $value)){
                     foreach ($value['orders'] as $k => $v){
                         $results[$index]['order_id'] = $v['id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['status'] = $v['status'];
                         $results[$index]['order_created_by'] = $v['order_created_by'];
                         $results[$index]['created_at'] = Carbon::parse($v['created_at'])->format('Y-m-d');
@@ -127,13 +127,13 @@ class SearchController extends Controller
                 }
             }
             
-            $query_title = "Unprocessed Orders ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Unprocessed Orders ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             //return $results;
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Order ID', 'First Name', 'Last Name', 'PNR', 'Status', 'Order Created By', 'Created At']));
+                'query_title' => $query_title ,'columns' =>['Order ID', 'Name', 'Email', 'SSN', 'Status', 'Order Created By', 'Created At']));
             
         }
         
@@ -141,15 +141,15 @@ class SearchController extends Controller
         /** Query to retrieve all users without orders with provided condition**/
         if($filter_criteria == 'without_orders'){
             $results = User::doesntHave('orders')
-                                ->when($pnr, function($query) use( $pnr){
-                                    $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                                ->when($ssn, function($query) use( $ssn){
+                                    $query->where('users.ssn', 'like', '%'.$ssn.'%');
                                 })
-                                ->get(['id','first_name','last_name','pnr', 'phonenumber']);
+                                ->get(['id','name','email','ssn', 'phonenumber']);
                                 
             $query_title = "Users without any orders";
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['User ID', 'First Name', 'Last Name', 'PNR', 'Phonenumber']));
+                'query_title' => $query_title ,'columns' =>['User ID', 'Name', 'Email', 'SSN', 'Phonenumber']));
             
             
         }
@@ -157,8 +157,8 @@ class SearchController extends Controller
         /** Query to retrieve all kits with provided condition**/
         if($filter_criteria == 'kits'){
             $query_results = User::has('kits')
-                            ->when($pnr, function($query) use( $pnr){
-                                $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                            ->when($ssn, function($query) use( $ssn){
+                                $query->where('users.ssn', 'like', '%'.$ssn.'%');
                             })
                             ->with(array('kits' => function($query) use($from_date, $to_date){
                                 $query->select('id', 'order_id', 'user_id', 'sample_id', 'barcode', 'kit_dispatched_date', 'sample_received_date', 'created_at');
@@ -172,7 +172,7 @@ class SearchController extends Controller
                                     $query->whereDate('kits.created_at', '<=', $to_date);
                                 });
                             }))
-                            ->get(['id','first_name','last_name','pnr']);
+                            ->get(['id','name','email','ssn']);
             
             
             
@@ -184,9 +184,9 @@ class SearchController extends Controller
                 if(array_key_exists("kits", $value)){
                     foreach ($value['kits'] as $k => $v){
                         $results[$index]['kit_id'] = $v['id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['sample_id'] = $v['sample_id'];
                         $results[$index]['barcode'] = $v['barcode'];
                         $results[$index]['kit_dispatched_date'] = $v['kit_dispatched_date'];
@@ -198,21 +198,21 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Kits ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Kits ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Kit ID', 'First Name', 'Last Name', 'PNR', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
+                'query_title' => $query_title ,'columns' =>['Kit ID', 'Name', 'Email', 'SSN', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
         }
         
         
         /** Query to retrieve all dispatched kits with provided condition**/
         if($filter_criteria == 'kits_dispatched'){
             $query_results = User::has('kits')
-                            ->when($pnr, function($query) use( $pnr){
-                                $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                            ->when($ssn, function($query) use( $ssn){
+                                $query->where('users.ssn', 'like', '%'.$ssn.'%');
                             })
                             ->with(array('kits' => function($query) use($from_date, $to_date){
                                 $query->select('id', 'order_id', 'user_id', 'sample_id', 'barcode', 'kit_dispatched_date', 'sample_received_date', 'created_at')
@@ -231,7 +231,7 @@ class SearchController extends Controller
                                     $query->whereDate('kits.kit_dispatched_date', '<=', $to_date);
                                 });
                             }))
-                            ->get(['id','first_name','last_name','pnr']);
+                            ->get(['id','name','email','ssn']);
             
             
             //$queries = DB::getQueryLog();
@@ -244,9 +244,9 @@ class SearchController extends Controller
                 if(array_key_exists("kits", $value)){
                     foreach ($value['kits'] as $k => $v){
                         $results[$index]['kit_id'] = $v['id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['sample_id'] = $v['sample_id'];
                         $results[$index]['barcode'] = $v['barcode'];
                         $results[$index]['kit_dispatched_date'] = $v['kit_dispatched_date'];
@@ -258,13 +258,13 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Kits Dispatched ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Kits Dispatched ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Kit ID', 'First Name', 'Last Name', 'PNR', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
+                'query_title' => $query_title ,'columns' =>['Kit ID', 'Name', 'Email', 'ssn', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
         }
         
         
@@ -272,8 +272,8 @@ class SearchController extends Controller
         /** Query to retrieve all received kits/samples with provided condition**/
         if($filter_criteria == 'samples_received'){
             $query_results = User::has('kits')
-                            ->when($pnr, function($query) use( $pnr){
-                                $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                            ->when($ssn, function($query) use( $ssn){
+                                $query->where('users.ssn', 'like', '%'.$ssn.'%');
                             })
                             ->with(array('kits' => function($query) use($from_date, $to_date){
                                 $query->select('id', 'order_id', 'user_id', 'sample_id', 'barcode', 'kit_dispatched_date', 'sample_received_date', 'created_at')
@@ -291,7 +291,7 @@ class SearchController extends Controller
                                     $query->whereDate('kits.sample_received_date', '<=', $to_date);
                                 });
                             }))
-                            ->get(['id','first_name','last_name','pnr']);
+                            ->get(['id','name','email','ssn']);
             
             
             //$queries = DB::getQueryLog();
@@ -304,9 +304,9 @@ class SearchController extends Controller
                 if(array_key_exists("kits", $value)){
                     foreach ($value['kits'] as $k => $v){
                         $results[$index]['kit_id'] = $v['id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['sample_id'] = $v['sample_id'];
                         $results[$index]['barcode'] = $v['barcode'];
                         $results[$index]['kit_dispatched_date'] = $v['kit_dispatched_date'];
@@ -318,13 +318,13 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Kits/Samples Received ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Kits/Samples Received ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Kit ID', 'First Name', 'Last Name', 'PNR', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
+                'query_title' => $query_title ,'columns' =>['Kit ID', 'Name', 'Email', 'SSN', 'Sample ID', 'Barcode', 'Kit Dispatched Date', 'Sample Received Date', 'Created At']));
         }
         
         
@@ -332,8 +332,8 @@ class SearchController extends Controller
         /** Query to retrieve all samples with provided condition**/
         if($filter_criteria == 'samples'){
             $query_results = User::has('samples')
-                                ->when($pnr, function($query) use( $pnr){
-                                    $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                                ->when($ssn, function($query) use( $ssn){
+                                    $query->where('users.ssn', 'like', '%'.$ssn.'%');
                                 })
                                 ->with(array('samples' => function($query) use($from_date, $to_date){
                                     $query->select('samples.id', 'kit_id', 'samples.sample_id', 'lab_id', 'sample_registered_date', 'cobas_result', 'cobas_analysis_date', 
@@ -349,7 +349,7 @@ class SearchController extends Controller
                                         $query->whereDate('samples.sample_registered_date', '<=', $to_date);
                                     });
                                 }))
-                                ->get(['id','first_name','last_name','pnr']);
+                                ->get(['id','name','email','ssn']);
             
             
             //$queries = DB::getQueryLog();
@@ -363,9 +363,9 @@ class SearchController extends Controller
                     foreach ($value['samples'] as $k => $v){
                         $results[$index]['sample_key'] = $v['id'];
                         $results[$index]['sample_id'] = $v['sample_id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['lab_id'] = $v['lab_id'];
                         $results[$index]['sample_registered_date'] = $v['sample_registered_date'];
                         $results[$index]['cobas_result'] = $v['cobas_result'];
@@ -383,13 +383,13 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Samples Registered ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Samples Registered ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Sample Key', 'Sample ID', 'First Name', 'Last Name', 'PNR', 'Lab ID', 'Sample Registered Date', 
+                'query_title' => $query_title ,'columns' =>['Sample Key', 'Sample ID', 'Name', 'Email', 'SSN', 'Lab ID', 'Sample Registered Date', 
                     'Cobas Result', 'Cobas Analysis Date', 'Luminex Result', 'Luminex Analysis Date', 'RT PCR Result', 'RT PCR Analysis Date', 'Final Reporting Result', 
                     'Reporting Date', 'Reported Via']));
         }
@@ -399,8 +399,8 @@ class SearchController extends Controller
         /** Query to retrieve all results reported for samples with provided condition**/
         if($filter_criteria == 'results_reported'){
             $query_results = User::has('samples')
-                                ->when($pnr, function($query) use( $pnr){
-                                    $query->where('users.pnr', 'like', '%'.$pnr.'%');
+                                ->when($ssn, function($query) use( $ssn){
+                                    $query->where('users.ssn', 'like', '%'.$ssn.'%');
                                 })
                                 ->with(array('samples' => function($query) use($from_date, $to_date){
                                     $query->select('samples.id', 'kit_id', 'samples.sample_id', 'lab_id', 'sample_registered_date', 'cobas_result', 'cobas_analysis_date',
@@ -417,7 +417,7 @@ class SearchController extends Controller
                                         $query->whereDate('samples.reporting_date', '<=', $to_date);
                                     });
                                 }))
-                                ->get(['id','first_name','last_name','pnr']);
+                                ->get(['id','name','email','ssn']);
             
             
             //$queries = DB::getQueryLog();
@@ -431,9 +431,9 @@ class SearchController extends Controller
                     foreach ($value['samples'] as $k => $v){
                         $results[$index]['sample_key'] = $v['id'];
                         $results[$index]['sample_id'] = $v['sample_id'];
-                        $results[$index]['first_name'] = $value['first_name'];
-                        $results[$index]['last_name'] = $value['last_name'];
-                        $results[$index]['pnr'] = $value['pnr'];
+                        $results[$index]['name'] = $value['name'];
+                        $results[$index]['email'] = $value['email'];
+                        $results[$index]['ssn'] = $value['ssn'];
                         $results[$index]['lab_id'] = $v['lab_id'];
                         $results[$index]['sample_registered_date'] = $v['sample_registered_date'];
                         $results[$index]['cobas_result'] = $v['cobas_result'];
@@ -451,13 +451,13 @@ class SearchController extends Controller
                     
                 }
             }
-            $query_title = "Total Results Reported ".($request->filled('pnr')?"for $request->pnr ":"").
+            $query_title = "Total Results Reported ".($request->filled('ssn')?"for $request->ssn ":"").
                             (($request->filled('from_date') && $request->filled('to_date'))?"between $request->from_date and $request->to_date":"").
                             (($request->filled('from_date') && !$request->filled('to_date'))?"from $request->from_date till ".Carbon::now()->format('Y-m-d'):"").
                             ((!$request->filled('from_date') && $request->filled('to_date'))?"until $request->to_date":"");
             
             return response()->json(array('data'=> $results,
-                'query_title' => $query_title ,'columns' =>['Sample Key', 'Sample ID', 'First Name', 'Last Name', 'PNR', 'Lab ID', 'Sample Registered Date',
+                'query_title' => $query_title ,'columns' =>['Sample Key', 'Sample ID', 'Name', 'Email', 'SSN', 'Lab ID', 'Sample Registered Date',
                     'Cobas Result', 'Cobas Analysis Date', 'Luminex Result', 'Luminex Analysis Date', 'RT PCR Result', 'RT PCR Analysis Date', 'Final Reporting Result',
                     'Reporting Date', 'Reported Via']));
         }

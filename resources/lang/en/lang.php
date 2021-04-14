@@ -1,6 +1,14 @@
 <?php 
 
 return [
+    'admin' => 'Admin',
+    'menu' => 'Menu',
+    'dashboard' => 'Dashboard',
+    'orders' => 'Orders',
+    'kits' => 'Kits',
+    'sample-results' => 'Sample Results',
+    'users' => 'Users',
+    'reports' => 'Reports',
     'Language' => 'Language',
     'Login' => 'Login',
     'Log out' => 'Log out',
@@ -18,6 +26,9 @@ return [
     'Email Password Reset Link' => 'Email Password Reset Link',
     'Reset Password' => 'Reset Password',
     'back' => 'Back',
+    'to-front' => 'To Front Website',
+    'edit-user' => 'Edit User',
+    'delete-user' => 'Delete User',
     'Whoops! Something went wrong.' => 'Whoops! Something went wrong.',
     'wrong-current-password' => 'Your current password does not match with the password you provided. Please provide the correct current password.',
     'password_update_success_msg' => 'Password updated successfully!',

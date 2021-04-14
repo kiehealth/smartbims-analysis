@@ -51,7 +51,8 @@
                 <th class="noexport">S.N</th>
                 <th>Order ID</th>
                 <th>Name</th>
-                <th>Personnummer</th>
+                <th>Email</th>
+                <th>SSN</th>
                 <th>Phone</th>
                 <th>Street</th>
                 <th>Zipcode</th>
@@ -69,8 +70,9 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$order->id}}</td>
-                <td>{{$order->user->first_name." ".$order->user->last_name}}</td>
-                <td>{{$order->user->pnr}}</td>
+                <td>{{$order->user->name}}</td>
+                <td>{{$order->user->email}}</td>
+                <td>{{$order->user->ssn}}</td>
                 <td>{{$order->user->phonenumber}}</td>
                 <td>{{$order->user->street}}</td>
                 <td>{{$order->user->zipcode}}</td>

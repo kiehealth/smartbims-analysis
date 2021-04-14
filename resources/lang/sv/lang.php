@@ -1,6 +1,14 @@
 <?php 
 
 return [
+    'admin' => 'Admin',
+    'menu' => 'Meny',
+    'dashboard' => 'Dashboard',
+    'orders' => 'Beställningar',
+    'kits' => 'Kits',
+    'sample-results' => 'Prov Svar',
+    'users' => 'Users',
+    'reports' => 'Rapporter',
     'Language' => 'Språk',
     'Login' => 'Logga in',
     'Log out' => 'Logga ut',
@@ -18,6 +26,9 @@ return [
     'Email Password Reset Link' => 'E-post Lösenord Återställ Länk',
     'Reset Password' => 'Återställ Lösenord',
     'back' => 'Tillbaka',
+    'to-front' => 'Till Hemsidan',
+    'edit-user' => 'Redigera User',
+    'delete-user' => 'Ta bort User',
     'Whoops! Something went wrong.' => 'Oj då! Något gick fel.',
     'wrong-current-password' => 'Ditt nuvarande lösenord matchar inte lösenordet du angav. Ange rätt nuvarande lösenord.',
     'password_update_success_msg' => 'Lösenordet har uppdaterats!',

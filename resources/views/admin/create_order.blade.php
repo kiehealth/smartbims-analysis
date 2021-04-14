@@ -24,9 +24,9 @@
         	<form method="post" action="{{action('OrderController@store', ['type' => 'admin'])}}">
             	@csrf
                 <div class="form-group form-group.required">
-                  <label for="pnr" class="required">PNR</label>
-                  <input type="text" class="form-control" name="pnr" value="{{old('pnr')}}" required/>
-                  <small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>
+                  <label for="pnr" class="required">SSN</label>
+                  <input type="text" class="form-control" name="ssn" value="{{old('ssn')}}" required/>
+                  {{--<small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>--}}
                 </div>
                 <button type="submit" class="btn btn-primary">Create Order</button>
             	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">Cancel</a>

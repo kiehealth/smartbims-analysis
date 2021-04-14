@@ -55,6 +55,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        
+        if($request->has('type') && $request->type === "admin"){// admin login
+            return redirect('admin');
+        }
 
         return redirect('/'.LaravelLocalization::getCurrentLocale());
     }

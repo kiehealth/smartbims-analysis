@@ -18,5 +18,19 @@ class UserRepository
         return User::where('pnr', $pnr)->firstOrFail();
         
     }
+    
+    
+    /**
+     * Get the user with specified SSN.
+     *
+     * @param  string $ssn
+     * @return  \App\Models\User
+     */
+    
+    public function getUserbySSN(String $ssn){
+        
+        return User::where('ssn', $ssn)->firstOrFail();
+        
+    }
 }
 

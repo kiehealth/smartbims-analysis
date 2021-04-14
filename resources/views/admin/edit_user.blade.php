@@ -25,19 +25,19 @@
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
-                  <label for="first_name">First Name</label>
-                  <input type="text" class="form-control" name="first_name" value="{{old('first_name', $user->first_name)}}"/>
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" name="name" value="{{old('name', $user->name)}}"/>
                 </div>
                 
                 <div class="form-group">
-                  <label for="last_name">Last Name</label>
-                  <input type="text" class="form-control" name="last_name" value="{{old('last_name', $user->last_name)}}"/>
+                  <label for="email" class="required">Email</label>
+                  <input type="text" class="form-control" name="email" value="{{old('email', $user->email)}}" required/>
                 </div>
                 
                 <div class="form-group form-group.required">
-                  <label for="pnr" class="required">PNR</label>
-                  <input type="text" class="form-control" name="pnr" value="{{old('pnr', $user->pnr)}}" required/>
-                  <small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>
+                  <label for="pnr" class="required">SSN</label>
+                  <input type="text" class="form-control" name="ssn" value="{{old('ssn', $user->ssn)}}" required/>
+                  {{--<small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>--}}
                 </div>
                 <div class="form-group">
                   <label for="phonenumber">Phonenumber</label>
@@ -71,8 +71,8 @@
                 <div class="form-group">
                   <label for="country">Country</label>
                   <select class="form-control" name="country" id="country">
-              		<option value="">---Select---</option>
-                  @foreach(config('countries') as $key=>$value)
+              		<option value="">---{{__('lang.select')}}---</option>
+                  @foreach(config('countries'.LaravelLocalization::getCurrentLocale()) as $key=>$value)
 					<option value="{{$value['name']}}" {{$value['name'] === old('country', $user->country)?'selected':''}}>{{$value['name']}}</option>
   				  @endforeach
 				  </select>

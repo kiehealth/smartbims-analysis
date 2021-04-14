@@ -45,6 +45,35 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         
         Route::group(['prefix' => 'admin', 'middleware' => ['admin' ]], function(){
             Route::get('dashboard', 'DashboardController@dashboard');
+            
+            Route::get('users', 'UserController@index');
+            Route::get('users/{id}/edit', 'UserController@edit');
+            Route::delete('users/{id}', 'UserController@destroy');
+            
+            Route::get('orders', 'OrderController@index');
+            Route::post('orders', 'OrderController@store');
+            Route::delete('orders/{id}', 'OrderController@destroy');
+            Route::get('createOrder', 'OrderController@create');
+            
+            Route::get('orders/{id}/registerKit', 'KitController@create');
+            Route::post('orders/{id}/registerKit', 'KitController@store');
+            
+            Route::get('kits/{id}/edit/{type?}', 'KitController@edit')->where(['type' => 'kits']);
+            Route::put('kits/{id}/{type?}', 'KitController@update')->where(['type' => 'kits']);
+            Route::delete('kits/{id}', 'KitController@destroy');
+            Route::get('kits', 'KitController@index');
+            
+            Route::get('kits/{id}/registerSample', 'SampleController@registerSample');
+            Route::post('kits/{id}/register', 'SampleController@register');
+            Route::get('samples', 'SampleController@index');
+            Route::get('samples/{id}/edit', 'SampleController@edit');
+            Route::put('samples/{id}', 'SampleController@update');
+            Route::delete('samples/{id}', 'SampleController@destroy');
+            
+            
+            Route::get('reports', function () {
+                return view('admin.reports');
+            });
         });
     });
     
@@ -101,31 +130,14 @@ Route::get('/forgot-password', function () {
 
 
 
-Route::get('admin/reports', function () {
-    return view('admin.reports');
-});
+
     
     Route::get('/welcome', function () {
         return view('welcome');
     });
         
         
-        /*
-         Route::post('users', 'UserController@store');
-         //Route::get('users', 'UserController@index');
-         Route::get('users/{id}', 'UserController@show');
-         Route::get('users/{id}/orders', 'OrderController@getAllOrdersforUser');
-         Route::get('users/pnr/{pnr}', 'UserController@getUserbyPNR');
-         //Route::put('users/{id}', 'UserController@update');
-         Route::delete('users/{id}', 'UserController@destroy');
-         Route::get('orders', 'OrderController@index');
-         Route::get('orders/{id}', 'OrderController@show');
-         Route::get('orders/{order}/users', 'UserController@getUserforOrder');
-         Route::put('orders/{id}', 'OrderController@update');
-         Route::delete('orders/{id}', 'OrderController@destroy');
-         */
         
-        Route::post('orders', 'OrderController@store');
         
         
         Route::get('login', 'BankIDController@bankidlogin');
@@ -150,29 +162,18 @@ Route::get('admin/reports', function () {
             Route::post('admin/createUser', 'UserController@store');
             Route::get('admin/importUser', 'UserController@import');
             Route::post('admin/importUser', 'UserController@importUserSave');
-            Route::get('admin/users', 'UserController@index');
-            Route::get('admin/users/{id}/edit', 'UserController@edit');
+            
+            
             Route::put('admin/users/{id}', 'UserController@update');
-            Route::delete('admin/users/{id}', 'UserController@destroy');
-            Route::get('admin/orders', 'OrderController@index');
-            Route::get('admin/createOrder', 'OrderController@create');
-            Route::delete('admin/orders/{id}', 'OrderController@destroy');
+            
+            
+            
             Route::get('admin/importOrder', 'OrderController@import');
             Route::post('admin/importOrder', 'OrderController@importOrderSave');
-            Route::get('admin/orders/{id}/registerKit', 'KitController@create');
-            Route::post('admin/orders/{id}/registerKit', 'KitController@store');
-            Route::get('admin/kits/{id}/edit/{type?}', 'KitController@edit')->where(['type' => 'kits']);
-            Route::put('admin/kits/{id}/{type?}', 'KitController@update')->where(['type' => 'kits']);
-            Route::delete('admin/kits/{id}', 'KitController@destroy');
-            Route::get('admin/kits', 'KitController@index');
+            
+            
             Route::get('admin/importKit', 'KitController@import');
             Route::post('admin/importKit', 'KitController@importKitSave');
-            Route::get('admin/kits/{id}/registerSample', 'SampleController@registerSample');
-            Route::post('admin/kits/{id}/register', 'SampleController@register');
-            Route::get('admin/samples', 'SampleController@index');
-            Route::get('admin/samples/{id}/edit', 'SampleController@edit');
-            Route::put('admin/samples/{id}', 'SampleController@update');
-            Route::delete('admin/samples/{id}', 'SampleController@destroy');
             Route::get('admin/importSample', 'SampleController@import');
             Route::post('admin/importSample', 'SampleController@importSampleSave');
 

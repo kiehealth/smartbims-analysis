@@ -148,11 +148,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         $user = User::find($id);
         return view('admin.edit_user', compact('user'));
         
@@ -171,47 +166,45 @@ class UserController extends Controller
         //
         
         $request->validate([
-            'pnr'=>'required|size:12|unique:users,pnr,'.$id,
+            'ssn'=>'required|unique:users,ssn,'.$id,
             'user_role'=>'required_without:admin_role',
             ],
             [
                 'user_role.required_without' => "One of the USER_ROLE or ADMIN_ROLE should be selected.",
             ]);
         
-        try{
-            $user = User::find($id);
-            $user->first_name = $request->get('first_name');
-            $user->last_name = $request->get('last_name');
-            $user->pnr = (new Personnummer($request->get('pnr')))->format(true);
-            $user->phonenumber = $request->get('phonenumber');
-            $user->street = $request->get('street');
-            $user->zipcode = $request->get('zipcode');
-            $user->city = $request->get('city');
-            $user->country = $request->get('country');
-            $user->consent = $request->get('consent');
-            
-            $roles = NULL;
-            $roles_sep = FALSE;
-            if($request->has("user_role")){
-                $roles = $request->get('user_role');
-                $roles_sep = TRUE;
-            }
-            
-            if($request->has("admin_role")){
-                $roles .= ($roles_sep===TRUE)?",".$request->get("admin_role"):"".$request->get("admin_role");
-            }
-            
-            if(!is_null($roles))
-                $user->roles = $roles;
+        
+        $user = User::find($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->ssn = $request->get('ssn');
+        $user->phonenumber = $request->get('phonenumber');
+        $user->street = $request->get('street');
+        $user->zipcode = $request->get('zipcode');
+        $user->city = $request->get('city');
+        $user->country = $request->get('country');
+        $user->consent = $request->get('consent');
+        
+        $roles = NULL;
+        $roles_sep = FALSE;
+        if($request->has("user_role")){
+            $roles = $request->get('user_role');
+            $roles_sep = TRUE;
+        }
+        
+        if($request->has("admin_role")){
+            $roles .= ($roles_sep===TRUE)?",".$request->get("admin_role"):"".$request->get("admin_role");
+        }
+        
+        if(!is_null($roles))
+            $user->roles = $roles;
 
-            $user->save();
+        $user->save();
+        
+        return redirect('admin/users')->with("user_updated", "The user is updated!");
             
-            return redirect('admin/users')->with("user_updated", "The user is updated!");
-            
-        }
-        catch (PersonnummerException $e) {
-            return back()->withError('PNR Invalid ' . $request->input('pnr'))->withInput();
-        }
+        
+        
         
     }
 

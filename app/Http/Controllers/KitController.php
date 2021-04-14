@@ -20,9 +20,6 @@ class KitController extends Controller
      */
     public function index()
     {
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
         return view('admin.kits', ['kits' => Kit::all()]);
         
     }
@@ -88,11 +85,6 @@ class KitController extends Controller
      */
     public function edit($id, $type = null)
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         $kit = Kit::find($id);
         
         if($type === "kits"){

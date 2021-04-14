@@ -32,7 +32,8 @@
                 <th>Kit ID</th>
                 <th>LabID</th>
                 <th>Name</th>
-                <th>Personnummer</th>
+                <th>Email</th>
+                <th>SSN</th>
                 <th>Sample Registered Date</th>
                 <th>Cobas Result</th>
                 <th>Cobas Analysis Date</th>
@@ -57,8 +58,9 @@
                 <td>{{$sample->kit->order->id}}</td>
                 <td>{{$sample->kit->id}}</td>
                 <td>{{$sample->lab_id}}</td>
-                <td>{{$sample->kit->user->first_name." ".$sample->kit->user->last_name}}</td>
-                <td>{{$sample->kit->user->pnr}}</td>
+                <td>{{$sample->kit->user->name}}</td>
+                <td>{{$sample->kit->user->email}}</td>
+                <td>{{$sample->kit->user->ssn}}</td>
                 <td>{{$sample->sample_registered_date}}</td>
                 <td>{{$sample->cobas_result}}</td>
                 <td>{{$sample->cobas_analysis_date}}</td>

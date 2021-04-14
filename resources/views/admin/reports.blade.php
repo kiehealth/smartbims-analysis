@@ -17,8 +17,8 @@
 		</div>
 
 		<div class="col">
-			<label for="pnr" class="sr-only">PNR</label>
-            <input type="text" class="form-control my-1 mr-sm-2" name="pnr" value="{{old('pnr')}}" placeholder="ÅÅÅÅMMDDNNNN"/>
+			<label for="ssn" class="sr-only">SSN</label>
+            <input type="text" class="form-control my-1 mr-sm-2" name="ssn" value="{{old('ssn')}}" placeholder="SSN"/>
    		</div>
 		
 		<div class="col">
@@ -71,7 +71,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-    	$('input[name=pnr]').hide();
+    	$('input[name=ssn]').hide();
     	$('#filter_criteria').hide();
     	$('input[name=from_date]').hide();
 		$('input[name=to_date]').hide();
@@ -80,7 +80,7 @@
 		
     	$('#model').on('change', function() {
     		if(this.value=="User"){
-    			$('input[name=pnr]').show();
+    			$('input[name=ssn]').show();
     			$('#filter_criteria').show();
     			if($.inArray($('select[name=filter_criteria]').val(), showDatesCondition) !== -1){
     				$('input[name=from_date]').show();
@@ -89,7 +89,7 @@
     			
         	}
     		else{
-    			$('input[name=pnr]').hide();
+    			$('input[name=ssn]').hide();
     			$('#filter_criteria').hide();
     			$('input[name=from_date]').hide();
     			$('input[name=to_date]').hide();
@@ -133,7 +133,7 @@
         	var formData = {
                 	'_token'			: $('input[name=_token]').val(),
                     'model'             : $('select[name=model]').val(),
-                    'pnr'				: $('input[name=pnr]').val(),
+                    'ssn'				: $('input[name=ssn]').val(),
                     'filter_criteria'   : $('select[name=filter_criteria]').val(),
                     'from_date'         : $('input[name=from_date]').val(),
                     'to_date'    		: $('input[name=to_date]').val()

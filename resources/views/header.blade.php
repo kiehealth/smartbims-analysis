@@ -31,7 +31,12 @@
 			</div>
 		</button>
 		</x-slot> 
-		<x-slot name="content"> 
+		<x-slot name="content">
+			@if(stristr(Auth::user()->roles, config('constants.roles.ADMIN_ROLE')) !== FALSE)
+			<x-dropdown-link :href="url('admin')">
+    			{{ __('lang.admin') }} 
+    		</x-dropdown-link>
+    		@endif
     		<x-dropdown-link :href="url('myprofile')">
     			{{ __('lang.profile') }} 
     		</x-dropdown-link>

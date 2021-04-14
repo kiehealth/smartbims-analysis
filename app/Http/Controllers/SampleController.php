@@ -25,15 +25,8 @@ class SampleController extends Controller
      */
     public function registerSample($id)
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         $kit = Kit::find($id);
         return view('admin.register_sample', compact('kit'));
-        
-        
     }
     
     
@@ -83,13 +76,7 @@ class SampleController extends Controller
      */
     public function index()
     {
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         return view('admin.samples', ['samples' => Sample::all()]);
-        echo 1;
-        
     }
     
     
@@ -101,15 +88,8 @@ class SampleController extends Controller
      */
     public function edit($id)
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         $sample = Sample::find($id);
         return view('admin.edit_sample', compact('sample'));
-        
-        
     }
     
     
