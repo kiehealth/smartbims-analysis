@@ -231,11 +231,6 @@ class OrderController extends Controller
      */
     public function import()
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return view('admin.login');
-        }
-        
         return view('admin.import_orders');
     }
     

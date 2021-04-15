@@ -48,12 +48,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             
             Route::get('users', 'UserController@index');
             Route::get('users/{id}/edit', 'UserController@edit');
+            Route::put('users/{id}', 'UserController@update');
             Route::delete('users/{id}', 'UserController@destroy');
             
             Route::get('orders', 'OrderController@index');
             Route::post('orders', 'OrderController@store');
             Route::delete('orders/{id}', 'OrderController@destroy');
             Route::get('createOrder', 'OrderController@create');
+            Route::get('importOrder', 'OrderController@import');
+            Route::post('importOrder', 'OrderController@importOrderSave');
+            
             
             Route::get('orders/{id}/registerKit', 'KitController@create');
             Route::post('orders/{id}/registerKit', 'KitController@store');
@@ -62,6 +66,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::put('kits/{id}/{type?}', 'KitController@update')->where(['type' => 'kits']);
             Route::delete('kits/{id}', 'KitController@destroy');
             Route::get('kits', 'KitController@index');
+            Route::get('importKit', 'KitController@import');
+            Route::post('importKit', 'KitController@importKitSave');
+            
             
             Route::get('kits/{id}/registerSample', 'SampleController@registerSample');
             Route::post('kits/{id}/register', 'SampleController@register');
@@ -69,6 +76,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::get('samples/{id}/edit', 'SampleController@edit');
             Route::put('samples/{id}', 'SampleController@update');
             Route::delete('samples/{id}', 'SampleController@destroy');
+            Route::get('importSample', 'SampleController@import');
+            Route::post('importSample', 'SampleController@importSampleSave');
+            
             
             
             Route::get('reports', function () {
@@ -164,17 +174,10 @@ Route::get('/forgot-password', function () {
             Route::post('admin/importUser', 'UserController@importUserSave');
             
             
-            Route::put('admin/users/{id}', 'UserController@update');
             
             
             
-            Route::get('admin/importOrder', 'OrderController@import');
-            Route::post('admin/importOrder', 'OrderController@importOrderSave');
             
             
-            Route::get('admin/importKit', 'KitController@import');
-            Route::post('admin/importKit', 'KitController@importKitSave');
-            Route::get('admin/importSample', 'SampleController@import');
-            Route::post('admin/importSample', 'SampleController@importSampleSave');
-
+            
 require __DIR__.'/auth.php';

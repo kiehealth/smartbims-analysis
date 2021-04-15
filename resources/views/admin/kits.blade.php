@@ -36,7 +36,8 @@
                 <th>Sample ID</th>
                 <th>Barcode</th>
                 <th>Name</th>
-                <th>Personnummer</th>
+                <th>Email</th>
+                <th>SSN</th>
                 <th>Phone</th>
                 <th>Street</th>
                 <th>Zipcode</th>
@@ -57,8 +58,9 @@
                 <td>{{$kit->order->id}}</td>
                 <td>{{$kit->sample_id}}</td>
                 <td>{{$kit->barcode}}</td>
-                <td>{{$kit->user->first_name." ".$kit->user->last_name}}</td>
-                <td>{{$kit->user->pnr}}</td>
+                <td>{{$kit->user->name}}</td>
+                <td>{{$kit->user->email}}</td>
+                <td>{{$kit->user->ssn}}</td>
                 <td>{{$kit->user->phonenumber}}</td>
                 <td>{{$kit->user->street}}</td>
                 <td>{{$kit->user->zipcode}}</td>

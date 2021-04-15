@@ -34,50 +34,56 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
         foreach ($data as $key => $val){
             
             
-            $messages["$key.order_id.required"] = "Error on row: <strong>".($key+2)."</strong>. The order_id is missing."
-                                                  ." The order_id is required.";
+            $messages["$key.order_id.required"] = __('lang.order_id.required', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The order_id is missing."
+                                                  ." The order_id is required.";*/
             /*
             $messages["$key.order_id.unique"] = "Error on row: <strong>".($key+2)."</strong>. The order_id <strong>".(Arr::exists($val, "order_id")?$val['order_id']:"").
                                                  "</strong> seems to have been processed already. ". 
                                                  " Only one kit per order_id.";
             */
-            $messages["$key.order_id.exists"] = "Error on row: <strong>".($key+2)."</strong>. No order with order_id <strong>"
+            $messages["$key.order_id.exists"] = __('lang.order_id.exists', ['row' => $key+2, 'order_id' => (Arr::exists($val, "order_id")?$val['order_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. No order with order_id <strong>"
                                                 .(Arr::exists($val, "order_id")?$val['order_id']:"")."</strong> found. The order should be placed "
-                                                ."before registering a kit.";
+                                                ."before registering a kit.";*/
             
-            $messages["$key.order_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The order_id <strong>".(Arr::exists($val, "order_id")?$val['order_id']:"").
+            $messages["$key.order_id.distinct"] = __('lang.order_id.distinct', ['row' => $key+2, 'order_id' => (Arr::exists($val, "order_id")?$val['order_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The order_id <strong>".(Arr::exists($val, "order_id")?$val['order_id']:"").
                                                   "</strong> has a duplicate value. ".
-                                                  " The order_id must be unique.";
+                                                  " The order_id must be unique.";*/
             
             
             
-            $messages["$key.sample_id.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id is missing."
-                                                  ." The sample_id is required when the sample_received_date is present.";
+            $messages["$key.sample_id.required_with"] = __('lang.sample_id.required_with', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_id is missing."
+                                                  ." The sample_id is required when the sample_received_date is present.";*/
             /*
             $messages["$key.sample_id.unique"] = "Error on row: <strong>".($key+2).
                                                  "</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                                                  "</strong> has already been registered. The sample_id must be unique.";
             */
             
-            $messages["$key.sample_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
+            $messages["$key.sample_id.distinct"] = __('lang.sample_id.distinct', ['row' => $key+2, 'sample_id' => (Arr::exists($val, "sample_id")?$val['sample_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                                                    "</strong> has a duplicate value. ".
-                                                   " The sample_id must be unique.";
+                                                   " The sample_id must be unique.";*/
 
             
-            
-            
-            $messages["$key.barcode.unique"] = "Error on row: <strong>".($key+2).
+            $messages["$key.barcode.unique"] = __('lang.barcode.unique', ['row' => $key+2, 'barcode' => (Arr::exists($val, "barcode")?$val['barcode']:"")]);
+            /*"Error on row: <strong>".($key+2).
                                                "</strong>. The barcode <strong>".(Arr::exists($val, "barcode")?$val['barcode']:"").
-                                               "</strong> has already been registered. The barcode must be unique.";
+                                               "</strong> has already been registered. The barcode must be unique.";*/
            
-            $messages["$key.barcode.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The barcode <strong>".(Arr::exists($val, "barcode")?$val['barcode']:"").
+            $messages["$key.barcode.distinct"] = __('lang.barcode.distinct', ['row' => $key+2, 'barcode' => (Arr::exists($val, "barcode")?$val['barcode']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The barcode <strong>".(Arr::exists($val, "barcode")?$val['barcode']:"").
                                                  "</strong> has a duplicate value. ".
-                                                 " The barcode must be unique.";
+                                                 " The barcode must be unique.";*/
             
             
             
-            $messages["$key.kit_dispatched_date.required"] = "Error on row: <strong>".($key+2)."</strong>. The kit_dispatched_date is missing.".
-                                                             " Please put the date when the kit is going to be dispatched.";
+            $messages["$key.kit_dispatched_date.required"] = __('lang.kit_dispatched_date.required', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The kit_dispatched_date is missing.".
+                                                             " Please put the date when the kit is going to be dispatched.";*/
            
            
             $messages["$key.kit_dispatched_date.date"] = "Error on row: <strong>".($key+2).

@@ -80,5 +80,21 @@ return [
     'reporting-date' => 'Reporting Date',
     'sample-registered-date' => 'Sample Registered Date',
     'result-message' => 'Message',
-    
+    'order_id.required' => "Error on row: <strong>:row</strong>. The order_id is missing."
+                                                  ." The order_id is required.",
+    'order_id.exists' => "Error on row: <strong>:row</strong>. No order with order_id <strong>:order_id</strong> found. The order should be placed "
+                                                ."before registering a kit.",
+    'order_id.distinct' => "Error on row: <strong>:row</strong>. The order_id <strong>:order_id</strong> has a duplicate value. ".
+                                                  " The order_id must be unique.",
+    'sample_id.required_with' => "Error on row: <strong>:row</strong>. The sample_id is missing."
+                                                  ." The sample_id is required when the sample_received_date is present.",
+    'sample_id.distinct' => "Error on row: <strong>:row</strong>. The sample_id <strong>:sample_id</strong> has a duplicate value. ".
+                                            " The sample_id must be unique.",
+    'barcode.unique' => "Error on row: <strong>:row</strong>. The barcode <strong>:barcode</strong> has already been registered. The barcode must be unique.",
+    'barcode.distinct' => "Error on row: <strong>:row</strong>. The barcode <strong>:barcode</strong> has a duplicate value. ".
+                                            " The barcode must be unique.",
+    'kit_dispatched_date.required' => "Error on row: <strong>:row</strong>. The kit_dispatched_date is missing.".
+                                            " Please put the date when the kit is going to be dispatched.",
+    'kit_dispatched_date.date' => "Error on row: <strong>:row</strong>. The kit_dispatched_date <strong>:kit_dispatched_date</strong> is not a valid date. 
+                                                Please input a valid date (yyyy-mm-dd).",
 ];

@@ -10,9 +10,11 @@
           	<a href='{{action('OrderController@create')}}'>
           		<button type="button" class="btn btn-sm btn-outline-secondary">Create Order</button>
           	</a>
+          	{{--
             <a href='{{action('OrderController@import')}}'>
             	<button type="button" class="btn btn-sm btn-outline-secondary">Import Orders</button>
             </a>
+            --}}
           </div>
 		</div>
 		

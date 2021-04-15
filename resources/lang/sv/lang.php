@@ -80,5 +80,21 @@ return [
     'reporting-date' => 'Rapporterad Datum',
     'sample-registered-date' => 'Prov Registrerad Datum',
     'result-message' => 'Meddelande',
-    
+    'order_id.required' => "Fel på rad: <strong> :row </strong>. Order_id saknas. "
+                                 . "Order_id krävs.",
+    'order_id.exists' => "Fel på rad: <strong>:row</strong>. Ingen order med order_id <strong>:order_id</strong> hittades. Beställningen ska göras "
+                                         . "innan du registrerar ett kit.",
+    'order_id.distinct' => "Fel på rad: <strong>:row</strong>. Order_id <strong>:order_id</strong> har ett duplikatvärde. ".
+                                             "Order_id måste vara unik.",
+    'sample_id.required_with' => "Fel på rad: <strong>:row</strong>. Sample_id saknas. "
+                                             . "Sample_id krävs när sample_received_date är närvarande.",
+    'sample_id.distinct' => "Fel på rad: <strong>:row</strong>. Sample_id <strong>:sample_id</strong> har ett duplikatvärde. ".
+                                             "Sample_id måste vara unik.",
+    'barcode.unique' => "Fel på rad: <strong>:row</strong>. Barcode <strong>:barcode</strong> har redan registrerats. Barcode måste vara unik.",
+    'barcode.distinct' => "Fel på rad: <strong>:row</strong>. Barcode <strong>:barcode</strong> har ett duplikatvärde. ".
+                                              " Barcode måste vara unik.",
+    'kit_dispatched_date.required' => "Fel på rad: <strong>:row</strong>. Kit_dispatched_date saknas. ".
+                                                 "Ange datumet när kit kommer att skickas.",
+    'kit_dispatched_date.date' => "Fel på rad: <strong>:row</strong>. Kit_dispatched_date <strong>:kit_dispatched_date</strong> är inte ett giltigt datum.
+                                                 Ange ett giltigt datum (åååå-mm-dd).",
 ];
