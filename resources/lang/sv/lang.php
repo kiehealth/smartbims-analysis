@@ -80,6 +80,7 @@ return [
     'reporting-date' => 'Rapporterad Datum',
     'sample-registered-date' => 'Prov Registrerad Datum',
     'result-message' => 'Meddelande',
+    /*Kit Import*/
     'order_id.required' => "Fel på rad: <strong> :row </strong>. Order_id saknas. "
                                  . "Order_id krävs.",
     'order_id.exists' => "Fel på rad: <strong>:row</strong>. Ingen order med order_id <strong>:order_id</strong> hittades. Beställningen ska göras "
@@ -97,4 +98,64 @@ return [
                                                  "Ange datumet när kit kommer att skickas.",
     'kit_dispatched_date.date' => "Fel på rad: <strong>:row</strong>. Kit_dispatched_date <strong>:kit_dispatched_date</strong> är inte ett giltigt datum.
                                                  Ange ett giltigt datum (åååå-mm-dd).",
+    'sample_received_date.date' => "Fel på rad: <strong>:row</strong>. Sample_received_date <strong>:sample_received_date</strong> är inte ett giltigt datum.
+                                                 Ange ett giltigt datum (åååå-mm-dd).",
+    'sample_received_date.required_with' => "Fel på rad: <strong>:row</strong>. Sample_received_date saknas."
+                                                 ." Sample_received_date krävs när sample_id är närvarande.",
+    'sample_received_date.after_or_equal' => "Fel på rad: <strong>:row</strong>. Sample_received_date <strong>:sample_received_date</strong> måste vara ett datum efter eller samma som kit_dispatched_date <strong>:kit_dispatched_date</strong>.",
+    'kits_import_success_msg' => "<strong>:total</strong> Kits/Samples har bearbetats framgångsrikt! <br>
+                            varav <strong>:insert</strong> Kits/Samples har skapats och <strong>
+                            :update</strong> Kits/Samples har uppdaterats.",
+    /*Sample Import*/
+    'cobas_analysis_date.required_with' => "Fel på rad: <strong>:row</strong>. Cobas_analysis_date saknas."
+                                        ." Cobas_analysis_date krävs när cobas_result är närvarande.",
+    'cobas_result.in' => "Fel på rad: <strong>:row</strong>. Cobas_result <strong>:cobas_result</strong> är ogiltigt. Endast tillåtet ett av värdena <strong>:allowed</strong>.",
+    'cobas_analysis_date.date' => "Fel på rad: <strong>:row</strong>. Cobas_analysis_date <strong>:cobas_analysis_date</strong> är inte ett giltigt datum.
+                                                Ange ett giltigt datum (åååå-mm-dd).",
+    'cobas_result.required_with' => "Fel på rad: <strong>:row</strong>. Cobas_result saknas."
+                                                ." Cobas_result krävs när cobas_analysis_date är närvarande.",
+    'cobas_analysis_date.after_or_equal' => "Fel på rad: <strong>:row</strong>. Cobas_analysis_date <strong>:cobas_analysis_date</strong> måste vara ett datum efter eller samma som sample_registered_date <strong>:sample_registered_date</strong>.",
+    'luminex_analysis_date.required_with' => "Fel på rad: <strong>:row</strong>. Luminex_analysis_date saknas."
+                                            ." Luminex_analysis_date krävs när luminex_result är närvarande.",
+    'luminex_result.in' => "Fel på rad: <strong>:row</strong>. Luminex_result <strong>:luminex_result</strong> är ogiltigt. Endast tillåtet ett av värdena <strong>:allowed</strong>.",
+    'luminex_analysis_date.date' => "Fel på rad: <strong>:row</strong>. Luminex_analysis_date <strong>:luminex_analysis_date</strong> är inte ett giltigt datum.
+                                                Ange ett giltigt datum (åååå-mm-dd).",
+    'luminex_result.required_with' => "Fel på rad: <strong>:row</strong>. Luminex_result saknas."
+                                                ." Luminex_result krävs när luminex_analysis_date är närvarande.",
+    'luminex_analysis_date.after_or_equal' => "Fel på rad: <strong>:row</strong>. Luminex_analysis_date <strong>:luminex_analysis_date</strong> måste vara ett datum efter eller samma som sample_registered_date <strong>:sample_registered_date</strong>.",
+    'rtpcr_analysis_date.required_with' => "Fel på rad: <strong>:row</strong>. Rtpcr_analysis_date saknas."
+                                                        ." Rtpcr_analysis_date krävs när rtpcr_result är närvarande.",
+    'rtpcr_result.in' => "Fel på rad: <strong>:row</strong>. Rtpcr_result <strong>:rtpcr_result</strong> är ogiltigt. Endast tillåtet ett av värdena <strong>:allowed</strong>.",
+    'rtpcr_analysis_date.date' => "Fel på rad: <strong>:row</strong>. Rtpcr_analysis_date <strong>:rtpcr_analysis_date</strong> är inte ett giltigt datum.
+                                                Ange ett giltigt datum (åååå-mm-dd).",
+    'rtpcr_result.required_with' => "Fel på rad: <strong>:row</strong>. Rtpcr_result saknas."
+                                                ." Rtpcr_result krävs när rtpcr_analysis_date är närvarande.",
+    'rtpcr_analysis_date.after_or_equal' => "Fel på rad: <strong>:row</strong>. Rtpcr_analysis_date <strong>:rtpcr_analysis_date</strong> måste vara ett datum efter eller samma som sample_registered_date <strong>:sample_registered_date</strong>.",
+    'reporting_date.required_with' => "Fel på rad: <strong>:row</strong>. Reporting_date saknas."
+                                                      ." Reporting_date krävs när final_reporting_result är närvarande.",
+    'final_reporting_result.in' => "Fel på rad: <strong>:row</strong>. Final_reporting_result <strong>:final_reporting_result</strong> är ogiltigt. Endast tillåtet ett av värdena <strong>:allowed</strong>.",
+    'reporting_date.date' => "Fel på rad: <strong>:row</strong>. Reporting_date <strong>:reporting_date</strong> är inte ett giltigt datum.
+                                                Ange ett giltigt datum (åååå-mm-dd).",
+    'final_reporting_result.required_with' => "Fel på rad: <strong>:row</strong>. Final_reporting_result saknas."
+                                            ." Final_reporting_result krävs när reporting_date är närvarande.",
+    'reporting_date.after_or_equal' => "Fel på rad: <strong>:row</strong>. Reporting_date <strong>:reporting_date</strong> måste vara ett datum efter eller samma som sample_registered_date <strong>:sample_registered_date</strong>.",
+    'kit_id.required' => "Fel på rad: <strong>:row</strong>. Kit_id saknas. "
+                                 . "Kit_id krävs.",
+    'kit_id.exists' => "Fel på rad: <strong>:row</strong>. Ingen kit med kit_id <strong>:kit_id</strong> hittades. Kit bör redan registreras innan sample importeras.",
+    'kit_id.distinct' => "Fel på rad: <strong>:row</strong>. Kit_id <strong>:kit_id</strong> har ett duplikatvärde. ".
+                                      " Kit_id måste vara unik.",
+    'sample_id.required' => "Fel på rad: <strong>:row</strong>. Sample_id saknas."
+                                    ." Sample_id krävs.",
+    'sample_id.distinct' => "Fel på rad: <strong>:row</strong>. Sample_id <strong>:sample_id</strong> har ett duplikatvärde. ".
+                                    " Sample_id måste vara unik.",
+    'lab_id.distinct' => "Fel på rad: <strong>:row</strong>. Lab_id <strong>:lab_id</strong> har ett duplikatvärde. ".
+                                    " Lab_id måste vara unik.",
+    'lab_id.unique' => "Fel på rad: <strong>:row</strong>. The lab_id <strong>:lab_id</strong> har redan registrerats. Lab_id måste vara unik.",
+    'sample_registered_date.required' => "Fel på rad: <strong>:row</strong>. Sample_registered_date saknas."
+                                                    ." Sample_registered_date krävs.",
+    'sample_registered_date.date' => "Fel på rad: <strong>:row</strong>. Sample_registered_date <strong>:sample_registered_date</strong> är inte ett giltigt datum.
+                                                Ange ett giltigt datum (åååå-mm-dd).",
+    'samples_import_success_msg' => "<strong>:total</strong> Samples har bearbetats framgångsrikt! <br>
+                            varav <strong>:insert</strong> Samples har skapats och <strong>
+                            :update</strong> Samples har uppdaterats.",
 ];

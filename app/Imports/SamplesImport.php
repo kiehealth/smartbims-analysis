@@ -59,101 +59,129 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
             
             if(!empty($val['cobas_result'])){
                 
-                $messages["$key.cobas_analysis_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
-                                                                      "</strong> is missing. The cobas_analysis_date is required when the cobas_result is present.";
+                $messages["$key.cobas_analysis_date.required_with"] = __('lang.cobas_analysis_date.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
+                                                                      "</strong> is missing. The cobas_analysis_date is required when the cobas_result is present.";*/
                 
-                $messages["$key.cobas_result.in"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_result <strong>".(Arr::exists($val, "cobas_result")?$val['cobas_result']:"").
+                $messages["$key.cobas_result.in"] = __('lang.cobas_result.in', ['row' => $key+2, 'cobas_result' => (Arr::exists($val, "cobas_result")?$val['cobas_result']:""),
+                                                        'allowed' => implode(',', Arr::flatten(config("constants.result.COBAS")))]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The cobas_result <strong>".(Arr::exists($val, "cobas_result")?$val['cobas_result']:"").
                                                     "</strong> is invalid. Only allowed one of the values <strong>".implode(',', Arr::flatten(config("constants.result.COBAS"))).
-                                                    "</strong>.";
+                                                    "</strong>.";*/
             }
             
             
             if(!empty($val['cobas_analysis_date'])){
                 //$rules = array_merge($rules, [$key.'.cobas_analysis_date' => ['after_or_equal:'.$key.'.sample_registered_date']]);
                 
-                $messages["$key.cobas_analysis_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
-                        "</strong> is not a valid date.";
+                $messages["$key.cobas_analysis_date.date"] = __('lang.cobas_analysis_date.date', ['row' => $key+2, 'cobas_analysis_date' => (Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
+                        "</strong> is not a valid date.";*/
                 
-                $messages["$key.cobas_result.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_result <strong>".(Arr::exists($val, "cobas_result")?$val['cobas_result']:"").
-                                                "</strong> is missing. The cobas_result is required when the cobas_analysis_date is present.";
+                $messages["$key.cobas_result.required_with"] = __('lang.cobas_result.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The cobas_result <strong>".(Arr::exists($val, "cobas_result")?$val['cobas_result']:"").
+                                                "</strong> is missing. The cobas_result is required when the cobas_analysis_date is present.";*/
                 
                 
-                $messages["$key.cobas_analysis_date.after_or_equal"] = "Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
+                $messages["$key.cobas_analysis_date.after_or_equal"] = __('lang.cobas_analysis_date.after_or_equal', ['row' => $key+2, 'cobas_analysis_date' => (Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"")
+                                                                        , 'sample_registered_date' => (Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The cobas_analysis_date <strong>".(Arr::exists($val, "cobas_analysis_date")?$val['cobas_analysis_date']:"").
                         "</strong> must be a date after or equal to sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
-                        "</strong>.";
+                        "</strong>.";*/
             }
             
             
             if(!empty($val['luminex_result'])){
                 
-                $messages["$key.luminex_analysis_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
-                                            "</strong> is missing. The luminex_analysis_date is required when the luminex_result is present.";
+                $messages["$key.luminex_analysis_date.required_with"] = __('lang.luminex_analysis_date.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
+                                            "</strong> is missing. The luminex_analysis_date is required when the luminex_result is present.";*/
                 
-                $messages["$key.luminex_result.in"] = "Error on row: <strong>".($key+2)."</strong>. The luminex_result <strong>".(Arr::exists($val, "luminex_result")?$val['luminex_result']:"").
+                $messages["$key.luminex_result.in"] = __('lang.luminex_result.in', ['row' => $key+2, 'luminex_result' => (Arr::exists($val, "luminex_result")?$val['luminex_result']:""),
+                                                        'allowed' => implode(',', Arr::flatten(config("constants.result.LUMINEX")))]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The luminex_result <strong>".(Arr::exists($val, "luminex_result")?$val['luminex_result']:"").
                                                     "</strong> is invalid. Only allowed one of the values <strong>".implode(',', Arr::flatten(config("constants.result.LUMINEX"))).
-                                                    "</strong>.";
+                                                    "</strong>.";*/
             }
             
             
             if(!empty($val['luminex_analysis_date'])){
                 
-                $messages["$key.luminex_analysis_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
-                                                    "</strong> is not a valid date.";
+                $messages["$key.luminex_analysis_date.date"] = __('lang.luminex_analysis_date.date', ['row' => $key+2, 'luminex_analysis_date' => (Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
+                                                    "</strong> is not a valid date.";*/
                 
-                $messages["$key.luminex_result.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The luminex_result <strong>".(Arr::exists($val, "luminex_result")?$val['luminex_result']:"").
-                                                    "</strong> is missing. The luminex_result is required when the luminex_analysis_date is present.";
+                $messages["$key.luminex_result.required_with"] = __('lang.luminex_result.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The luminex_result <strong>".(Arr::exists($val, "luminex_result")?$val['luminex_result']:"").
+                                                    "</strong> is missing. The luminex_result is required when the luminex_analysis_date is present.";*/
                 
                 
-                $messages["$key.luminex_analysis_date.after_or_equal"] = "Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
+                $messages["$key.luminex_analysis_date.after_or_equal"] = __('lang.luminex_analysis_date.after_or_equal', ['row' => $key+2, 'luminex_analysis_date' => (Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"")
+                                                                        , 'sample_registered_date' => (Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The luminex_analysis_date <strong>".(Arr::exists($val, "luminex_analysis_date")?$val['luminex_analysis_date']:"").
                                                             "</strong> must be a date after or equal to sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
-                                                            "</strong>.";
+                                                            "</strong>.";*/
             }
             
             if(!empty($val['rtpcr_result'])){
                 
-                $messages["$key.rtpcr_analysis_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
-                                        "</strong> is missing. The rtpcr_analysis_date is required when the rtpcr_result is present.";
+                $messages["$key.rtpcr_analysis_date.required_with"] = __('lang.rtpcr_analysis_date.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
+                                        "</strong> is missing. The rtpcr_analysis_date is required when the rtpcr_result is present.";*/
                 
-                $messages["$key.rtpcr_result.in"] = "Error on row: <strong>".($key+2)."</strong>. The rtpcr_result <strong>".(Arr::exists($val, "rtpcr_result")?$val['rtpcr_result']:"").
+                $messages["$key.rtpcr_result.in"] = __('lang.rtpcr_result.in', ['row' => $key+2, 'rtpcr_result' => (Arr::exists($val, "rtpcr_result")?$val['rtpcr_result']:""),
+                                                    'allowed' => implode(',', Arr::flatten(config("constants.result.RTPCR")))]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The rtpcr_result <strong>".(Arr::exists($val, "rtpcr_result")?$val['rtpcr_result']:"").
                                         "</strong> is invalid. Only allowed one of the values <strong>".implode(',', Arr::flatten(config("constants.result.RTPCR"))).
-                                        "</strong>.";
+                                        "</strong>.";*/
             }
             
             if(!empty($val['rtpcr_analysis_date'])){
                 //$rules = array_merge($rules, [$key.'.rtpcr_analysis_date' => ['after_or_equal:'.$key.'.sample_registered_date']]);
                 
-                $messages["$key.rtpcr_analysis_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
-                                                    "</strong> is not a valid date.";
+                $messages["$key.rtpcr_analysis_date.date"] = __('lang.rtpcr_analysis_date.date', ['row' => $key+2, 'rtpcr_analysis_date' => (Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
+                                                    "</strong> is not a valid date.";*/
                 
-                $messages["$key.rtpcr_result.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The rtpcr_result <strong>".(Arr::exists($val, "rtpcr_result")?$val['rtpcr_result']:"").
-                                                    "</strong> is missing. The rtpcr_result is required when the rtpcr_analysis_date is present.";
+                $messages["$key.rtpcr_result.required_with"] = __('lang.rtpcr_result.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The rtpcr_result <strong>".(Arr::exists($val, "rtpcr_result")?$val['rtpcr_result']:"").
+                                                    "</strong> is missing. The rtpcr_result is required when the rtpcr_analysis_date is present.";*/
                 
                 
-                $messages["$key.rtpcr_analysis_date.after_or_equal"] = "Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
+                $messages["$key.rtpcr_analysis_date.after_or_equal"] = __('lang.rtpcr_analysis_date.after_or_equal', ['row' => $key+2, 'rtpcr_analysis_date' => (Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"")
+                                                                        , 'sample_registered_date' => (Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The rtpcr_analysis_date <strong>".(Arr::exists($val, "rtpcr_analysis_date")?$val['rtpcr_analysis_date']:"").
                         "</strong> must be a date after or equal to sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
-                        "</strong>.";
+                        "</strong>.";*/
             }
             
             
             if(!empty($val['final_reporting_result'])){
                 
-                $messages["$key.reporting_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
-                                "</strong> is missing. The reporting_date is required when the final_reporting_result is present.";
+                $messages["$key.reporting_date.required_with"] = __('lang.reporting_date.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
+                                "</strong> is missing. The reporting_date is required when the final_reporting_result is present.";*/
                 
-                $messages["$key.final_reporting_result.in"] = "Error on row: <strong>".($key+2)."</strong>. The final_reporting_result <strong>".(Arr::exists($val, "final_reporting_result")?$val['final_reporting_result']:"").
+                $messages["$key.final_reporting_result.in"] = __('lang.final_reporting_result.in', ['row' => $key+2, 'final_reporting_result' => (Arr::exists($val, "final_reporting_result")?$val['final_reporting_result']:""),
+                                                             'allowed' => implode(',', Arr::flatten(config("constants.result.FINAL_REPORTING")))]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The final_reporting_result <strong>".(Arr::exists($val, "final_reporting_result")?$val['final_reporting_result']:"").
                                  "</strong> is invalid. Only allowed one of the values <strong>".implode(',', Arr::flatten(config("constants.result.FINAL_REPORTING"))).
-                                 "</strong>.";
+                                 "</strong>.";*/
             }
             
             if(!empty($val['reporting_date'])){
                 //$rules = array_merge($rules, [$key.'.reporting_date' => ['after_or_equal:'.$key.'.sample_registered_date,', 'after_or_equal:'.$key.'.cobas_analysis_date']]);
                 
-                $messages["$key.reporting_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
-                        "</strong> is not a valid date.";
+                $messages["$key.reporting_date.date"] = __('lang.reporting_date.date', ['row' => $key+2, 'reporting_date' => (Arr::exists($val, "reporting_date")?$val['reporting_date']:"")]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The reporting_date <strong>".(Arr::exists($val, "reporting_date")?$val['reporting_date']:"").
+                        "</strong> is not a valid date.";*/
                 
-                $messages["$key.final_reporting_result.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The final_reporting_result is missing."
-                    ." The final_reporting_result is required when the reporting_date is present.";
-                    
+                $messages["$key.final_reporting_result.required_with"] = __('lang.final_reporting_result.required_with', ['row' => $key+2]);
+                /*"Error on row: <strong>".($key+2)."</strong>. The final_reporting_result is missing."
+                    ." The final_reporting_result is required when the reporting_date is present.";*/
+                
+                $messages["$key.reporting_date.after_or_equal"] = __('lang.reporting_date.after_or_equal', ['row' => $key+2, 'reporting_date' => (Arr::exists($val, "reporting_date")?$val['reporting_date']:"")
+                                                                  , 'sample_registered_date' => (Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"")]);
                 
                 //$rules = array_merge($rules, [$key.'.result' =>['required_without_all:'.$key.'.cobas_result,'.$key.'.final_reporting_result,'.$key.'.luminex_result,'.$key.'.rtpcr_result']]);
                 /*$messages["$key.result.required_without_all"] = "Error on row: <strong>".($key+2)."</strong>. At least one of the cobas result / genotyping result / luminex result / rtpcr result is required
@@ -203,47 +231,56 @@ class SamplesImport implements ToCollection, WithHeadingRow, SkipsOnFailure, Wit
             
             
             /*Adding messages for array based field validation.*/
-            $messages["$key.kit_id.required"] = "Error on row: <strong>".($key+2)."</strong>. The kit_id is missing."
-                .   " The kit_id is required.";
+            $messages["$key.kit_id.required"] = __('lang.kit_id.required', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The kit_id is missing."
+                .   " The kit_id is required.";*/
             
-            $messages["$key.kit_id.exists"] = "Error on row: <strong>".($key+2)."</strong>. No kit with kit_id <strong>"
+            $messages["$key.kit_id.exists"] = __('lang.kit_id.exists', ['row' => $key+2, 'kit_id' => (Arr::exists($val, "kit_id")?$val['kit_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. No kit with kit_id <strong>"
                     .(Arr::exists($val, "kit_id")?$val['kit_id']:"")."</strong> found. The kit should already be registered "
-                    ."before importing the sample.";
+                    ."before importing the sample.";*/
                         
-            $messages["$key.kit_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The kit_id <strong>".(Arr::exists($val, "kit_id")?$val['kit_id']:"").
+            $messages["$key.kit_id.distinct"] = __('lang.kit_id.distinct', ['row' => $key+2, 'kit_id' => (Arr::exists($val, "kit_id")?$val['kit_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The kit_id <strong>".(Arr::exists($val, "kit_id")?$val['kit_id']:"").
                     "</strong> has a duplicate value. ".
-                    " The kit_id must be unique.";
+                    " The kit_id must be unique.";*/
                         
                         
                         
-            $messages["$key.sample_id.required"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id is missing."
-                    ." The sample_id is required.";;
+            $messages["$key.sample_id.required"] = __('lang.sample_id.required', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_id is missing."
+                    ." The sample_id is required.";*/
             /*
             $messages["$key.sample_id.exists"] = "Error on row: <strong>".($key+2).
                     "</strong>. No sample with sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                     "</strong> found. The sample_id should be registered before importing the sample.";
             */  
-            $messages["$key.sample_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
+            $messages["$key.sample_id.distinct"] = __('lang.sample_id.distinct', ['row' => $key+2, 'sample_id' => (Arr::exists($val, "sample_id")?$val['sample_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_id <strong>".(Arr::exists($val, "sample_id")?$val['sample_id']:"").
                     "</strong> has a duplicate value. ".
-                    " The sample_id must be unique.";
+                    " The sample_id must be unique.";*/
                             
             
             
-            $messages["$key.lab_id.distinct"] = "Error on row: <strong>".($key+2)."</strong>. The lab_id <strong>".(Arr::exists($val, "lab_id")?$val['lab_id']:"").
+            $messages["$key.lab_id.distinct"] = __('lang.lab_id.distinct', ['row' => $key+2, 'lab_id' => (Arr::exists($val, "lab_id")?$val['lab_id']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The lab_id <strong>".(Arr::exists($val, "lab_id")?$val['lab_id']:"").
                     "</strong> has a duplicate value. ".
-                    " The lab_id must be unique.";
+                    " The lab_id must be unique.";*/
             
-            $messages["$key.lab_id.unique"] = "Error on row: <strong>".($key+2).
+            $messages["$key.lab_id.unique"] = __('lang.lab_id.unique', ['row' => $key+2, 'lab_id' => (Arr::exists($val, "lab_id")?$val['lab_id']:"")]);
+            /*"Error on row: <strong>".($key+2).
                     "</strong>. The lab_id <strong>".(Arr::exists($val, "lab_id")?$val['lab_id']:"").
-                    "</strong> has already been registered. The lab_id must be unique.";
+                    "</strong> has already been registered. The lab_id must be unique.";*/
             
             
             
-            $messages["$key.sample_registered_date.required"] = "Error on row: <strong>".($key+2)."</strong>. The sample_registered_date is missing.".
-                    " sample_registered_date is required.";
+            $messages["$key.sample_registered_date.required"] = __('lang.sample_registered_date.required', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_registered_date is missing.".
+                    " sample_registered_date is required.";*/
                             
-            $messages["$key.sample_registered_date.date"] = "Error on row: <strong>".($key+2)."</strong>. The sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
-                    "</strong> is not a valid date.";
+            $messages["$key.sample_registered_date.date"] = __('lang.sample_registered_date.date', ['row' => $key+2, 'sample_registered_date' => (Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"")]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_registered_date <strong>".(Arr::exists($val, "sample_registered_date")?$val['sample_registered_date']:"").
+                    "</strong> is not a valid date.";*/
             
             
             /*

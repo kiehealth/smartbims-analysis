@@ -86,22 +86,27 @@ class KitsImport implements ToCollection, WithHeadingRow, SkipsOnFailure, WithMa
                                                              " Please put the date when the kit is going to be dispatched.";*/
            
            
-            $messages["$key.kit_dispatched_date.date"] = "Error on row: <strong>".($key+2).
+            $messages["$key.kit_dispatched_date.date"] = __('lang.kit_dispatched_date.date', ['row' => $key+2, 'kit_dispatched_date' => (Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"")]);
+            /*"Error on row: <strong>".($key+2).
                                                          "</strong>. The kit_dispatched_date <strong>".(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"").
-                                                         "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";
+                                                         "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";*/
             
            
-            $messages["$key.sample_received_date.date"] = "Error on row: <strong>".($key+2).
+            $messages["$key.sample_received_date.date"] = __('lang.sample_received_date.date', ['row' => $key+2, 'sample_received_date' => (Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"")]);
+            /*"Error on row: <strong>".($key+2).
                                                           "</strong> The sample_received_date <strong>".(Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"").
-                                                          "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";
+                                                          "</strong> is not a valid date. Please input a valid date (yyyy-mm-dd).";*/
            
-            $messages["$key.sample_received_date.required_with"] = "Error on row: <strong>".($key+2)."</strong>. The sample_received_date is missing."
-                                                                   ." The sample_received_date is required when the sample_id is present.";
+            $messages["$key.sample_received_date.required_with"] = __('lang.sample_received_date.required_with', ['row' => $key+2]);
+            /*"Error on row: <strong>".($key+2)."</strong>. The sample_received_date is missing."
+                                                                   ." The sample_received_date is required when the sample_id is present.";*/
             
-            $messages["$key.sample_received_date.after_or_equal"] = "Error on row: <strong>".($key+2).
+            $messages["$key.sample_received_date.after_or_equal"] = __('lang.sample_received_date.after_or_equal', ['row' => $key+2, 'sample_received_date' => (Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"")
+                                                                    , 'kit_dispatched_date' => (Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"")]);
+            /*"Error on row: <strong>".($key+2).
                                                                     "</strong> The sample_received_date <strong>".(Arr::exists($val, "sample_received_date")?$val['sample_received_date']:"").
                                                                     "</strong> must be a date after or equal to kit_dispatched_date <strong>"
-                                                                    .(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"")."</strong>.";
+                                                                    .(Arr::exists($val, "kit_dispatched_date")?$val['kit_dispatched_date']:"")."</strong>.";*/
            
            
         }

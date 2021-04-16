@@ -182,11 +182,6 @@ class SampleController extends Controller
      */
     public function import()
     {
-        //
-        if ((Session::get('grandidsession')===null)){
-            return  view('admin.login');
-        }
-        
         return view('admin.import_samples');
     }
     
@@ -218,9 +213,11 @@ class SampleController extends Controller
                 //Otherwise use Facade.
                 Excel::import($import, $request->file('samples_file'));
                 
-                return back()->with('samples_import_success', '<strong>'.$import->getRowCount().'</strong> Samples have been processed successfully! <br>
+                $samples_import_success_msg = __('lang.samples_import_success_msg', ['total' => $import->getRowCount(), 'insert' => $import->getInsertedRowCount(), 'update' => $import->getUpdatedRowCount()]);
+                return back()->with('samples_import_success', $samples_import_success_msg);
+                /*return back()->with('samples_import_success', '<strong>'.$import->getRowCount().'</strong> Samples have been processed successfully! <br>
                             of which <strong>'.$import->getInsertedRowCount().'</strong> Samples have been inserted and <strong>
-                            '.$import->getUpdatedRowCount(). '</strong> Samples have been updated.');
+                            '.$import->getUpdatedRowCount(). '</strong> Samples have been updated.');*/
                 
                 
             }catch (\Maatwebsite\Excel\Validators\ValidationException $e) {

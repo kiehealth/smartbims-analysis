@@ -80,6 +80,7 @@ return [
     'reporting-date' => 'Reporting Date',
     'sample-registered-date' => 'Sample Registered Date',
     'result-message' => 'Message',
+    /*Kit Import*/
     'order_id.required' => "Error on row: <strong>:row</strong>. The order_id is missing."
                                                   ." The order_id is required.",
     'order_id.exists' => "Error on row: <strong>:row</strong>. No order with order_id <strong>:order_id</strong> found. The order should be placed "
@@ -97,4 +98,65 @@ return [
                                             " Please put the date when the kit is going to be dispatched.",
     'kit_dispatched_date.date' => "Error on row: <strong>:row</strong>. The kit_dispatched_date <strong>:kit_dispatched_date</strong> is not a valid date. 
                                                 Please input a valid date (yyyy-mm-dd).",
+    'sample_received_date.date' => "Error on row: <strong>:row</strong>. The sample_received_date <strong>:sample_received_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'sample_received_date.required_with' => "Error on row: <strong>:row</strong>. The sample_received_date is missing."
+                                                ." The sample_received_date is required when the sample_id is present.",
+    'sample_received_date.after_or_equal' => "Error on row: <strong>:row</strong>. The sample_received_date <strong>:sample_received_date</strong> must be a date after or equal to kit_dispatched_date <strong>:kit_dispatched_date</strong>.",
+    'kits_import_success_msg' => "<strong>:total</strong> Kits/Samples have been processed successfully! <br>
+                            of which <strong>:insert</strong> Kits/Samples have been inserted and <strong>
+                            :update</strong> Kits/Samples have been updated.",
+    /*Sample Import*/
+    'cobas_analysis_date.required_with' => "Error on row: <strong>:row</strong>. The cobas_analysis_date is missing."
+                                            ." The cobas_analysis_date is required when the cobas_result is present.",
+    'cobas_result.in' => "Error on row: <strong>:row</strong>. The cobas_result <strong>:cobas_result</strong> is invalid. Only allowed one of the values <strong>:allowed</strong>.",
+    'cobas_analysis_date.date' => "Error on row: <strong>:row</strong>. The cobas_analysis_date <strong>:cobas_analysis_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'cobas_result.required_with' => "Error on row: <strong>:row</strong>. The cobas_result is missing."
+                                        ." The cobas_result is required when the cobas_analysis_date is present.",
+    'cobas_analysis_date.after_or_equal' => "Error on row: <strong>:row</strong>. The cobas_analysis_date <strong>:cobas_analysis_date</strong> must be a date after or equal to sample_registered_date <strong>:sample_registered_date</strong>.",
+    'luminex_analysis_date.required_with' => "Error on row: <strong>:row</strong>. The luminex_analysis_date is missing."
+                                            ." The luminex_analysis_date is required when the luminex_result is present.",
+    'luminex_result.in' => "Error on row: <strong>:row</strong>. The luminex_result <strong>:luminex_result</strong> is invalid. Only allowed one of the values <strong>:allowed</strong>.",
+    'luminex_analysis_date.date' => "Error on row: <strong>:row</strong>. The luminex_analysis_date <strong>:luminex_analysis_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'luminex_result.required_with' => "Error on row: <strong>:row</strong>. The luminex_result is missing."
+                                                ." The luminex_result is required when the luminex_analysis_date is present.",
+    'luminex_analysis_date.after_or_equal' => "Error on row: <strong>:row</strong>. The luminex_analysis_date <strong>:luminex_analysis_date</strong> must be a date after or equal to sample_registered_date <strong>:sample_registered_date</strong>.",
+    'rtpcr_analysis_date.required_with' => "Error on row: <strong>:row</strong>. The rtpcr_analysis_date is missing."
+                                                        ." The rtpcr_analysis_date is required when the rtpcr_result is present.",
+    'rtpcr_result.in' => "Error on row: <strong>:row</strong>. The rtpcr_result <strong>:rtpcr_result</strong> is invalid. Only allowed one of the values <strong>:allowed</strong>.",
+    'rtpcr_analysis_date.date' => "Error on row: <strong>:row</strong>. The rtpcr_analysis_date <strong>:rtpcr_analysis_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'rtpcr_result.required_with' => "Error on row: <strong>:row</strong>. The rtpcr_result is missing."
+                                                ." The rtpcr_result is required when the rtpcr_analysis_date is present.",
+    'rtpcr_analysis_date.after_or_equal' => "Error on row: <strong>:row</strong>. The rtpcr_analysis_date <strong>:rtpcr_analysis_date</strong> must be a date after or equal to sample_registered_date <strong>:sample_registered_date</strong>.",
+    'reporting_date.required_with' => "Error on row: <strong>:row</strong>. The reporting_date is missing."
+                                                        ." The reporting_date is required when the final_reporting_result is present.",
+    'final_reporting_result.in' => "Error on row: <strong>:row</strong>. The final_reporting_result <strong>:final_reporting_result</strong> is invalid. Only allowed one of the values <strong>:allowed</strong>.",
+    'reporting_date.date' => "Error on row: <strong>:row</strong>. The reporting_date <strong>:reporting_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'final_reporting_result.required_with' => "Error on row: <strong>:row</strong>. The final_reporting_result is missing."
+                                                ." The final_reporting_result is required when the reporting_date is present.",
+    'reporting_date.after_or_equal' => "Error on row: <strong>:row</strong>. The reporting_date <strong>:reporting_date</strong> must be a date after or equal to sample_registered_date <strong>:sample_registered_date</strong>.",
+    'kit_id.required' => "Error on row: <strong>:row</strong>. The kit_id is missing."
+                                        ." The kit_id is required.",
+    'kit_id.exists' => "Error on row: <strong>:row</strong>. No kit with kit_id <strong>:kit_id</strong> found. The kit should already be registered "
+                                    ."before importing the sample.",
+    'kit_id.distinct' => "Error on row: <strong>:row</strong>. The kit_id <strong>:kit_id</strong> has a duplicate value. ".
+                                        " The kit_id must be unique.",
+    'sample_id.required' => "Error on row: <strong>:row</strong>. The sample_id is missing."
+                                        ." The sample_id is required.",
+    'sample_id.distinct' => "Error on row: <strong>:row</strong>. The sample_id <strong>:sample_id</strong> has a duplicate value. ".
+                                      " The sample_id must be unique.",
+    'lab_id.distinct' => "Error on row: <strong>:row</strong>. The lab_id <strong>:lab_id</strong> has a duplicate value. ".
+                                        " The lab_id must be unique.",
+    'lab_id.unique' => "Error on row: <strong>:row</strong>. The lab_id <strong>:lab_id</strong> has already been registered. The lab_id must be unique.",
+    'sample_registered_date.required' => "Error on row: <strong>:row</strong>. The sample_registered_date is missing."
+                                        ." The sample_registered_date is required.",
+    'sample_registered_date.date' => "Error on row: <strong>:row</strong>. The sample_registered_date <strong>:sample_registered_date</strong> is not a valid date.
+                                                Please input a valid date (yyyy-mm-dd).",
+    'samples_import_success_msg' => "<strong>:total</strong> Samples have been processed successfully! <br>
+                            of which <strong>:insert</strong> Samples have been inserted and <strong>
+                            :update</strong> Samples have been updated.",
 ];
