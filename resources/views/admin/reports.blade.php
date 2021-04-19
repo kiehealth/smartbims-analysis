@@ -2,7 +2,7 @@
 
 @section('dashboard_title')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Generate Report</h1>
+        <h1 class="h2">{{__('lang.Generate Report')}}</h1>
 </div>
 <div class="card d-flex pt-3 pb-2 mb-3">
 	<form method="post" class="form-inline" action="{{action('SearchController@search')}}" id="searchForm">
@@ -11,46 +11,46 @@
 		
 		<div class="col">
 		<select class="custom-select my-1 mr-sm-2" name="model" id="model">
-			<option value="" selected>Select...</option>
+			<option value="" selected>{{__('lang.select')}}...</option>
 			<option value="User">Users</option>
 		</select>
 		</div>
 
 		<div class="col">
 			<label for="ssn" class="sr-only">SSN</label>
-            <input type="text" class="form-control my-1 mr-sm-2" name="ssn" value="{{old('ssn')}}" placeholder="SSN"/>
+            <input type="text" class="form-control my-1 mr-sm-2" name="ssn" value="{{old('ssn')}}" placeholder="{{__('lang.ssn')}}"/>
    		</div>
 		
 		<div class="col">
 		<select class="custom-select my-1 mr-sm-2" name="filter_criteria" id="filter_criteria">
-			<option value="" selected>Select...</option>
-			<option value="orders">Orders</option>
-			<option value="unprocessed_orders">Unprocessed Orders</option>
-			<option value="without_orders">Without Orders</option>
-			<option value="kits">Kits</option>
-			<option value="kits_dispatched">Kits Dispatched</option>
-			<option value="samples_received">Kits/Samples Received</option>
-			<option value="samples">Samples</option>
-			<option value="results_reported">Results Reported</option>
+			<option value="" selected>{{__('lang.select')}}...</option>
+			<option value="orders">{{__('lang.Orders')}}</option>
+			<option value="unprocessed_orders">{{__('lang.Unprocessed Orders')}}</option>
+			<option value="without_orders">{{__('lang.Without Orders')}}</option>
+			<option value="kits">{{__('lang.Kits')}}</option>
+			<option value="kits_dispatched">{{__('lang.Kits Dispatched')}}</option>
+			<option value="samples_received">{{__('lang.Kits/Samples Received')}}</option>
+			<option value="samples">{{__('lang.Samples')}}</option>
+			<option value="results_reported">{{__('lang.Results Reported')}}</option>
 		</select>
 		</div>
 		
 		<div class="col">
             <label for="from_date" class="sr-only">From Date</label>
             <input class="datepicker form-control my-1 mr-sm-2" name="from_date" data-date-format="yyyy-mm-dd" 
-            value="{{old('from_date')}}" placeholder="From">
+            value="{{old('from_date')}}" placeholder="{{__('lang.From Date')}}">
         </div>
         
         <div class="col">
             <label for="to_date" class="sr-only">To Date</label>
             <input class="datepicker form-control my-1 mr-sm-2" name="to_date" data-date-format="yyyy-mm-dd" 
-            value="{{old('to_date')}}" placeholder="To">
+            value="{{old('to_date')}}" placeholder="{{__('lang.To Date')}}">
         </div>
 		
 		</div>
 		<div class="row ml-3">
 		<div class="col">
-			<button type="submit" class="btn btn-primary my-1">Search</button>
+			<button type="submit" class="btn btn-primary my-1">{{__('lang.search')}}</button>
 		</div>
 		</div>
 	</form>

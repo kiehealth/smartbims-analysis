@@ -13,7 +13,7 @@ return [
     'Login' => 'Logga in',
     'Log out' => 'Logga ut',
     'Register' => 'Registrera',
-     'Order' => 'Beställa',
+    'Order' => 'Beställa',
     'Email' => 'E-post',
     'Password' => 'Lösenord',
     'Confirm Password' =>'Bekräfta Lösenord',
@@ -158,4 +158,21 @@ return [
     'samples_import_success_msg' => "<strong>:total</strong> Samples har bearbetats framgångsrikt! <br>
                             varav <strong>:insert</strong> Samples har skapats och <strong>
                             :update</strong> Samples har uppdaterats.",
+    /*Report*/
+    'Generate Report' => 'Generera Rapport',
+    'search' => 'Sök',
+    'Orders' => 'Beställningar',
+    'Unprocessed Orders' => 'Obearbetad Beställningar',
+    'Without Orders' => 'Utan Beställningar',
+    'Kits' => 'Kits',
+    'Kits Dispatched' => 'Kits Skickad',
+    'Kits/Samples Received' => 'Kits/Prover Mottagen',
+    'Samples' => 'Prover',
+    'Results Reported' => 'Resultat Rapporterade',
+    'From Date' => 'Datum fr.o.m',
+    'To Date' => 'Datum t.o.m',
+    /*User*/
+    'user_updated_msg' => 'User är uppdaterad!',
+    'user_deleted_msg' => 'User borttagen!',
+    'user_not_deleted_msg' => 'User kan inte raderas! Beställning redan registrerad för user. För att radera user, först ta bort tillhörande beställning.',
 ];

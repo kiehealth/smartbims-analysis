@@ -159,4 +159,23 @@ return [
     'samples_import_success_msg' => "<strong>:total</strong> Samples have been processed successfully! <br>
                             of which <strong>:insert</strong> Samples have been inserted and <strong>
                             :update</strong> Samples have been updated.",
+    /*Report*/
+    'Generate Report' => 'Generate Report',
+    'search' => 'Search',
+    'Orders' => 'Orders',
+    'Unprocessed Orders' => 'Unprocessed Orders',
+    'Without Orders' => 'Without Orders',
+    'Kits' => 'Kits',
+    'Kits Dispatched' => 'Kits Dispatched',
+    'Kits/Samples Received' => 'Kits/Samples Received',
+    'Samples' => 'Samples',
+    'Results Reported' => 'Results Reported',
+    'From Date' => 'From Date',
+    'To Date' => 'To Date',
+    /*User*/
+    'user_updated_msg' => 'The user is updated!',
+    'user_deleted_msg' => 'User Deleted!',
+    'user_not_deleted_msg' => 'User cannot be deleted! Order already registered for the user. To delete
+                                    the user, first delete the associated order.',
+    
 ];

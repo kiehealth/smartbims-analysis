@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -167,11 +168,11 @@ class UserController extends Controller
         
         $request->validate([
             'ssn'=>'required|unique:users,ssn,'.$id,
-            'user_role'=>'required_without:admin_role',
-            ],
+            //'user_role'=>'required_without:admin_role',
+            ]/*,
             [
                 'user_role.required_without' => "One of the USER_ROLE or ADMIN_ROLE should be selected.",
-            ]);
+            ]*/);
         
         
         $user = User::find($id);
@@ -187,21 +188,23 @@ class UserController extends Controller
         
         $roles = NULL;
         $roles_sep = FALSE;
-        if($request->has("user_role")){
+        if(/*$request->has("user_role")*/$request->filled("user_role")){
             $roles = $request->get('user_role');
             $roles_sep = TRUE;
         }
         
-        if($request->has("admin_role")){
+        if(/*$request->has("admin_role")*/$request->filled("admin_role")){
             $roles .= ($roles_sep===TRUE)?",".$request->get("admin_role"):"".$request->get("admin_role");
         }
         
-        if(!is_null($roles))
-            $user->roles = $roles;
+        //if(!is_null($roles))
+        $user->roles = is_null($roles)?Config::get('constants.roles.USER_ROLE'):$roles;
 
         $user->save();
         
-        return redirect('admin/users')->with("user_updated", "The user is updated!");
+        $user_updated_msg = __('lang.user_updated_msg');
+        
+        return redirect('admin/users')->with("user_updated", $user_updated_msg);
             
         
         
@@ -219,11 +222,12 @@ class UserController extends Controller
         //
         try{
             User::find($id)->delete();
-            return back()->with('user_deleted', "User Deleted!");
+            $user_deleted_msg = __('lang.user_deleted_msg');
+            return back()->with('user_deleted', $user_deleted_msg);
         }
         catch (\Illuminate\Database\QueryException $e){
-            return back()->with('user_not_deleted', "User cannot be deleted! Order already registered for the user. To delete
-                                    the user, first delete the associated order.");
+            $user_not_deleted_msg = __('lang.user_not_deleted_msg');
+            return back()->with('user_not_deleted', $user_not_deleted_msg);
             
         }
     }

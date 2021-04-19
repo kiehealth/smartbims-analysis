@@ -137,8 +137,18 @@
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
         </div>
-
-        <div class="mt-3 space-y-1">
+		<div class="mt-3 space-y-1">
+			@if(stristr(Auth::user()->roles, config('constants.roles.ADMIN_ROLE')) !== FALSE)
+			<x-responsive-nav-link :href="url('admin')">
+    			{{ __('lang.admin') }} 
+    		</x-responsive-nav-link>
+    		@endif
+    		<x-responsive-nav-link :href="url('myprofile')">
+    			{{ __('lang.profile') }} 
+    		</x-responsive-nav-link>
+    		<x-responsive-nav-link :href="url('change-password')">
+    			{{ __('lang.change-password') }} 
+    		</x-responsive-nav-link>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
