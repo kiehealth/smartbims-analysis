@@ -115,6 +115,9 @@
         $('#users_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "language": {
+                "url": "{{asset('lang/'.LaravelLocalization::getCurrentLocale().'/datatables.json')}}"
+            },
             buttons: [
                 'colvis', 
                 {

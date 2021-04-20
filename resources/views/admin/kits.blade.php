@@ -6,7 +6,7 @@
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <a href='{{action('KitController@import')}}'>
-            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Kits/Samples</button>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">{{__('lang.Import Kits/Samples')}}</button>
             </a>
           </div>
 		</div>
@@ -91,7 +91,7 @@
 				</button>
 				</a>
 				
-				<form action="{{action('KitController@destroy', ['id' => $kit->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the kit?');">
+				<form action="{{action('KitController@destroy', ['id' => $kit->id])}}" method="post" onsubmit="return confirm('{{__('lang.Are you sure you want to delete the kit?')}}');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Kit">
@@ -116,6 +116,9 @@
         $('#kits_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "language": {
+                "url": "{{asset('lang/'.LaravelLocalization::getCurrentLocale().'/datatables.json')}}"
+            },
             buttons: [
                 'colvis', 
                 {

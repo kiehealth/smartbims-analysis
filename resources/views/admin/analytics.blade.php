@@ -3,7 +3,7 @@
 @section('dashboard_title')
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
+    <h1 class="h2">{{__('lang.Dashboard')}}</h1>
 </div>
 
 @endsection
@@ -37,7 +37,7 @@ var ctx_usersChart = document.getElementById('usersChart');
 var usersChart = new Chart(ctx_usersChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Participants', 'Participants with Orders', 'Participants without Orders'],
+        labels: ["{{__('lang.Total Participants')}}", "{{__('lang.Participants with Orders')}}", "{{__('lang.Participants without Orders')}}"],
         datasets: [{
             data: [{{$count_total_users}}, {{$count_users_with_orders}}, {{$count_total_users-$count_users_with_orders}}],
             backgroundColor: [
@@ -58,7 +58,7 @@ var usersChart = new Chart(ctx_usersChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Participants and Orders'
+            text: "{{__('lang.Participants and Orders')}}"
         }
     }
 });
@@ -70,7 +70,7 @@ var ctx_ordersChart = document.getElementById('ordersChart');
 var ordersChart = new Chart(ctx_ordersChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Orders', 'Orders Processed (Kits Registered)', 'Orders Unprocessed (Kits Not Registered)'],
+        labels: ["{{__('lang.Total Orders')}}", "{{__('lang.Orders Processed (Kits Registered)')}}", "{{__('lang.Orders Unprocessed (Kits Not Registered)')}}"],
         datasets: [{
             data: [{{$count_total_orders}}, {{$count_total_orders-$count_unprocessed_orders}}, {{$count_unprocessed_orders}}],
             backgroundColor: [
@@ -91,7 +91,7 @@ var ordersChart = new Chart(ctx_ordersChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Orders'
+            text: "{{__('lang.Total Orders')}}"
         }
     }
 });
@@ -103,7 +103,7 @@ var ctx_kitsChart = document.getElementById('kitsChart');
 var kitsChart = new Chart(ctx_kitsChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Kits Registered', 'Kits Dispatched', 'Samples Received'],
+        labels: ["{{__('lang.Total Kits Registered')}}", "{{__('lang.Kits Dispatched')}}", "{{__('lang.Samples Received')}}"],
         datasets: [{
             data: [{{$count_total_kits_registered}}, {{$count_dispatched_kits}}, {{$count_received_samples}}],
             backgroundColor: [
@@ -123,7 +123,7 @@ var kitsChart = new Chart(ctx_kitsChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Kits'
+            text: "{{__('lang.Kits')}}"
         }
     }
 });
@@ -134,7 +134,7 @@ var ctx_samplesChart = document.getElementById('samplesChart');
 var samplesChart = new Chart(ctx_samplesChart, {
     type: 'doughnut',
     data: {
-        labels: ['Total Samples Registered', 'Results Reported', 'Results Not Reported'],
+        labels: ["{{__('lang.Total Samples Registered')}}", "{{__('lang.Results Reported')}}", "{{__('lang.Results Not Reported')}}"],
         datasets: [{
             data: [{{$count_total_samples_registered}}, {{$count_results_received}}, {{$count_total_samples_registered-$count_results_received}}],
             backgroundColor: [
@@ -154,7 +154,7 @@ var samplesChart = new Chart(ctx_samplesChart, {
         responsive: true,
         title: {
             display: true,
-            text: 'Samples and Results'
+            text: "{{__('lang.Samples and Results')}}"
         }
     }
 });

@@ -2,13 +2,13 @@
 
 @section('dashboard_title')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Orders</h1>
+        <h1 class="h2">{{__('lang.Orders')}}</h1>
         
         
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
           	<a href='{{action('OrderController@create')}}'>
-          		<button type="button" class="btn btn-sm btn-outline-secondary">Create Order</button>
+          		<button type="button" class="btn btn-sm btn-outline-secondary">{{__('lang.Create Order')}}</button>
           	</a>
           	{{--
             <a href='{{action('OrderController@import')}}'>
@@ -111,7 +111,7 @@
 				</button>
 				</a>
 				
-				<form action="{{action('KitController@destroy', ['id' => $order->kit->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the kit for this order?');">
+				<form action="{{action('KitController@destroy', ['id' => $order->kit->id])}}" method="post" onsubmit="return confirm('{{__('lang.Are you sure you want to delete the kit for this order?')}}');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Kit for this order">
@@ -134,7 +134,7 @@
 				</a>
 				@endif
 				
-				<form action="{{action('OrderController@destroy', ['id' => $order->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the order?');">
+				<form action="{{action('OrderController@destroy', ['id' => $order->id])}}" method="post" onsubmit="return confirm('{{__('lang.Are you sure you want to delete the order?')}}');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Order">
@@ -160,6 +160,9 @@
         $('#orders_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "language": {
+                "url": "{{asset('lang/'.LaravelLocalization::getCurrentLocale().'/datatables.json')}}"
+            },
             buttons: [
                 'colvis', 
                 {

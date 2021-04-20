@@ -14,7 +14,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ (request()->is('*admin/*order*', 'admin/*Order*')) ? 'active' : '' }}" href="{{url('/admin/orders')}}">
+            <a class="nav-link {{ (request()->is('*admin/*order*', '*admin/*Order*')) ? 'active' : '' }}" href="{{url('/admin/orders')}}">
               <span data-feather="file">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 	<path fill-rule="evenodd" d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z"/>
@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ (request()->is('*admin/*kit*', 'admin/*Kit*')) ? 'active' : '' }}" href="{{url('/admin/kits')}}">
+            <a class="nav-link {{ (request()->is('*admin/*kit*', '*admin/*Kit*')) ? 'active' : '' }}" href="{{url('/admin/kits')}}">
               <span data-feather="shopping-cart">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 	<path fill-rule="evenodd" d="M8 1a2.5 2.5 0 0 0-2.5 2.5V4h5v-.5A2.5 2.5 0 0 0 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
@@ -36,7 +36,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ (request()->is('*admin/*sample*', 'admin/*Sample*')) ? 'active' : '' }}" href="{{url('/admin/samples')}}">
+            <a class="nav-link {{ (request()->is('*admin/*sample*', '*admin/*Sample*')) ? 'active' : '' }}" href="{{url('/admin/samples')}}">
               <span data-feather="shopping-cart">
               	<i class="fas fa-flask"></i>
               </span>

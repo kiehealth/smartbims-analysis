@@ -5,7 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Import Samples</h5>
+        <h5 class="card-title">{{__('lang.Import Samples/Results')}}</h5>
         @if(session('samples_import_success'))
     		<div class="alert alert-success">{!! session('samples_import_success') !!}</div>
     	@endif
@@ -24,17 +24,17 @@
     	@csrf
         <div class="input-group">
           	<div class="input-group-prepend">
-            	<span class="input-group-text" id="samples_file_upload">Upload</span>
+            	<span class="input-group-text" id="samples_file_upload">{{__('lang.Upload')}}</span>
           	</div>
           	<div class="custom-file">
                 <input type="file" class="custom-file-input" name="samples_file"
                   aria-describedby="samples_file_upload">
-                <label class="custom-file-label" for="samples_file">Choose file</label>
+                <label class="custom-file-label" for="samples_file">{{__('lang.Choose file')}}</label>
           	</div>
     	</div>
-        <p class="card-text">Use the excel/csv <a href="{{asset('storage/import_templates/samples_import_template.xlsx')}}">file template</a> to import the kits.</p>
-        <button type="submit" class="btn btn-primary">Import</button>
-        <a class="btn btn-secondary" href="{{url('/admin/samples')}}" role="button">Back</a>
+        <p class="card-text">{!!__('lang.Use the excel/csv file template to import the samples.')!!}</p>
+        <button type="submit" class="btn btn-primary">{{__('lang.Import')}}</button>
+        <a class="btn btn-secondary" href="{{url('/admin/samples')}}" role="button">{{__('lang.Back')}}</a>
         </form>
     </div>
 </div>

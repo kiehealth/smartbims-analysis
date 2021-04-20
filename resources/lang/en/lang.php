@@ -7,6 +7,7 @@ return [
     'orders' => 'Orders',
     'kits' => 'Kits',
     'sample-results' => 'Sample Results',
+    'Sample Results' => 'Sample Results',
     'users' => 'Users',
     'reports' => 'Reports',
     'Language' => 'Language',
@@ -26,6 +27,11 @@ return [
     'Email Password Reset Link' => 'Email Password Reset Link',
     'Reset Password' => 'Reset Password',
     'back' => 'Back',
+    'Back' => 'Back',
+    'Cancel' => 'Cancel',
+    'Upload' => 'Upload',
+    'Choose file' => 'Choose file',
+    'Import' => 'Import',
     'to-front' => 'To Front Website',
     'edit-user' => 'Edit User',
     'delete-user' => 'Delete User',
@@ -80,7 +86,10 @@ return [
     'reporting-date' => 'Reporting Date',
     'sample-registered-date' => 'Sample Registered Date',
     'result-message' => 'Message',
+    
     /*Kit Import*/
+    'Import Kits/Samples' => 'Import Kits/Samples',
+    'Use the excel/csv file template to import the kits.' => "Use the excel/csv <a href=".asset('storage/import_templates/kits_import_template.xlsx').">file template</a> to import the kits.",
     'order_id.required' => "Error on row: <strong>:row</strong>. The order_id is missing."
                                                   ." The order_id is required.",
     'order_id.exists' => "Error on row: <strong>:row</strong>. No order with order_id <strong>:order_id</strong> found. The order should be placed "
@@ -106,7 +115,10 @@ return [
     'kits_import_success_msg' => "<strong>:total</strong> Kits/Samples have been processed successfully! <br>
                             of which <strong>:insert</strong> Kits/Samples have been inserted and <strong>
                             :update</strong> Kits/Samples have been updated.",
-    /*Sample Import*/
+    
+     /*Sample Import*/
+    'Import Samples/Results' => 'Import Samples/Results',
+    'Use the excel/csv file template to import the samples.' => "Use the excel/csv <a href=".asset('storage/import_templates/samples_import_template.xlsx').">file template</a> to import the samples.",
     'cobas_analysis_date.required_with' => "Error on row: <strong>:row</strong>. The cobas_analysis_date is missing."
                                             ." The cobas_analysis_date is required when the cobas_result is present.",
     'cobas_result.in' => "Error on row: <strong>:row</strong>. The cobas_result <strong>:cobas_result</strong> is invalid. Only allowed one of the values <strong>:allowed</strong>.",
@@ -159,6 +171,7 @@ return [
     'samples_import_success_msg' => "<strong>:total</strong> Samples have been processed successfully! <br>
                             of which <strong>:insert</strong> Samples have been inserted and <strong>
                             :update</strong> Samples have been updated.",
+    
     /*Report*/
     'Generate Report' => 'Generate Report',
     'search' => 'Search',
@@ -172,10 +185,38 @@ return [
     'Results Reported' => 'Results Reported',
     'From Date' => 'From Date',
     'To Date' => 'To Date',
+    
     /*User*/
     'user_updated_msg' => 'The user is updated!',
     'user_deleted_msg' => 'User Deleted!',
     'user_not_deleted_msg' => 'User cannot be deleted! Order already registered for the user. To delete
                                     the user, first delete the associated order.',
+    /*Order*/
+    'Create Order' => 'Create Order',
+    'Are you sure you want to delete the kit for this order?' => 'Are you sure you want to delete the kit for this order?',
+    'Are you sure you want to delete the order?' => 'Are you sure you want to delete the order?',
+    
+    /*Kit*/
+    'Are you sure you want to delete the kit?' => 'Are you sure you want to delete the kit?',
+    
+    /*Sample*/
+    'Are you sure you want to delete the sample?' => 'Are you sure you want to delete the sample?',
+    
+    /*Dashboard*/
+    'Dashboard' => 'Dashboard',
+    'Participants and Orders' => 'Participants and Orders',
+    'Total Participants' => 'Total Participants',
+    'Participants with Orders' => 'Participants with Orders',
+    'Participants without Orders' => 'Participants without Orders',
+    'Total Orders' => 'Total Orders',
+    'Orders Processed (Kits Registered)' => 'Orders Processed (Kits Registered)',
+    'Orders Unprocessed (Kits Not Registered)' => 'Orders Unprocessed (Kits Not Registered)',
+    'Total Kits Registered' => 'Total Kits Registered',
+    'Kits Dispatched' => 'Kits Dispatched',
+    'Samples Received' => 'Samples Received',
+    'Samples and Results' => 'Samples and Results',
+    'Total Samples Registered' => 'Total Samples Registered',
+    'Results Reported' => 'Results Reported',
+    'Results Not Reported' => 'Results Not Reported',
     
 ];

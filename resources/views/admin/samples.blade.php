@@ -2,11 +2,11 @@
 
 @section('dashboard_title')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Sample Results</h1>
+        <h1 class="h2">{{__('lang.Sample Results')}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <a href='{{action('SampleController@import')}}'>
-            	<button type="button" class="btn btn-sm btn-outline-secondary">Import Samples/Results</button>
+            	<button type="button" class="btn btn-sm btn-outline-secondary">{{__('lang.Import Samples/Results')}}</button>
             </a>
           </div>
 </div>
@@ -86,7 +86,7 @@
 				</button>
 				</a>
 				
-				<form action="{{action('SampleController@destroy', ['id' => $sample->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the sample?');">
+				<form action="{{action('SampleController@destroy', ['id' => $sample->id])}}" method="post" onsubmit="return confirm('{{__('lang.Are you sure you want to delete the sample?')}}');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Sample">
@@ -111,6 +111,9 @@
         $('#samples_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "language": {
+                "url": "{{asset('lang/'.LaravelLocalization::getCurrentLocale().'/datatables.json')}}"
+            },
             buttons: [
                 'colvis', 
                 {

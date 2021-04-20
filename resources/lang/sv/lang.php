@@ -7,6 +7,7 @@ return [
     'orders' => 'Beställningar',
     'kits' => 'Kits',
     'sample-results' => 'Prov Svar',
+    'Sample Results' => 'Prov Svar',
     'users' => 'Users',
     'reports' => 'Rapporter',
     'Language' => 'Språk',
@@ -26,6 +27,9 @@ return [
     'Email Password Reset Link' => 'E-post Lösenord Återställ Länk',
     'Reset Password' => 'Återställ Lösenord',
     'back' => 'Tillbaka',
+    'Back' => 'Tillbaka',
+    'Cancel' => 'Avbryt',
+    'Import' => 'Importera',
     'to-front' => 'Till Hemsidan',
     'edit-user' => 'Redigera User',
     'delete-user' => 'Ta bort User',
@@ -67,6 +71,8 @@ return [
     'select' => 'Välja',
     'update' => 'Uppdatera',
     'cancel' => 'Cancel',
+    'Upload' => 'Ladda upp',
+    'Choose file' => 'Välj fil',
     'address-updated' => 'Adress Uppdaterad',
     'my-orders' => 'Mina Beställningar',
     'no-orders' => 'Inga Beställningar',
@@ -80,7 +86,10 @@ return [
     'reporting-date' => 'Rapporterad Datum',
     'sample-registered-date' => 'Prov Registrerad Datum',
     'result-message' => 'Meddelande',
+    
     /*Kit Import*/
+    'Import Kits/Samples' => 'Importera Kits/Prover',
+    'Use the excel/csv file template to import the kits.' => "Använd excel/csv <a href=".asset('storage/import_templates/kits_import_template.xlsx').">filmallen</a> för att importera kits.",
     'order_id.required' => "Fel på rad: <strong> :row </strong>. Order_id saknas. "
                                  . "Order_id krävs.",
     'order_id.exists' => "Fel på rad: <strong>:row</strong>. Ingen order med order_id <strong>:order_id</strong> hittades. Beställningen ska göras "
@@ -106,7 +115,10 @@ return [
     'kits_import_success_msg' => "<strong>:total</strong> Kits/Samples har bearbetats framgångsrikt! <br>
                             varav <strong>:insert</strong> Kits/Samples har skapats och <strong>
                             :update</strong> Kits/Samples har uppdaterats.",
+    
     /*Sample Import*/
+    'Import Samples/Results' => 'Importera Prover/Resultat',
+    'Use the excel/csv file template to import the samples.' => "Använd excel/csv <a href=".asset('storage/import_templates/samples_import_template.xlsx').">filmallen</a> för att importera prover.",
     'cobas_analysis_date.required_with' => "Fel på rad: <strong>:row</strong>. Cobas_analysis_date saknas."
                                         ." Cobas_analysis_date krävs när cobas_result är närvarande.",
     'cobas_result.in' => "Fel på rad: <strong>:row</strong>. Cobas_result <strong>:cobas_result</strong> är ogiltigt. Endast tillåtet ett av värdena <strong>:allowed</strong>.",
@@ -158,6 +170,7 @@ return [
     'samples_import_success_msg' => "<strong>:total</strong> Samples har bearbetats framgångsrikt! <br>
                             varav <strong>:insert</strong> Samples har skapats och <strong>
                             :update</strong> Samples har uppdaterats.",
+    
     /*Report*/
     'Generate Report' => 'Generera Rapport',
     'search' => 'Sök',
@@ -171,8 +184,37 @@ return [
     'Results Reported' => 'Resultat Rapporterade',
     'From Date' => 'Datum fr.o.m',
     'To Date' => 'Datum t.o.m',
+    
     /*User*/
     'user_updated_msg' => 'User är uppdaterad!',
     'user_deleted_msg' => 'User borttagen!',
     'user_not_deleted_msg' => 'User kan inte raderas! Beställning redan registrerad för user. För att radera user, först ta bort tillhörande beställning.',
+    
+    /*Order*/
+    'Create Order' => 'Skapa Beställning',
+    'Are you sure you want to delete the kit for this order?' => 'Är du säker på att du vill ta bort kit för den här beställningen?',
+    'Are you sure you want to delete the order?' => 'Är du säker på att du vill ta bort beställningen?',
+    
+    /*Kit*/
+    'Are you sure you want to delete the kit?' => 'Är du säker på att du vill ta bort kit?',
+    
+    /*Sample*/
+    'Are you sure you want to delete the sample?' => 'Är du säker på att du vill ta bort provet?',
+    
+    /*Dashboard*/
+    'Dashboard' => 'Dashboard',
+    'Participants and Orders' => 'Deltagarna och Beställningar',
+    'Total Participants' => 'Totalt antal deltagare',
+    'Participants with Orders' => 'Deltagarna med Beställningar',
+    'Participants without Orders' => 'Deltagarna utan Beställningar',
+    'Total Orders' => 'Totalt antal Beställningar',
+    'Orders Processed (Kits Registered)' => 'Beställningar behandlats (Kits Registrerats)',
+    'Orders Unprocessed (Kits Not Registered)' => 'Obehandlats Beställningar (Kits ej Registrerats)',
+    'Total Kits Registered' => 'Totalt antal Kits Registrerats',
+    'Kits Dispatched' => 'Kits Skickats',
+    'Samples Received' => 'Mottagna Prover',
+    'Samples and Results' => 'Prover och Resultat',
+    'Total Samples Registered' => 'Totalt antal Prover Registrerats',
+    'Results Reported' => 'Resultat Rapporterats',
+    'Results Not Reported' => 'Resultat ej Rapporterats',
 ];
