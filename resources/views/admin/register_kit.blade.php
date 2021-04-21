@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Register Kit for order id {{$order->id}}</h3>
+    	<h3 class="display-5">{{__('lang.register-kit-for-order-x', ['order_id' => $order->id])}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -39,8 +39,8 @@
                 </div>
                 
                 
-            	<button type="submit" class="btn btn-primary">Register Kit</button>
-            	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">Back</a>
+            	<button type="submit" class="btn btn-primary">{{__('lang.Register Kit')}}</button>
+            	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">{{__('lang.Cancel')}}</a>
             </form>
             </div>
       	</div>

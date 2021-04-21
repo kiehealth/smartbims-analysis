@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Edit Kit for order id {{$kit->order->id}}</h3>
+    	<h3 class="display-5">{{__('lang.edit-kit-for-order-x', ['order_id' => $kit->order->id])}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -46,8 +46,8 @@
                   <small id="sample_received_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
                 </div>
                 
-            	<button type="submit" class="btn btn-primary">Edit Kit</button>
-            	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">Back</a>
+            	<button type="submit" class="btn btn-primary">{{__('lang.Edit Kit')}}</button>
+            	<a class="btn btn-secondary" href="{{url('/admin/orders')}}" role="button">{{__('lang.Cancel')}}</a>
             	
             </form>
             </div>

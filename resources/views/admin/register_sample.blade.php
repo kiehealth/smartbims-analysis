@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Register Sample for order id {{$kit->order->id}}/kit id {{$kit->id}}</h3>
+    	<h3 class="display-5">{{__('lang.register-sample-for-order-x-kit-x', ['order_id' => $kit->order->id, 'kit_id' => $kit->id])}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -31,12 +31,12 @@
                   <input class="datepicker form-control" name="sample_registered_date" data-date-format="yyyy-mm-dd" 
                   value="{{old('sample_registered_date', !empty($kit->sample_received_date)?$kit->sample_received_date:Carbon\Carbon::now()->toDateString())}}"
                   required>
-                  <small id="sample_registered_dateHelp" class="form-text text-muted">yyyy-mm-dd</small>
+                  <small id="sample_registered_dateHelp" class="form-text text-muted">{{__('lang.yyyy-mm-dd')}}</small>
                 </div>
                 
                 
-            	<button type="submit" class="btn btn-primary">Register Sample</button>
-            	<a class="btn btn-secondary" href="{{url('/admin/kits')}}" role="button">Back</a>
+            	<button type="submit" class="btn btn-primary">{{__('lang.Register Sample')}}</button>
+            	<a class="btn btn-secondary" href="{{url('/admin/kits')}}" role="button">{{__('lang.Cancel')}}</a>
             </form>
             </div>
       	</div>

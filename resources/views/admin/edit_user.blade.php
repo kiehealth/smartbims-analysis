@@ -6,7 +6,7 @@
 <div class="card">
 <div class="row">
  	<div class="col-sm-8 offset-sm-2">
-    	<h3 class="display-5">Update User</h3>
+    	<h3 class="display-5">{{__('lang.Update User')}}</h3>
       	<div>
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -97,8 +97,8 @@
                 </div>
                 </div>
                 
-            	<button type="submit" class="btn btn-primary">Update User</button>
-            	<a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">Cancel</a>
+            	<button type="submit" class="btn btn-primary">{{__('lang.Update User')}}</button>
+            	<a class="btn btn-secondary" href="{{url('/admin/users')}}" role="button">{{__('lang.Cancel')}}</a>
             </form>
             </div>
       	</div>

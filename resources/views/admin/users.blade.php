@@ -89,7 +89,7 @@
 				</button>
 				</a>
 				
-				<form action="{{action('UserController@destroy', ['id' => $user->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete the user? All data related with the user will be deleted!');">
+				<form action="{{action('UserController@destroy', ['id' => $user->id])}}" method="post" onsubmit="return confirm('{{__('lang.Are you sure you want to delete the user? All data related with the user will be deleted!')}}');">
 				@csrf
 				@method("DELETE")
 				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="{{ __('lang.delete-user') }}">

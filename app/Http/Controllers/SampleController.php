@@ -64,7 +64,8 @@ class SampleController extends Controller
         $order = $kit->order;
         $order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
         
-        return redirect('admin/kits')->with("sample_registered", "The sample with sample_id <strong>".$kit->sample_id."</strong> is registered successfully!");
+        $sample_registered_msg = __('lang.sample_registered_msg', ['sample_id' => $kit->sample_id]);
+        return redirect('admin/kits')->with("sample_registered", $sample_registered_msg);
         
     }
     

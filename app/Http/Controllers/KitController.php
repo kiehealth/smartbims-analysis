@@ -72,8 +72,8 @@ class KitController extends Controller
         }
         
         
-        
-        return redirect('admin/orders')->with("kit_registered", "The Kit is registered for the order!");
+        $kit_registered_msg = __('lang.kit_registered_msg');
+        return redirect('admin/orders')->with("kit_registered", $kit_registered_msg);
     }
     
     
@@ -154,10 +154,11 @@ class KitController extends Controller
         
         
         if($type === "kits"){
-            return redirect('admin/kits')->with("kit_updated", "The Kit is updated!");
+            $kit_updated_msg = __('lang.kit_updated_msg');
+            return redirect('admin/kits')->with("kit_updated", $kit_updated_msg);
         }
-        
-        return redirect('admin/orders')->with("kit_updated", "The Kit is updated for the order!");
+        $kit_for_order_updated_msg = __('lang.kit_for_order_updated_msg');
+        return redirect('admin/orders')->with("kit_updated", $kit_for_order_updated_msg);
         
     }
     
@@ -176,12 +177,12 @@ class KitController extends Controller
             $kit = Kit::find($id);
             $kit->delete();
             $kit->order->update(['status' => config('constants.orders.ORDER_CREATED')]);
-            return back()->with('kit_deleted', "Kit Deleted!");
+            $kit_deleted_msg = __('lang.kit_deleted_msg');
+            return back()->with('kit_deleted', $kit_deleted_msg);
         }
         catch (\Illuminate\Database\QueryException $e){
-            
-            return back()->with('kit_not_deleted', "Kit cannot be deleted! Sample already registered for the kit. To delete
-                                    the kit, first delete the associated sample.");
+            $kit_not_deleted_msg = __('lang.kit_not_deleted_msg');
+            return back()->with('kit_not_deleted', $kit_not_deleted_msg);
         }
     }
     

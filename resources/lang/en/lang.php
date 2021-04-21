@@ -33,8 +33,8 @@ return [
     'Choose file' => 'Choose file',
     'Import' => 'Import',
     'to-front' => 'To Front Website',
-    'edit-user' => 'Edit User',
-    'delete-user' => 'Delete User',
+    'yyyy-mm-dd' => 'yyyy-mm-dd',
+    
     'Whoops! Something went wrong.' => 'Whoops! Something went wrong.',
     'wrong-current-password' => 'Your current password does not match with the password you provided. Please provide the correct current password.',
     'password_update_success_msg' => 'Password updated successfully!',
@@ -187,20 +187,47 @@ return [
     'To Date' => 'To Date',
     
     /*User*/
+    'edit-user' => 'Edit User',
+    'update-user' => 'Update User',
+    'Update User' => 'Update User',
+    'delete-user' => 'Delete User',
     'user_updated_msg' => 'The user is updated!',
     'user_deleted_msg' => 'User Deleted!',
     'user_not_deleted_msg' => 'User cannot be deleted! Order already registered for the user. To delete
                                     the user, first delete the associated order.',
+    'Are you sure you want to delete the user? All data related with the user will be deleted!' => 'Are you sure you want to delete the user? All data related with the user will be deleted!',
+    
     /*Order*/
+    'delete-order' => 'Delete Order',
     'Create Order' => 'Create Order',
     'Are you sure you want to delete the kit for this order?' => 'Are you sure you want to delete the kit for this order?',
     'Are you sure you want to delete the order?' => 'Are you sure you want to delete the order?',
+    'order_deleted_msg' => 'Order Deleted!',
+    'order_not_deleted_msg' => 'Order cannot be deleted! Kit already registered for the order. To delete
+                                    the order, first delete the associated kit.',
     
     /*Kit*/
+    'register-kit' => "Register Kit",
+    'Register Kit' => "Register Kit",
+    'register-kit-for-order-x' => 'Register Kit for order id :order_id',
+    'Edit Kit' => "Edit Kit",
+    'edit-kit-information' => 'Edit Kit Information',
+    'edit-kit-for-order-x' => 'Edit Kit for order id :order_id',
+    'delete-kit-for-order' => 'Delete Kit for this order',
+    'delete-kit' => 'Delete Kit',
     'Are you sure you want to delete the kit?' => 'Are you sure you want to delete the kit?',
+    'kit_for_order_updated_msg' => 'The Kit is updated for the order!',
+    'kit_updated_msg' => 'The Kit is updated!',
+    'kit_deleted_msg' => 'Kit Deleted!',
+    'kit_not_deleted_msg' => 'Kit cannot be deleted! Sample already registered for the kit. To delete
+                                    the kit, first delete the associated sample.',
+    'kit_registered_msg' => 'The Kit is registered for the order!',
     
     /*Sample*/
+    'Register Sample' => "Register Sample",
+    'register-sample-for-order-x-kit-x' => 'Register Sample for order id :order_id/kit id :kit_id',
     'Are you sure you want to delete the sample?' => 'Are you sure you want to delete the sample?',
+    'sample_registered_msg' => "The sample with sample_id <strong>:sample_id</strong> is registered successfully!",
     
     /*Dashboard*/
     'Dashboard' => 'Dashboard',

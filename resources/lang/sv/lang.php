@@ -31,8 +31,8 @@ return [
     'Cancel' => 'Avbryt',
     'Import' => 'Importera',
     'to-front' => 'Till Hemsidan',
-    'edit-user' => 'Redigera User',
-    'delete-user' => 'Ta bort User',
+    'yyyy-mm-dd' => 'åååå-mm-dd',
+    
     'Whoops! Something went wrong.' => 'Oj då! Något gick fel.',
     'wrong-current-password' => 'Ditt nuvarande lösenord matchar inte lösenordet du angav. Ange rätt nuvarande lösenord.',
     'password_update_success_msg' => 'Lösenordet har uppdaterats!',
@@ -70,7 +70,7 @@ return [
     'country' => 'Land',
     'select' => 'Välja',
     'update' => 'Uppdatera',
-    'cancel' => 'Cancel',
+    'cancel' => 'Avbryt',
     'Upload' => 'Ladda upp',
     'Choose file' => 'Välj fil',
     'address-updated' => 'Adress Uppdaterad',
@@ -186,20 +186,46 @@ return [
     'To Date' => 'Datum t.o.m',
     
     /*User*/
+    'edit-user' => 'Redigera User',
+    'update-user' => 'Uppdatera User',
+    'Update User' => 'Uppdatera User',
+    'delete-user' => 'Ta bort User',
     'user_updated_msg' => 'User är uppdaterad!',
     'user_deleted_msg' => 'User borttagen!',
     'user_not_deleted_msg' => 'User kan inte raderas! Beställning redan registrerad för user. För att radera user, först ta bort tillhörande beställning.',
+    'Are you sure you want to delete the user? All data related with the user will be deleted!' => 'Är du säker på att du vill ta bort user? All data relaterad till user kommer att raderas!',
+    
     
     /*Order*/
+    'delete-order' => 'Ta bort Beställning',
     'Create Order' => 'Skapa Beställning',
     'Are you sure you want to delete the kit for this order?' => 'Är du säker på att du vill ta bort kit för den här beställningen?',
     'Are you sure you want to delete the order?' => 'Är du säker på att du vill ta bort beställningen?',
+    'order_deleted_msg' => 'Beställning borttagen!',
+    'order_not_deleted_msg' => 'Beställning kan inte raderas! Kit redan registrerad för beställningen. För att radera
+                                    beställningen, först ta bort tillhörande kit.',
     
     /*Kit*/
+    'register-kit' => "Registrera Kit",
+    'Register Kit' => "Registrera Kit",
+    'register-kit-for-order-x' => 'Registrera Kit för order id :order_id',
+    'Edit Kit' => "Redigera Kit",
+    'edit-kit-information' => 'Redigera Kit Information',
+    'edit-kit-for-order-x' => 'Redigera Kit för order id :order_id',
+    'delete-kit-for-order' => 'Ta bort Kit för den här beställningen',
+    'delete-kit' => 'Ta bort Kit',
     'Are you sure you want to delete the kit?' => 'Är du säker på att du vill ta bort kit?',
+    'kit_for_order_updated_msg' => 'Kit är uppdaterad för beställningen!',
+    'kit_updated_msg' => 'Kit är uppdaterad!',
+    'kit_deleted_msg' => 'Kit borttagen!',
+    'kit_not_deleted_msg' => 'Kit kan inte raderas! Prov redan registrerad för kit. För att radera kit, först ta bort tillhörande prov.',
+    'kit_registered_msg' => 'Kit är registrerad för beställningen!',
     
     /*Sample*/
+    'Register Sample' => "Registrera Prov",
+    'register-sample-for-order-x-kit-x' => 'Registrera Prov för order id :order_id/kit id :kit_id',
     'Are you sure you want to delete the sample?' => 'Är du säker på att du vill ta bort provet?',
+    'sample_registered_msg' => "Provet med sample_id <strong>:sample_id</strong> har registrerats framgångsrikt!",
     
     /*Dashboard*/
     'Dashboard' => 'Dashboard',

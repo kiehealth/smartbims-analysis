@@ -175,11 +175,12 @@ class OrderController extends Controller
         //
         try{
             Order::find($id)->delete();
-            return back()->with('order_deleted', "Order Deleted!");
+            $order_deleted_msg = __('lang.order_deleted_msg');
+            return back()->with('order_deleted', $order_deleted_msg);
         }
         catch(\Illuminate\Database\QueryException $e){
-            return back()->with('order_not_deleted', "Order cannot be deleted! Kit already registered for the order. To delete
-                                    the order, first delete the associated kit.");
+            $order_not_deleted_msg = __('lang.order_not_deleted_msg');
+            return back()->with('order_not_deleted', $order_not_deleted_msg);
         }
         
     }
