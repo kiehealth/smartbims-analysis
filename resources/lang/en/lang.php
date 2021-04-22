@@ -205,6 +205,8 @@ return [
     'order_deleted_msg' => 'Order Deleted!',
     'order_not_deleted_msg' => 'Order cannot be deleted! Kit already registered for the order. To delete
                                     the order, first delete the associated kit.',
+    'order-success-msg-admin' => "Order created successfully for :ssn <strong>:ssnumber</strong>!",
+    'order-unsuccess-msg-admin' => "The user with :ssn <strong>:ssnumber</strong> does not exist. Please register the user before you can place an order.",
     
     /*Kit*/
     'register-kit' => "Register Kit",
@@ -228,6 +230,12 @@ return [
     'register-sample-for-order-x-kit-x' => 'Register Sample for order id :order_id/kit id :kit_id',
     'Are you sure you want to delete the sample?' => 'Are you sure you want to delete the sample?',
     'sample_registered_msg' => "The sample with sample_id <strong>:sample_id</strong> is registered successfully!",
+    'Edit Sample Information' => 'Edit Sample Information',
+    'Delete Sample' => 'Delete Sample',
+    'edit-sample-for-order-x' => 'Edit Sample for order id :order_id',
+    'Edit Sample' => "Edit Sample",
+    'sample_updated_msg' => 'The Sample is updated!',
+    'sample_deleted_msg' => 'Sample Deleted!',
     
     /*Dashboard*/
     'Dashboard' => 'Dashboard',

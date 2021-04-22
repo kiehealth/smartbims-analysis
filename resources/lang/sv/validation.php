@@ -206,7 +206,7 @@ return [
     'required' => ':attribute fältet krävs.',
     'required_if' => ':attribute fältet krävs när :other är :value.',
     'required_unless' => ':attribute fältet krävs om inte :other finns i :values.',
-    'required_with' => ': :attribute fältet krävs när :values finns.',
+    'required_with' => ':attribute fältet krävs när :values finns.',
     'required_with_all' => ':attribute fältet krävs när :values finns.',
     'required_without' => ':attribute fältet krävs när :values inte finns.',
     'required_without_all' => ':attribute fältet krävs när inget av :values finns.',

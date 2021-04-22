@@ -144,7 +144,8 @@ class SampleController extends Controller
             $sample->kit->order->update(['status' => config('constants.samples.SAMPLE_REGISTERED')]);
         }
         
-        return redirect('admin/samples')->with("sample_updated", "The Sample is updated!");
+        $sample_updated_msg = __('lang.sample_updated_msg');
+        return redirect('admin/samples')->with("sample_updated", $sample_updated_msg);
     }
     
     
@@ -170,8 +171,8 @@ class SampleController extends Controller
             $sample->kit->order->update(['status' => config('constants.kits.KIT_REGISTERED')]);
         }
         
-        
-        return back()->with('sample_deleted', "Sample Deleted!");
+        $sample_deleted_msg = __('lang.sample_deleted_msg');
+        return back()->with('sample_deleted', $sample_deleted_msg);
         
     }
     

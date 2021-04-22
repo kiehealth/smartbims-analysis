@@ -91,21 +91,25 @@ class OrderController extends Controller
                
                $order->save();
                $user->update(['consent' => 1]);
-               
+               /*
                $order_success_msg = "Din beställning har tagits emot och den kommer att skickas
                     till din folkbokföringsadress om några dagar.
                     Om du vill att den ska skickas till en annan adress eller se
                     status kan du göra det genom att logga in på <a href=".url('/myprofile').">mina sidor</a>
                     eller kontakta oss på hpvcenter@ki.se.";
+               */
+               $order_success_msg = __('lang.order-success-msg');
                if($request->has('type') && $request->type === "admin"){
-                   return redirect('admin/orders')->with('order_created', "Order created succussfully for ".$request->ssn."!");
+                   $order_success_msg_admin = __('lang.order-success-msg-admin', ['ssn' => __('lang.ssn'), 'ssnumber' => $request->ssn]);
+                   return redirect('admin/orders')->with('order_created', $order_success_msg_admin);
                }
                return back()->with('order_created', $order_success_msg);
                //return view('home', ['order_created'=>"Order Received!"]);
            }
        } catch (ModelNotFoundException $e) {
            if($request->has('type') && $request->type === "admin"){
-               return back()->withError('The user with ssn ' . $request->input('ssn').' does not exist. Please register the user before you can place an order.')->withInput();
+               $order_unsuccess_msg_admin = __('lang.order-unsuccess-msg-admin', ['ssn' => __('lang.ssn'), 'ssnumber' => $request->input('ssn')]);
+               return back()->withError($order_unsuccess_msg_admin)->withInput();
            }
            return back()->withError("Något gick fel!");
            //return view('home',['order_not_allowed' => "You cannot order."]);

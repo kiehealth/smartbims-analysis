@@ -18,13 +18,13 @@
             @endif
            
     		@if (session('error'))
-        	<div class="alert alert-danger">{{ session('error') }}</div>
+        	<div class="alert alert-danger">{!! session('error') !!}</div>
         	@endif
         	<div class="card-body create-order">
         	<form method="post" action="{{action('OrderController@store', ['type' => 'admin'])}}">
             	@csrf
                 <div class="form-group form-group.required">
-                  <label for="pnr" class="required">{{__('lang.ssn')}}</label>
+                  <label for="ssn" class="required">{{__('lang.ssn')}}</label>
                   <input type="text" class="form-control" name="ssn" value="{{old('ssn')}}" required/>
                   {{--<small id="pnrHelp" class="form-text text-muted">ÅÅÅÅMMDDNNNN</small>--}}
                 </div>

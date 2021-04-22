@@ -204,6 +204,8 @@ return [
     'order_deleted_msg' => 'Beställning borttagen!',
     'order_not_deleted_msg' => 'Beställning kan inte raderas! Kit redan registrerad för beställningen. För att radera
                                     beställningen, först ta bort tillhörande kit.',
+    'order-success-msg-admin' => "Beställning skapades framgångsrikt för :ssn <strong>:ssnumber</strong>!",
+    'order-unsuccess-msg-admin' => "User med :ssn <strong>:ssnumber</strong> existerar inte. Registrera user innan du kan göra en beställning.",
     
     /*Kit*/
     'register-kit' => "Registrera Kit",
@@ -226,6 +228,12 @@ return [
     'register-sample-for-order-x-kit-x' => 'Registrera Prov för order id :order_id/kit id :kit_id',
     'Are you sure you want to delete the sample?' => 'Är du säker på att du vill ta bort provet?',
     'sample_registered_msg' => "Provet med sample_id <strong>:sample_id</strong> har registrerats framgångsrikt!",
+    'Edit Sample Information' => 'Redigera Prov Information',
+    'Delete Sample' => 'Ta bort Prov',
+    'edit-sample-for-order-x' => 'Redigera Prov för order id :order_id',
+    'Edit Sample' => "Redigera Prov",
+    'sample_updated_msg' => 'Provet är uppdaterad!',
+    'sample_deleted_msg' => 'Prov borttagen!',
     
     /*Dashboard*/
     'Dashboard' => 'Dashboard',

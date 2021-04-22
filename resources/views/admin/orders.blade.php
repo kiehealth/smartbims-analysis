@@ -24,7 +24,7 @@
 
 @section('content')
 @if(session('order_created'))
-	<div class="alert alert-success">{{ session('order_created') }}</div>
+	<div class="alert alert-success">{!! session('order_created') !!}</div>
 @endif
 @if(session('order_updated'))
 	<div class="alert alert-success">{{ session('order_updated') }}</div>
