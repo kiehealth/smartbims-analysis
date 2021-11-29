@@ -17,20 +17,20 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('ssn')->unique()->nullable();
+            $table->string('user_website')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phonenumber')->unique()->nullable();
             $table->set('roles', [Config::get('constants.roles.ADMIN_ROLE'), Config::get('constants.roles.USER_ROLE')])
                     ->default(Config::get('constants.roles.USER_ROLE'));
-            $table->string('street')->nullable();
-            $table->string('zipcode')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->boolean('consent')->nullable();
+            $table->string('institution_name');
+            $table->string('institution_url')->nullable();
+            $table->string('institution_street')->nullable();
+            $table->string('institution_zipcode')->nullable();
+            $table->string('institution_city')->nullable();
+            $table->string('institution_country')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
             
         });
     }
